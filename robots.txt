@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Reemplace su-dominio.com por su dominio real cuando publique el sitio
+# Sitemap: https://su-dominio.com/sitemap.xml
