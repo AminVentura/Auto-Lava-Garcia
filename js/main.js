@@ -7,7 +7,19 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollEffects();
     initReservarForm();
     initPedidoForm();
+    initFooterLastUpdated();
 });
+
+/** Fecha de última modificación del HTML en formato RD (requiere atributo data-auto-date). */
+function initFooterLastUpdated() {
+    document.querySelectorAll('[data-auto-date]').forEach((el) => {
+        const d = new Date(document.lastModified);
+        if (Number.isNaN(d.getTime())) return;
+        el.textContent =
+            'Última actualización: ' +
+            d.toLocaleDateString('es-DO', { day: 'numeric', month: 'long', year: 'numeric' });
+    });
+}
 
 function initMobileNav() {
     const toggle = document.querySelector('.nav-toggle');
