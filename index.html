@@ -56,6 +56,7 @@
                 <li><a href="#pedir">Pedir Comida</a></li>
                 <li><a href="#lavadero">Lavadero</a></li>
                 <li><a href="#cafeteria">Cafetería</a></li>
+                <li><a href="#galeria">Galería</a></li>
                 <li><a href="#horarios">Horarios</a></li>
                 <li><a href="#ubicacion">Ubicación</a></li>
                 <li><a href="#contacto">Contacto</a></li>
@@ -461,6 +462,54 @@
             </div>
         </section>
 
+        <section id="galeria" class="section section-galeria" aria-labelledby="galeria-heading">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-badge">Galería</span>
+                    <h2 id="galeria-heading">Lavadero, local y Antojos</h2>
+                    <p>Menú digital, volantes, mural en el local y arte de marca</p>
+                </div>
+                <ul class="gallery-grid" role="list">
+                    <li class="gallery-item">
+                        <button type="button" class="gallery-trigger" aria-label="Ampliar imagen: menú Antojos Bar Lounge">
+                            <img src="assets/menu.png" alt="Menú digital Antojos Bar Lounge: picaderas, antojitos, platos y bebidas" loading="lazy" decoding="async" sizes="(max-width: 768px) 100vw, 33vw">
+                            <span class="gallery-caption">Menú</span>
+                        </button>
+                    </li>
+                    <li class="gallery-item">
+                        <button type="button" class="gallery-trigger" aria-label="Ampliar imagen: volante promocional lavadero y Antojos">
+                            <img src="assets/flyer-original.png" alt="Volante Auto Lava Garcia y Antojos Bar Lounge: ofertas y platos" loading="lazy" decoding="async" sizes="(max-width: 768px) 100vw, 33vw">
+                            <span class="gallery-caption">Volante promocional</span>
+                        </button>
+                    </li>
+                    <li class="gallery-item">
+                        <button type="button" class="gallery-trigger" aria-label="Ampliar imagen: mural en el local Auto Lava Garcia">
+                            <img src="assets/auto-lava-garcia-logo-mural.png" alt="Mural circular Auto Lava Garcia en la fachada del lavadero" loading="lazy" decoding="async" sizes="(max-width: 768px) 100vw, 33vw">
+                            <span class="gallery-caption">Mural en el local</span>
+                        </button>
+                    </li>
+                    <li class="gallery-item gallery-item--brand">
+                        <button type="button" class="gallery-trigger" aria-label="Ampliar imagen: logo Auto Lava Garcia">
+                            <img src="assets/auto-lava-garcia-logo-hero.png" alt="Logo oficial Auto Lava Garcia con ilustración del lavado" loading="lazy" decoding="async" sizes="(max-width: 768px) 100vw, 33vw">
+                            <span class="gallery-caption">Logo · Auto Lava Garcia</span>
+                        </button>
+                    </li>
+                    <li class="gallery-item gallery-item--brand">
+                        <button type="button" class="gallery-trigger" aria-label="Ampliar imagen: banner Antojos Bar Lounge">
+                            <img src="assets/antojos-logo-banner-completo.png" alt="Banner Antojos Bar Lounge con platos típicos y texto Desayuno, comida y cena" loading="lazy" decoding="async" sizes="(max-width: 768px) 100vw, 33vw">
+                            <span class="gallery-caption">Banner · Antojos Bar Lounge</span>
+                        </button>
+                    </li>
+                    <li class="gallery-item gallery-item--brand">
+                        <button type="button" class="gallery-trigger" aria-label="Ampliar imagen: logo Antojos Bar Lounge">
+                            <img src="assets/antojos-bar-lounge-logo.png" alt="Logo Antojos Bar Lounge con tipografía y detalles dorados" loading="lazy" decoding="async" sizes="(max-width: 768px) 100vw, 33vw">
+                            <span class="gallery-caption">Logo · Antojos Bar Lounge</span>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
         <section id="horarios" class="section section-horarios">
             <div class="container">
                 <div class="section-header">
@@ -588,6 +637,11 @@
             </div>
         </div>
     </footer>
+
+    <div id="gallery-lightbox" class="gallery-lightbox" hidden role="dialog" aria-modal="true" aria-label="Vista ampliada de la galería">
+        <button type="button" class="gallery-lightbox-close" aria-label="Cerrar vista ampliada">&times;</button>
+        <img class="gallery-lightbox-img" src="" alt="">
+    </div>
 
     <div class="fab-stack" role="group" aria-label="Contacto rápido">
         <a href="tel:+18097941824" class="fab-btn fab-call" aria-label="Llamar por teléfono">

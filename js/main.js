@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initReservarForm();
     initPedidoForm();
     initFooterLastUpdated();
+    initGalleryLightbox();
 });
 
 /** Fecha de última modificación del HTML en formato RD (requiere atributo data-auto-date). */
@@ -18,6 +19,58 @@ function initFooterLastUpdated() {
         el.textContent =
             'Última actualización: ' +
             d.toLocaleDateString('es-DO', { day: 'numeric', month: 'long', year: 'numeric' });
+    });
+}
+
+function initGalleryLightbox() {
+    const root = document.getElementById('gallery-lightbox');
+    const imgEl = root?.querySelector('.gallery-lightbox-img');
+    const closeBtn = root?.querySelector('.gallery-lightbox-close');
+    const triggers = document.querySelectorAll('.gallery-trigger');
+
+    if (!root || !imgEl || !closeBtn || triggers.length === 0) return;
+
+    let lastFocus = null;
+
+    const open = (src, alt) => {
+        lastFocus = document.activeElement;
+        imgEl.src = src;
+        imgEl.alt = alt || '';
+        root.hidden = false;
+        document.body.style.overflow = 'hidden';
+        closeBtn.focus();
+    };
+
+    const close = () => {
+        root.hidden = true;
+        imgEl.removeAttribute('src');
+        imgEl.alt = '';
+        document.body.style.overflow = '';
+        if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+        lastFocus = null;
+    };
+
+    triggers.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const picture = btn.querySelector('img');
+            if (!picture?.src) return;
+            open(picture.currentSrc || picture.src, picture.alt || '');
+        });
+    });
+
+    closeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        close();
+    });
+
+    root.addEventListener('click', (e) => {
+        if (e.target === root) close();
+    });
+
+    imgEl.addEventListener('click', (e) => e.stopPropagation());
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !root.hidden) close();
     });
 }
 
