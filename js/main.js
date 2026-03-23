@@ -9,7 +9,75 @@ document.addEventListener('DOMContentLoaded', () => {
     initPedidoForm();
     initFooterLastUpdated();
     initGalleryLightbox();
+    initAdSenseSlots();
 });
+
+/**
+ * AdSense: sin huecos vacíos. Solo se muestra el bloque cuando hay slot numérico real
+ * y el anuncio se renderiza (iframe). Placeholder XXXXXXXX = sin push ni espacio.
+ */
+function initAdSenseSlots() {
+    document.querySelectorAll('.ad-container').forEach((container) => {
+        const ins = container.querySelector('ins.adsbygoogle');
+        if (!ins) return;
+
+        const slot = (ins.getAttribute('data-ad-slot') || '').trim();
+        const slotOk = /^\d+$/.test(slot);
+
+        if (!slotOk) {
+            container.classList.add('ad-container--inactive');
+            return;
+        }
+
+        container.classList.add('ad-container--pending');
+
+        const reveal = () => {
+            container.classList.remove('ad-container--pending');
+            container.classList.add('ad-container--visible');
+        };
+
+        try {
+            (window.adsbygoogle = window.adsbygoogle || []).push({});
+        } catch {
+            container.classList.remove('ad-container--pending');
+            container.classList.add('ad-container--inactive');
+            return;
+        }
+
+        const hasRenderedAd = () =>
+            Boolean(ins.querySelector('iframe')) || ins.offsetHeight > 24;
+
+        if (hasRenderedAd()) {
+            reveal();
+            return;
+        }
+
+        const mo = new MutationObserver(() => {
+            if (hasRenderedAd()) {
+                reveal();
+                mo.disconnect();
+            }
+        });
+        mo.observe(ins, { childList: true, subtree: true });
+
+        const t = window.setInterval(() => {
+            if (hasRenderedAd()) {
+                reveal();
+                window.clearInterval(t);
+                mo.disconnect();
+            }
+        }, 400);
+
+        window.setTimeout(() => {
+            window.clearInterval(t);
+            mo.disconnect();
+            if (!hasRenderedAd()) {
+                container.classList.remove('ad-container--pending');
+                container.classList.add('ad-container--inactive');
+            }
+        }, 20000);
+    });
+}
 
 /** Fecha de última modificación del HTML en formato RD (requiere atributo data-auto-date). */
 function initFooterLastUpdated() {

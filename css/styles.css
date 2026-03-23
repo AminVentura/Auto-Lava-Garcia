@@ -28,7 +28,7 @@
 html {
     scroll-behavior: smooth;
     scroll-padding-top: 5.5rem;
-    scroll-padding-bottom: 8rem;
+    scroll-padding-bottom: 6rem;
 }
 
 body {
@@ -257,12 +257,25 @@ ul {
     background: var(--color-accent-hover);
 }
 
-/* ===== AdSense ===== */
+/* ===== AdSense (oculto hasta que haya anuncio; sin slot válido = sin espacio) ===== */
 .ad-container {
+    display: none;
     max-width: 1100px;
     margin: 0 auto;
-    padding: 1.5rem;
+    padding: 0;
+    min-height: 0;
     text-align: center;
+}
+
+.ad-container.ad-container--visible {
+    display: block;
+    padding: 0.75rem 1rem;
+}
+
+@media (min-width: 769px) {
+    .ad-container.ad-container--visible {
+        padding: 1rem 1.5rem;
+    }
 }
 
 /* ===== Reservar Cita Section ===== */
@@ -1237,8 +1250,55 @@ ul {
         height: 3.25rem;
     }
 
+    html {
+        scroll-padding-bottom: 5.5rem;
+    }
+
     .section {
-        padding: 3rem 1rem;
+        padding: 2.35rem 1rem;
+    }
+
+    .section-header {
+        margin-bottom: 1.85rem;
+    }
+
+    .section-header p {
+        font-size: 1rem;
+    }
+
+    .hero {
+        gap: 1.25rem;
+        padding-bottom: 1.75rem;
+    }
+
+    .form-booking {
+        padding: 1.35rem;
+    }
+
+    .pedir-comida-section {
+        margin-top: 2rem;
+        padding-top: 1.35rem;
+    }
+
+    .eventos-banner {
+        margin-top: 1.75rem;
+        padding: 1rem;
+    }
+
+    .section-ubicacion .map-wrapper iframe {
+        height: 280px;
+    }
+
+    .contact-grid {
+        gap: 1rem;
+    }
+
+    .contact-card {
+        padding: 1.35rem 1rem;
+    }
+
+    .gallery-grid {
+        gap: 1rem;
     }
 }
 
@@ -1253,6 +1313,14 @@ ul {
 
     .horarios-grid {
         grid-template-columns: 1fr;
+    }
+
+    .section {
+        padding: 2rem 0.85rem;
+    }
+
+    .section-header {
+        margin-bottom: 1.5rem;
     }
 
     .hero h1 {
@@ -1280,5 +1348,18 @@ ul {
 
     .horario-table td:last-child {
         line-height: 1.35;
+    }
+
+    .horario-card {
+        padding: 1.35rem;
+    }
+
+    .section-ubicacion .map-wrapper iframe {
+        height: 240px;
+    }
+
+    .services-grid,
+    .menu-grid {
+        gap: 1rem;
     }
 }
