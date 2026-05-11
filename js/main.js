@@ -5,12 +5,43 @@
 document.addEventListener('DOMContentLoaded', () => {
     initMobileNav();
     initScrollEffects();
+    initProrrogaDeadlineAlert();
     initReservarForm();
     initPedidoForm();
     initFooterLastUpdated();
     initGalleryLightbox();
     initAdSenseSlots();
 });
+
+/**
+ * Alerta de fecha límite (prórrogas / temporada agosto): resalta formularios en amarillo
+ * del 1 de junio al 31 de agosto. Añade `?deadlineAlert=1` a la URL para forzar la vista (pruebas).
+ */
+function initProrrogaDeadlineAlert() {
+    const now = new Date();
+    const y = now.getFullYear();
+    const windowStart = new Date(y, 5, 1, 0, 0, 0, 0); // 1 junio (mes 0-based)
+    const windowEnd = new Date(y, 7, 31, 23, 59, 59, 999); // 31 agosto
+    const params = new URLSearchParams(window.location.search);
+    const force = params.has('deadlineAlert');
+    if (!force && (now < windowStart || now > windowEnd)) return;
+
+    const message =
+        '<strong>Alerta de fecha límite</strong> — Estamos en temporada de trámites y prórrogas que suelen concentrarse hacia <strong>agosto</strong>. ' +
+        'Revisa calendarios, renovaciones y documentación antes de enviar reservas o pedidos.';
+
+    document.querySelectorAll('form.form-prorroga').forEach((form) => {
+        form.classList.add('form-deadline-near');
+        const id = form.id === 'form-reservar' ? 'prorroga-banner-reservar' : 'prorroga-banner-pedido';
+        if (document.getElementById(id)) return;
+        const banner = document.createElement('div');
+        banner.id = id;
+        banner.className = 'prorroga-deadline-banner';
+        banner.setAttribute('role', 'status');
+        banner.innerHTML = message;
+        form.insertAdjacentElement('beforebegin', banner);
+    });
+}
 
 /**
  * AdSense: sin huecos vacíos. Solo se muestra el bloque cuando hay slot numérico real

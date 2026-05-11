@@ -1,10 +1,19 @@
 {
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.antojosbarlounge.com" }],
+      "destination": "https://antojosbarlounge.com/:path*",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/ads.txt",
       "headers": [
         { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
-        { "key": "X-Content-Type-Options", "value": "nosniff" }
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Cache-Control", "value": "public, max-age=3600" }
       ]
     }
   ]
