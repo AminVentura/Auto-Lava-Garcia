@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initMobileNav();
     initScrollEffects();
     initProrrogaDeadlineAlert();
+    initExpandDetailsLabels();
     initReservarForm();
     initPedidoForm();
     initFooterLastUpdated();
@@ -40,6 +41,27 @@ function initProrrogaDeadlineAlert() {
         banner.setAttribute('role', 'status');
         banner.innerHTML = message;
         form.insertAdjacentElement('beforebegin', banner);
+        if (form.id === 'form-reservar') {
+            form.setAttribute('aria-describedby', 'aviso-admin-reservar ' + id);
+        }
+    });
+}
+
+/** Texto del summary en bloques <details> de información del local */
+function initExpandDetailsLabels() {
+    const expandLabel = 'Ampliar texto';
+    const collapseLabel = 'Contraer texto';
+
+    document.querySelectorAll('.info-expand-details').forEach((det) => {
+        const label = det.querySelector('.info-expand-summary__text');
+        if (!label) return;
+
+        const sync = () => {
+            label.textContent = det.open ? collapseLabel : expandLabel;
+        };
+
+        det.addEventListener('toggle', sync);
+        sync();
     });
 }
 
