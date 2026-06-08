@@ -1,13 +1,13 @@
 {
   "version": 1,
-  "updated_at": "2026-06-08T12:59:31.528Z",
+  "updated_at": "2026-06-08T13:03:08.661Z",
   "servicios": [
     {
       "id": "lavado-normal-jeepeta",
       "categoria": "Lavado Normal Exterior",
       "vehiculo": "Jeepeta",
       "nombre": "Lavado Normal Jeepeta",
-      "precio_centavos": 400,
+      "precio_centavos": 40000,
       "disponible": true,
       "orden": 1
     },
@@ -16,7 +16,7 @@
       "categoria": "Lavado Normal Exterior",
       "vehiculo": "Carro",
       "nombre": "Lavado Normal Carro",
-      "precio_centavos": 300,
+      "precio_centavos": 30000,
       "disponible": true,
       "orden": 2
     },
@@ -25,7 +25,7 @@
       "categoria": "Lavado Normal Exterior",
       "vehiculo": "Motor",
       "nombre": "Lavado Normal Motor",
-      "precio_centavos": 250,
+      "precio_centavos": 25000,
       "disponible": true,
       "orden": 3
     },
@@ -37,8 +37,7 @@
       "precio_min_centavos": 20000,
       "precio_max_centavos": 25000,
       "disponible": true,
-      "orden": 4,
-      "precio_centavos": null
+      "orden": 4
     },
     {
       "id": "martes-jeepeta",
