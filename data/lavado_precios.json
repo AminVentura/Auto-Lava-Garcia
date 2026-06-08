@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-06-08T12:30:19.371Z",
+  "updated_at": "2026-06-08T12:59:31.528Z",
   "servicios": [
     {
       "id": "lavado-normal-jeepeta",
@@ -37,7 +37,8 @@
       "precio_min_centavos": 20000,
       "precio_max_centavos": 25000,
       "disponible": true,
-      "orden": 4
+      "orden": 4,
+      "precio_centavos": null
     },
     {
       "id": "martes-jeepeta",
