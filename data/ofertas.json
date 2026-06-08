@@ -1,17 +1,7 @@
 {
   "version": 1,
-  "updated_at": "2026-06-08T02:43:17.659Z",
+  "updated_at": "2026-06-08T02:48:18.428Z",
   "ofertas": [
-    {
-      "id": "oferta-yaroa-papa-refresco",
-      "titulo": "Yaroa de papa + 1 refresco",
-      "descripcion": "El combo perfecto para calmar el antojo.",
-      "imagen_base64": "",
-      "fecha_inicio": "07/06/2026",
-      "fecha_fin": "15/06/2026",
-      "publicada": true,
-      "orden": 1
-    },
     {
       "id": "yaroa-de-papa-refresco-1780886598909",
       "titulo": "Yaroa de papa + Refresco",
