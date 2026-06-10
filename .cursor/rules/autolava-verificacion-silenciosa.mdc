@@ -1,0 +1,11 @@
+---
+description: Verificación silenciosa obligatoria en Auto Lava Garcia
+alwaysApply: true
+---
+
+# Auto Lava Garcia — Verificación Antes de Reportar
+
+- Cuando el CEO pida arreglar producción y diga que no se le hable hasta terminar, no enviar actualizaciones intermedias: investigar, corregir y probar primero.
+- No decir que está resuelto sin ejecutar pruebas frescas del proyecto: `npm test`, `npm run typecheck` y `npm run build` cuando el cambio toque Next.js, datos públicos, CSS o JavaScript.
+- Si el problema afecta URL públicas, verificar también los recursos desplegados o explicar con evidencia qué falta publicar.
+- Para ofertas, confirmar que cada oferta activa tenga imagen real y que el CTA visible diga `Ordenar por WhatsApp`.

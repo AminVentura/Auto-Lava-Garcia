@@ -1,0 +1,38 @@
+{
+  "name": "auto-lava-garcia",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Admin dashboard and public landing for Auto Lava Garcia & Antojos Bar Lounge.",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "sync:data": "node scripts/sync-static-data.mjs",
+    "qr:generate": "node scripts/generate-qr.mjs",
+    "prebuild": "npm run sync:data && npm run qr:generate",
+    "build": "next build",
+    "start": "next start",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AminVentura/Auto-Lava-Garcia.git"
+  },
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@types/node": "^25.9.2",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "qrcode": "^1.5.4",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.8"
+  },
+  "dependencies": {
+    "@clerk/nextjs": "^7.4.3",
+    "next": "^16.2.7",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "zod": "^4.4.3"
+  }
+}

@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Bloquear bots de scraping agresivos
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+Sitemap: https://antojosbarlounge.com/sitemap.xml

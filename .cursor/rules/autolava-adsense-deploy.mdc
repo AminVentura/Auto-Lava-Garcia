@@ -1,0 +1,14 @@
+---
+description: AdSense ads.txt y despliegue estático de Auto Lava Garcia
+globs: index.html,ads.txt,vercel.json,netlify.toml,js/main.js,css/styles.css
+alwaysApply: false
+---
+
+# Auto Lava Garcia — AdSense y despliegue
+
+## ads.txt y AdSense
+
+- Mantener `ads.txt` en la **raíz del deploy** (junto a `index.html`). El formato IAB es una línea por registro; para Google: `google.com, pub-XXXXXXXX, DIRECT, f08c47fec0942fa0`.
+- Conservar cabeceras `text/plain; charset=utf-8` en `vercel.json` y `netlify.toml` para `/ads.txt`.
+- No añadir rewrites globales que envíen `/ads.txt` a `index.html`.
+- Si AdSense reporta “no encontrado”, revisar **dominio canónico** (www vs apex) y que la URL pública coincida con el sitio en AdSense. Ver `AGENTS.md` (Subagentes A y B).

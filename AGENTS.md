@@ -1,16 +1,16 @@
 # Agentes del proyecto — Auto Lava Garcia / Antojos Bar Lounge
 
-Este archivo define cómo repartir el trabajo entre un **agente coordinador** y **subagentes** cuando haya que corregir AdSense (`ads.txt`), despliegue o la alerta de fechas límite (prórrogas hacia agosto).
+Este archivo define cómo repartir el trabajo entre un **agente coordinador** y **subagentes** cuando haya que corregir AdSense (`ads.txt`) o despliegue.
 
 ## Agente principal (coordinador)
 
-**Objetivo:** Dejar el sitio alineado con lo que exige Google AdSense y mantener la UX de alertas de temporada sin romper el sitio estático.
+**Objetivo:** Dejar el sitio alineado con lo que exige Google AdSense y mantener el despliegue estático sin romper rutas públicas.
 
 **Orden sugerido:**
 
 1. Lanzar verificaciones del **Subagente A** (ads.txt / producción).
 2. Si el código del repo está bien, escalar a **Subagente B** (DNS, dominio canónico, panel de hosting).
-3. Tras cambios en formularios o fechas, usar **Subagente C** (UI prórroga / agosto).
+3. Tras cambios de hosting, confirmar que el dominio público sirve la versión actualizada.
 
 ---
 
@@ -53,22 +53,6 @@ Debe ser **200**, cuerpo **texto plano** con la línea de `google.com`, sin redi
 - CDN o regla de firewall bloquea rutas desconocidas.
 
 **Acciones:** Unificar canónico (301 entre www y no-www), asegurar que el deploy incluya `ads.txt` en la raíz pública, y volver a “Comprobar estado” en AdSense tras 24–72 h.
-
----
-
-## Subagente C — Alerta de fecha límite (prórrogas / agosto)
-
-**Responsabilidad:** Mantener la lógica de “temporada de alerta” y el texto del aviso coherent con el negocio (licencias, renovaciones, etc.).
-
-**Ubicación en código:**
-
-- `js/main.js` — función `initProrrogaDeadlineAlert()` (ventana configurable: aproximación a agosto).
-- `css/styles.css` — clases `.form-prorroga`, `.form-deadline-near`, `.prorroga-deadline-banner`.
-- `index.html` — formularios con clase `form-prorroga`.
-
-**Reglas de negocio por defecto:** Resaltar formularios del **1 de junio** al **31 de agosto** (inclusive). Forzar la vista en cualquier fecha con `?deadlineAlert=1` en la URL. Ajustar fechas en `main.js` si el negocio usa otro calendario.
-
----
 
 ## Convención para el chat
 

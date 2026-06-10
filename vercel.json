@@ -1,5 +1,14 @@
 {
+  "framework": "nextjs",
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
   "redirects": [
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "admin.antojosbarlounge.com" }],
+      "destination": "/admin",
+      "permanent": false
+    },
     {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "www.antojosbarlounge.com" }],

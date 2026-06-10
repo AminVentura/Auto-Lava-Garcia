@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "updated_at": "2026-06-07T00:00:00-04:00",
+  "servicios": [
+    { "id": "lavado-normal-jeepeta", "categoria": "Lavado Normal Exterior", "vehiculo": "Jeepeta", "nombre": "Lavado Normal Jeepeta", "precio_centavos": 40000, "disponible": true, "orden": 1 },
+    { "id": "lavado-normal-carro", "categoria": "Lavado Normal Exterior", "vehiculo": "Carro", "nombre": "Lavado Normal Carro", "precio_centavos": 30000, "disponible": true, "orden": 2 },
+    { "id": "lavado-normal-motor", "categoria": "Lavado Normal Exterior", "vehiculo": "Motor", "nombre": "Lavado Normal Motor", "precio_centavos": 25000, "disponible": true, "orden": 3 },
+    { "id": "lavado-normal-uber", "categoria": "Lavado Normal Exterior", "vehiculo": "Uber", "nombre": "Lavado Normal Uber", "precio_min_centavos": 20000, "precio_max_centavos": 25000, "disponible": true, "orden": 4 },
+    { "id": "martes-jeepeta", "categoria": "Ofertas del Martes", "vehiculo": "Jeepeta", "nombre": "Martes Oferta Jeepeta", "precio_centavos": 35000, "disponible": true, "orden": 5 },
+    { "id": "martes-carro", "categoria": "Ofertas del Martes", "vehiculo": "Carro", "nombre": "Martes Oferta Carro", "precio_centavos": 25000, "disponible": true, "orden": 6 },
+    { "id": "martes-motor", "categoria": "Ofertas del Martes", "vehiculo": "Motor", "nombre": "Martes Oferta Motor", "precio_centavos": 15000, "disponible": true, "orden": 7 },
+    { "id": "debajo-jeepeta", "categoria": "Lavado por Debajo", "vehiculo": "Jeepeta", "nombre": "Lavado por Debajo Jeepeta", "precio_centavos": 90000, "disponible": true, "orden": 8 },
+    { "id": "debajo-carro", "categoria": "Lavado por Debajo", "vehiculo": "Carro", "nombre": "Lavado por Debajo Carro", "precio_centavos": 80000, "disponible": true, "orden": 9 },
+    { "id": "motor-jeepeta", "categoria": "Lavado del Motor", "vehiculo": "Jeepeta", "nombre": "Lavado Motor Jeepeta", "precio_centavos": 80000, "disponible": true, "orden": 10 },
+    { "id": "motor-carro", "categoria": "Lavado del Motor", "vehiculo": "Carro", "nombre": "Lavado Motor Carro", "precio_centavos": 70000, "disponible": true, "orden": 11 },
+    { "id": "interior-detailing", "categoria": "Servicios Premium", "nombre": "Interior Detailing", "precio_min_centavos": 200000, "disponible": true, "orden": 12 },
+    { "id": "interior-crema", "categoria": "Servicios Premium", "nombre": "Interior crema", "precio_min_centavos": 40000, "disponible": true, "orden": 13 },
+    { "id": "brillo-exterior", "categoria": "Servicios Premium", "nombre": "Brillo exterior con pulidora", "precio_min_centavos": 250000, "disponible": true, "orden": 14 },
+    { "id": "brillado-pantalla", "categoria": "Servicios Premium", "nombre": "Brillado de Pantalla", "precio_centavos": 70000, "disponible": true, "orden": 15 },
+    { "id": "brillado-focos", "categoria": "Servicios Premium", "nombre": "Brillado de Focos", "precio_centavos": 25000, "etiqueta": "RD$250 c/u", "disponible": true, "orden": 16 }
+  ]
+}

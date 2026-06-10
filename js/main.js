@@ -5,47 +5,15 @@
 document.addEventListener('DOMContentLoaded', () => {
     initMobileNav();
     initScrollEffects();
-    initProrrogaDeadlineAlert();
     initExpandDetailsLabels();
     initReservarForm();
     initPedidoForm();
     initFooterLastUpdated();
     initGalleryLightbox();
     initAdSenseSlots();
+    initDynamicOffers();
+    initDynamicWashServices();
 });
-
-/**
- * Alerta de fecha límite (prórrogas / temporada agosto): resalta formularios en amarillo
- * del 1 de junio al 31 de agosto. Añade `?deadlineAlert=1` a la URL para forzar la vista (pruebas).
- */
-function initProrrogaDeadlineAlert() {
-    const now = new Date();
-    const y = now.getFullYear();
-    const windowStart = new Date(y, 5, 1, 0, 0, 0, 0); // 1 junio (mes 0-based)
-    const windowEnd = new Date(y, 7, 31, 23, 59, 59, 999); // 31 agosto
-    const params = new URLSearchParams(window.location.search);
-    const force = params.has('deadlineAlert');
-    if (!force && (now < windowStart || now > windowEnd)) return;
-
-    const message =
-        '<strong>Alerta de fecha límite</strong> — Estamos en temporada de trámites y prórrogas que suelen concentrarse hacia <strong>agosto</strong>. ' +
-        'Revisa calendarios, renovaciones y documentación antes de enviar reservas o pedidos.';
-
-    document.querySelectorAll('form.form-prorroga').forEach((form) => {
-        form.classList.add('form-deadline-near');
-        const id = form.id === 'form-reservar' ? 'prorroga-banner-reservar' : 'prorroga-banner-pedido';
-        if (document.getElementById(id)) return;
-        const banner = document.createElement('div');
-        banner.id = id;
-        banner.className = 'prorroga-deadline-banner';
-        banner.setAttribute('role', 'status');
-        banner.innerHTML = message;
-        form.insertAdjacentElement('beforebegin', banner);
-        if (form.id === 'form-reservar') {
-            form.setAttribute('aria-describedby', 'aviso-admin-reservar ' + id);
-        }
-    });
-}
 
 /** Texto del summary en bloques <details> de información del local */
 function initExpandDetailsLabels() {
@@ -130,6 +98,90 @@ function initAdSenseSlots() {
             }
         }, 20000);
     });
+}
+
+async function backfillOfferImages(data) {
+    return data;
+}
+
+async function fetchJson(url) {
+    const response = await fetch(url, { headers: { 'accept': 'application/json' } });
+    if (!response.ok) throw new Error('No se pudo cargar ' + url);
+    const data = await response.json();
+    return url === '/data/ofertas.json' ? backfillOfferImages(data) : data;
+}
+
+function formatOfferDate(value) {
+    return new Date(value + 'T12:00:00').toLocaleDateString('es-DO', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+    });
+}
+
+async function initDynamicOffers() {
+    const grid = document.querySelector('[data-offers-grid]');
+    if (!grid) return;
+
+    try {
+        const data = await fetchJson('/data/ofertas.json');
+        const offers = data.offers || [];
+        if (offers.length === 0) {
+            grid.innerHTML = '<p class="ofertas-antojos__empty">Pregunta por el plato del día y las ofertas disponibles en caja.</p>';
+            return;
+        }
+
+        grid.innerHTML = offers.map((offer) => {
+            const message = encodeURIComponent('Hola, quiero ordenar o preguntar por esta oferta: ' + offer.title + '\nhttps://antojosbarlounge.com/#ofertas-antojos');
+            return (
+                '<article class="oferta-card">' +
+                    '<img src="' + offer.imageUrl + '" alt="' + offer.title.replace(/"/g, '&quot;') + '" loading="lazy" decoding="async">' +
+                    '<div class="oferta-card__body">' +
+                        '<span class="oferta-card__badge">Oferta por tiempo limitado</span>' +
+                        '<h4 class="oferta-card__title">' + offer.title + '</h4>' +
+                        '<p class="oferta-card__description">' + (offer.description || '') + '</p>' +
+                        '<p class="oferta-card__date">Disponible hasta el ' + formatOfferDate(offer.endsAt) + '</p>' +
+                        '<a class="oferta-card__cta" href="https://wa.me/18097941824?text=' + message + '" target="_blank" rel="noopener" aria-label="Ordenar por WhatsApp ' + offer.title.replace(/"/g, '&quot;') + '">Ordenar por WhatsApp</a>' +
+                    '</div>' +
+                '</article>'
+            );
+        }).join('');
+    } catch (error) {
+        grid.innerHTML = '<p class="ofertas-antojos__empty">Ofertas temporales no disponibles. Pregunta en caja.</p>';
+    }
+}
+
+async function initDynamicMenu() {
+    const menuGrid = document.querySelector('.menu-grid');
+    if (!menuGrid) return;
+
+    try {
+        // Menú queda estático: no hay backend ni base de datos para precios de comida.
+    } catch {}
+}
+
+async function initDynamicWashServices() {
+    const select = document.getElementById('tipo-lavado');
+    if (!select) return;
+
+    try {
+        const data = await fetchJson('/data/lavado_precios.json');
+        const services = data.services || [];
+        if (services.length === 0) return;
+
+        const first = select.querySelector('option[value=""]');
+        select.innerHTML = '';
+        if (first) select.appendChild(first);
+
+        services.forEach((service) => {
+            const option = document.createElement('option');
+            option.value = service.name + ' - ' + service.priceText;
+            option.textContent = service.name + ' — ' + service.priceText;
+            select.appendChild(option);
+        });
+    } catch {
+        // Static reservation prices remain available if the API is not configured.
+    }
 }
 
 /** Fecha de última modificación del HTML en formato RD (requiere atributo data-auto-date). */

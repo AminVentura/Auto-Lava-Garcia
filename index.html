@@ -13,8 +13,9 @@
     <meta name="geo.region" content="DO">
     <meta name="geo.placename" content="Santiago de los Caballeros, República Dominicana">
     <meta name="google-adsense-account" content="ca-pub-8721021745606812">
+    <meta name="robots" content="index, follow">
     <title>Auto Lava Garcia & Antojos Bar Lounge | Santiago de los Caballeros</title>
-    <meta name="description" content="Auto Lava Garcia & Antojos Bar Lounge en Santiago RD. Reserva tu cita de lavado online, pide comida a domicilio. Av. 27 de Febrero 156. Lavadero y cafetería 24/7.">
+    <meta name="description" content="Auto Lava Garcia & Antojos Bar Lounge en Santiago RD. Reserva tu cita de lavado online, consulta menú, horarios, precios y ubicación en Av. 27 de Febrero 156.">
     <link rel="canonical" href="https://antojosbarlounge.com/">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="es_DO">
@@ -61,6 +62,7 @@
                 <li><a href="#info-local">Información</a></li>
                 <li><a href="#lavadero">Lavadero</a></li>
                 <li><a href="#cafeteria">Cafetería</a></li>
+                <li><a href="#ofertas-antojos">Ofertas</a></li>
                 <li><a href="#galeria">Galería</a></li>
                 <li><a href="#horarios">Horarios</a></li>
                 <li><a href="#ubicacion">Ubicación</a></li>
@@ -93,15 +95,7 @@
             <div class="hero-overlay"></div>
         </section>
 
-        <!-- Anuncio 1: Reemplace data-ad-slot por el ID numérico de AdSense; hasta entonces no ocupa espacio -->
-        <div class="ad-container">
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-8721021745606812"
-                 data-ad-slot="XXXXXXXXXX"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-        </div>
+        <!-- AdSense Auto Ads está autorizado desde el script del <head>; no se publican slots manuales hasta tener IDs reales. -->
 
         <section id="info-local" class="section section-info-local">
             <div class="container">
@@ -198,7 +192,7 @@
                         <p class="aviso-solo-administracion__enlace"><a href="#info-local">Ver también la guía completa del local</a></p>
                     </div>
                 </div>
-                <form id="form-reservar" class="form-booking form-prorroga" aria-describedby="aviso-admin-reservar">
+                <form id="form-reservar" class="form-booking" aria-describedby="aviso-admin-reservar">
                     <div class="form-grid">
                         <div class="form-group">
                             <label for="tipo-lavado">Tipo de lavado *</label>
@@ -351,15 +345,7 @@
             </div>
         </section>
 
-        <!-- Anuncio 2 -->
-        <div class="ad-container">
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-8721021745606812"
-                 data-ad-slot="XXXXXXXXXX"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-        </div>
+        <!-- Slot manual retirado: evita señales de inventario inválido durante la revisión de Google. -->
 
         <section id="cafeteria" class="section section-cafeteria">
             <div class="container">
@@ -367,6 +353,16 @@
                     <span class="section-badge">Gastronomía</span>
                     <h2>Antojos Bar Lounge</h2>
                     <p>Buenos cócteles · Buena comida</p>
+                </div>
+                <div id="ofertas-antojos" class="ofertas-antojos" aria-live="polite">
+                    <div class="ofertas-antojos__header">
+                        <span class="section-badge">Ofertas por tiempo limitado</span>
+                        <h3>Especiales de la casa</h3>
+                        <p>Promociones activas de Antojos Bar Lounge. La administración puede actualizarlas desde el dashboard.</p>
+                    </div>
+                    <div class="ofertas-antojos__grid" data-offers-grid>
+                        <p class="ofertas-antojos__empty">Cargando ofertas activas...</p>
+                    </div>
                 </div>
                 <div class="antojos-flyer-area">
                     <div class="antojos-flyer-box">
@@ -473,7 +469,7 @@
                         <p>Selecciona los platos y envía tu pedido directamente</p>
                         <p class="pedir-comida-nota"><strong>Nota:</strong> La comida pedida por WhatsApp es para <strong>recoger</strong> y hay que pagarla en el lugar. Si quieres pedido con delivery, haz tu pedido por: <a href="https://www.pedidosya.com.do/restaurantes/santiago?q=Antojos%20Bar%20Lounge" target="_blank" rel="noopener" title="PedidosYa en Santiago — Antojos Bar Lounge">PedidosYa</a> · <a href="https://www.ubereats.com/do/city/santiago-de-los-caballeros-cibao-norte?q=Antojos%20Bar%20Lounge" target="_blank" rel="noopener" title="Uber Eats en Santiago — Antojos Bar Lounge">Uber Eats</a></p>
                     </div>
-                    <form id="form-pedido" class="form-pedido form-prorroga" aria-describedby="prorroga-banner-pedido">
+                    <form id="form-pedido" class="form-pedido">
                         <div class="pedido-grid">
                             <div class="pedido-categoria">
                                 <h4>Picaderas</h4>
@@ -703,15 +699,7 @@
             </div>
         </section>
 
-        <!-- Anuncio 3 -->
-        <div class="ad-container">
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-8721021745606812"
-                 data-ad-slot="XXXXXXXXXX"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-        </div>
+        <!-- Slot manual retirado: usar solo Auto Ads hasta que AdSense asigne unidades válidas. -->
     </main>
 
     <footer class="footer">
@@ -720,6 +708,8 @@
                 <p>© 2026 Auto Lava Garcia & Antojos Bar Lounge — Santiago de los Caballeros, República Dominicana</p>
                 <p class="footer-address">Av. 27 de Febrero 156, 51000</p>
                 <p class="footer-legal">
+                    <a href="nosotros.html">Nosotros</a> | 
+                    <a href="contacto.html">Contacto</a> | 
                     <a href="aviso-legal.html">Aviso Legal</a> | 
                     <a href="politica-privacidad.html">Política de Privacidad</a> | 
                     <a href="politica-cookies.html">Política de Cookies</a>
