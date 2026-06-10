@@ -415,9 +415,33 @@ export default function AdminDashboard({ offersDoc, washDoc, menuDoc }: Props) {
         <div className="offer-form">
           <label>Título<input value={offerForm.titulo} onChange={(event) => setOfferForm({ ...offerForm, titulo: event.target.value })} /></label>
           <label>Descripción<textarea value={offerForm.descripcion} onChange={(event) => setOfferForm({ ...offerForm, descripcion: event.target.value })} /></label>
-          <label>Imagen de oferta<input type="file" accept="image/*" onChange={(event) => event.target.files?.[0] && run(async () => setOfferImage(await compressImage(event.target.files![0])))} /></label>
-          <div className="preview-card">
-            <div className="image-preview">{offerImage ? <img src={offerImage} alt="Vista previa" /> : 'Imagen comprimida para celular'}</div>
+          <div className="upload-field">
+            <p className="upload-label">Imagen de la oferta</p>
+            <label className="upload-btn" htmlFor="offer-image-input">
+              {offerImage ? '📷 Cambiar foto' : '📷 Subir foto de la oferta'}
+            </label>
+            <input
+              id="offer-image-input"
+              type="file"
+              accept="image/*"
+              style={{ display: 'none' }}
+              onChange={(event) => event.target.files?.[0] && run(async () => setOfferImage(await compressImage(event.target.files![0])))}
+            />
+            <div className="preview-card">
+              {offerImage
+                ? <img src={offerImage} alt="Vista previa" style={{ maxHeight: 220, borderRadius: 8, objectFit: 'contain' }} />
+                : <div className="image-preview-empty">Sin imagen — pulsa el botón de arriba para subir una foto</div>}
+            </div>
+            {offerImage && (
+              <button
+                className="danger-btn"
+                type="button"
+                style={{ marginTop: 4 }}
+                onClick={() => setOfferImage('')}
+              >
+                Quitar foto
+              </button>
+            )}
           </div>
           <div className="date-grid">
             <label>Desde DD/MM/AAAA<input value={offerForm.fecha_inicio} onChange={(event) => setOfferForm({ ...offerForm, fecha_inicio: event.target.value })} placeholder="07/06/2026" /></label>
@@ -556,7 +580,7 @@ function MoneyInput({
     <input
       aria-label={ariaLabel}
       inputMode="decimal"
-      placeholder="200.00"
+      placeholder="0.00"
       type="text"
       value={displayValue}
       onFocus={() => {

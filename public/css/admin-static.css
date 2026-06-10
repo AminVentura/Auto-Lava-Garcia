@@ -373,6 +373,54 @@ textarea {
     background: var(--deep);
 }
 
+/* ── Photo upload button ─────────────────────────────── */
+.upload-field {
+    display: grid;
+    gap: 0.6rem;
+}
+
+.upload-label {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.9rem;
+    font-weight: 800;
+}
+
+.upload-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.75rem 1.4rem;
+    color: var(--deep);
+    border: 2px solid var(--gold);
+    border-radius: 12px;
+    background: linear-gradient(135deg, #fffbee, #fff8d6);
+    font-size: 1rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+}
+
+.upload-btn:hover {
+    background: linear-gradient(135deg, #fff3b0, #ffe87a);
+    transform: translateY(-1px);
+}
+
+.image-preview-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100px;
+    padding: 1rem;
+    color: var(--muted);
+    border: 1.5px dashed var(--line);
+    border-radius: 12px;
+    background: #f8fafa;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
 .social-box {
     display: flex;
     flex-wrap: wrap;
