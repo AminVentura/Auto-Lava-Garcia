@@ -57,17 +57,15 @@
         <nav class="nav">
             <a href="#inicio" class="logo">Auto Lava Garcia<span class="logo-accent"> & Antojos</span></a>
             <ul class="nav-links">
-                <li><a href="#reservar">Reservar Cita</a></li>
-                <li><a href="#pedir">Pedir Comida</a></li>
-                <li><a href="#info-local">Información</a></li>
-                <li><a href="#lavadero">Lavadero</a></li>
-                <li><a href="#cafeteria">Cafetería</a></li>
-                <li><a href="#menu-digital-restaurante">Menú Digital</a></li>
-                <li><a href="#ofertas-antojos">Ofertas</a></li>
-                <li><a href="/qr/">QR</a></li>
-                <li><a href="#galeria">Galería</a></li>
-                <li><a href="#horarios">Horarios</a></li>
-                <li><a href="#ubicacion">Ubicación</a></li>
+                <li><a href="#reservar">Reservar</a></li>
+                <li><a href="#pedir">Pedir</a></li>
+                <li><a href="menu.html">Menú</a></li>
+                <li><a href="servicios-lavado.html">Lavadero</a></li>
+                <li><a href="ofertas.html">Ofertas</a></li>
+                <li><a href="nosotros.html">Nosotros</a></li>
+                <li><a href="preguntas-frecuentes.html">FAQ</a></li>
+                <li><a href="guias.html">Guías</a></li>
+                <li><a href="como-llegar.html">Cómo llegar</a></li>
                 <li><a href="#contacto">Contacto</a></li>
             </ul>
             <button class="nav-toggle" aria-label="Menú">
@@ -88,15 +86,10 @@
                     <span>Servicio rápido: lavado y comida</span>
                     <span>Autos limpios y buena comida</span>
                 </p>
-                <div class="hero-actions">
-                    <a href="#menu-digital-restaurante" class="btn btn-primary">Ver menú digital</a>
-                    <a href="#menu-digital-lavado" class="btn btn-secondary">Precios de lavado</a>
-                    <a href="/qr/" class="btn btn-secondary">QR para imprimir</a>
-                    <a href="https://maps.google.com/?q=Av.+27+de+Febrero+156,+Santiago+de+los+Caballeros+51000" target="_blank" rel="noopener" class="btn btn-primary">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                        Cómo llegar
-                    </a>
-                </div>
+                <a href="https://maps.google.com/?q=Av.+27+de+Febrero+156,+Santiago+de+los+Caballeros+51000" target="_blank" rel="noopener" class="btn btn-primary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                    Cómo llegar
+                </a>
             </div>
             <img src="assets/antojos-banner-hero.png" alt="Antojos Bar Lounge" class="hero-logo hero-logo-antojos">
             <div class="hero-overlay"></div>
@@ -104,12 +97,60 @@
 
         <!-- AdSense Auto Ads está autorizado desde el script del <head>; no se publican slots manuales hasta tener IDs reales. -->
 
+        <section id="explorar" class="section section-explorar" aria-labelledby="explorar-heading">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-badge">Guías del sitio</span>
+                    <h2 id="explorar-heading">Contenido útil para visitar y decidir</h2>
+                    <p>Páginas con información detallada del lavadero, el menú, ofertas, ubicación y preguntas frecuentes — pensadas para clientes y para una experiencia clara en el sitio.</p>
+                </div>
+                <div class="explore-grid">
+                    <a class="explore-card" href="menu.html">
+                        <h3>Menú Antojos</h3>
+                        <p>Picaderas, antojitos, platos dominicanos, bebidas y cómo pedir para recoger o por delivery.</p>
+                    </a>
+                    <a class="explore-card" href="servicios-lavado.html">
+                        <h3>Servicios de lavado</h3>
+                        <p>Precios en RD$, qué incluye cada servicio, avisos de llaves y cómo reservar.</p>
+                    </a>
+                    <a class="explore-card" href="ofertas.html">
+                        <h3>Ofertas</h3>
+                        <p>Martes en promoción, tarifas Uber y combos cotizados en administración.</p>
+                    </a>
+                    <a class="explore-card" href="nosotros.html">
+                        <h3>Nosotros</h3>
+                        <p>Historia del local bajo nueva administración: lavadero y cafetería en un solo lugar.</p>
+                    </a>
+                    <a class="explore-card" href="preguntas-frecuentes.html">
+                        <h3>Preguntas frecuentes</h3>
+                        <p>Llaves, tiempos, pedidos WhatsApp, alergias, alcohol, cigarros y horarios.</p>
+                    </a>
+                    <a class="explore-card" href="como-llegar.html">
+                        <h3>Cómo llegar</h3>
+                        <p>Av. 27 de Febrero 156, mapa, circulación y qué hacer al llegar.</p>
+                    </a>
+                    <a class="explore-card" href="guias.html">
+                        <h3>Guías prácticas</h3>
+                        <p>Artículos para elegir lavado, post-lluvia, detailing, qué pedir en Antojos y mangú de 3 golpes.</p>
+                    </a>
+                    <a class="explore-card" href="llaves-y-administracion.html">
+                        <h3>Llaves y administración</h3>
+                        <p>Por qué las llaves se entregan en caja, no al lavador, y cómo se confirman precios.</p>
+                    </a>
+                    <a class="explore-card" href="recorrido-del-local.html">
+                        <h3>Recorrido del local</h3>
+                        <p>Mural, lavadero, cafetería y lounge en el mismo predio de la 27 de Febrero.</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
         <section id="info-local" class="section section-info-local">
             <div class="container">
                 <div class="section-header">
                     <span class="section-badge">Guía del local</span>
                     <h2>Conoce el establecimiento</h2>
-                    <p>Lavadero, cafetería y zona lounge en un solo lugar en Santiago — ampliá cada bloque para leer los detalles.</p>
+                    <p>Lavadero, cafetería y zona lounge en un solo lugar en Santiago. El texto de cada bloque está visible: no hace falta ampliar para leer cómo funciona el local.</p>
                 </div>
 
                 <div id="aviso-admin-infolocal" class="aviso-solo-administracion" role="region" aria-label="Aviso: trato únicamente con administración">
@@ -128,7 +169,7 @@
                     <article class="info-expand-card">
                         <h3 class="info-expand-card__title">Lavado de vehículos</h3>
                         <p class="info-expand-card__lead">En Auto Lava Garcia combinamos lavado exterior, opciones de chasis y motor, y servicios de detallado según el tipo de vehículo. Cada servicio tiene tiempos y precios distintos; conviene coordinar con anticipación en horas pico.</p>
-                        <details class="info-expand-details">
+                        <details class="info-expand-details" open>
                             <summary class="info-expand-summary"><span class="info-expand-summary__text">Ampliar texto</span><span class="info-expand-summary__chev" aria-hidden="true"></span></summary>
                             <div class="info-expand-body">
                                 <p>El <strong>lavado normal exterior</strong> elimina polvo y suciedad superficial de carrocería y vidrios; es el punto de partida antes de encerados o brillos más profundos. El <strong>lavado por debajo</strong> ayuda a retirar barro acumulado bajo el chasis, útil después de lluvia o barrios con calles tierrosas.</p>
@@ -142,7 +183,7 @@
                     <article class="info-expand-card">
                         <h3 class="info-expand-card__title">Cafetería Antojos Bar Lounge</h3>
                         <p class="info-expand-card__lead">La cafetería comparte sede con el lavadero: puede esperar su vehículo mientras desayuna, almuerza o cena. Hay picadera caliente, platos dominicanos y bebidas; parte del menú está orientado a recoger en local o pedir por apps de delivery.</p>
-                        <details class="info-expand-details">
+                        <details class="info-expand-details" open>
                             <summary class="info-expand-summary"><span class="info-expand-summary__text">Ampliar texto</span><span class="info-expand-summary__chev" aria-hidden="true"></span></summary>
                             <div class="info-expand-body">
                                 <p>El área de comida funciona como <strong>restaurante de autoservicio y cocina al momento</strong> en muchos ítems; los tiempos pueden variar si hay pedidos grandes o eventos. Pregunte por el <strong>plato del día</strong> y disponibilidad de ingredientes.</p>
@@ -156,7 +197,7 @@
                     <article class="info-expand-card">
                         <h3 class="info-expand-card__title">Cigarros y zona lounge</h3>
                         <p class="info-expand-card__lead">Contamos con selección de cigarros y un ambiente tipo lounge para quien desea relajarse lejos del ruido del túnel de lavado. El espacio está pensado para adultos y convive con las normas del resto del local.</p>
-                        <details class="info-expand-details">
+                        <details class="info-expand-details" open>
                             <summary class="info-expand-summary"><span class="info-expand-summary__text">Ampliar texto</span><span class="info-expand-summary__chev" aria-hidden="true"></span></summary>
                             <div class="info-expand-body">
                                 <p>La venta y el consumo de <strong>tabaco</strong> se circunscribe al área autorizada del lounge y cumple la normativa vigente en República Dominicana sobre edad mínima y publicidad. Pregunte en barra por marcas y vitolas disponibles; el surtido puede rotar según proveedores.</p>
@@ -199,7 +240,7 @@
                         <p class="aviso-solo-administracion__enlace"><a href="#info-local">Ver también la guía completa del local</a></p>
                     </div>
                 </div>
-                <form id="form-reservar" class="form-booking" aria-describedby="aviso-admin-reservar">
+                <form id="form-reservar" class="form-booking form-prorroga" aria-describedby="aviso-admin-reservar">
                     <div class="form-grid">
                         <div class="form-group">
                             <label for="tipo-lavado">Tipo de lavado *</label>
@@ -263,7 +304,7 @@
                 <div class="section-header">
                     <span class="section-badge">Servicios</span>
                     <h2>Auto Lava Garcia</h2>
-                    <p>Lavado profesional de vehículos con los mejores precios</p>
+                    <p>Lavado profesional de vehículos con los mejores precios · <a href="servicios-lavado.html">Ver guía completa de servicios</a></p>
                 </div>
                 <div class="aviso-lavadero">
                     <p class="aviso-item">⚠️ No somos responsables a llaves entregadas a los lavadores</p>
@@ -282,7 +323,7 @@
                         <li>Etc.</li>
                     </ul>
                 </div>
-                <div id="menu-digital-lavado" class="services-grid">
+                <div class="services-grid">
                     <article class="service-card">
                         <div class="service-icon">🚗</div>
                         <h3>Lavado Normal Exterior</h3>
@@ -359,17 +400,7 @@
                 <div class="section-header">
                     <span class="section-badge">Gastronomía</span>
                     <h2>Antojos Bar Lounge</h2>
-                    <p>Buenos cócteles · Buena comida</p>
-                </div>
-                <div id="ofertas-antojos" class="ofertas-antojos" aria-live="polite">
-                    <div class="ofertas-antojos__header">
-                        <span class="section-badge">Ofertas por tiempo limitado</span>
-                        <h3>Especiales de la casa</h3>
-                        <p>Promociones activas de Antojos Bar Lounge. La administración puede actualizarlas desde el dashboard.</p>
-                    </div>
-                    <div class="ofertas-antojos__grid" data-offers-grid>
-                        <p class="ofertas-antojos__empty">Cargando ofertas activas...</p>
-                    </div>
+                    <p>Buenos cócteles · Buena comida · <a href="menu.html">Ver menú completo con descripciones</a></p>
                 </div>
                 <div class="antojos-flyer-area">
                     <div class="antojos-flyer-box">
@@ -382,7 +413,7 @@
                         <p class="antojos-flyer-items">Pasteles de hoja · Empanadas · Quipes · Yaroas · Hamburguer · Hotdog · Carne salada · Longaniza · Frito con salami · Chuletas · Alitas · Mofongo · Mangu · 3 Golpes · Pechuga a la plancha · Costillas · Y mucho más</p>
                     </div>
                 </div>
-                <div id="menu-digital-restaurante" class="menu-grid">
+                <div class="menu-grid">
                     <div class="menu-category">
                         <h3>Picaderas</h3>
                         <ul>
@@ -476,7 +507,7 @@
                         <p>Selecciona los platos y envía tu pedido directamente</p>
                         <p class="pedir-comida-nota"><strong>Nota:</strong> La comida pedida por WhatsApp es para <strong>recoger</strong> y hay que pagarla en el lugar. Si quieres pedido con delivery, haz tu pedido por: <a href="https://www.pedidosya.com.do/restaurantes/santiago?q=Antojos%20Bar%20Lounge" target="_blank" rel="noopener" title="PedidosYa en Santiago — Antojos Bar Lounge">PedidosYa</a> · <a href="https://www.ubereats.com/do/city/santiago-de-los-caballeros-cibao-norte?q=Antojos%20Bar%20Lounge" target="_blank" rel="noopener" title="Uber Eats en Santiago — Antojos Bar Lounge">Uber Eats</a></p>
                     </div>
-                    <form id="form-pedido" class="form-pedido">
+                    <form id="form-pedido" class="form-pedido form-prorroga" aria-describedby="prorroga-banner-pedido">
                         <div class="pedido-grid">
                             <div class="pedido-categoria">
                                 <h4>Picaderas</h4>
@@ -650,7 +681,7 @@
                 <div class="section-header">
                     <span class="section-badge">Ubicación</span>
                     <h2>Dónde encontrarnos</h2>
-                    <p>Av. 27 de Febrero 156, Santiago de los Caballeros 51000, República Dominicana</p>
+                    <p>Av. 27 de Febrero 156, Santiago de los Caballeros 51000, República Dominicana · <a href="como-llegar.html">Guía de cómo llegar</a></p>
                 </div>
                 <div class="map-wrapper">
                     <iframe 
@@ -715,13 +746,19 @@
                 <p>© 2026 Auto Lava Garcia & Antojos Bar Lounge — Santiago de los Caballeros, República Dominicana</p>
                 <p class="footer-address">Av. 27 de Febrero 156, 51000</p>
                 <p class="footer-legal">
-                    <a href="nosotros.html">Nosotros</a> | 
-                    <a href="contacto.html">Contacto</a> | 
-                    <a href="aviso-legal.html">Aviso Legal</a> | 
-                    <a href="politica-privacidad.html">Política de Privacidad</a> | 
+                    <a href="menu.html">Menú</a> |
+                    <a href="servicios-lavado.html">Lavadero</a> |
+                    <a href="ofertas.html">Ofertas</a> |
+                    <a href="nosotros.html">Nosotros</a> |
+                    <a href="preguntas-frecuentes.html">FAQ</a> |
+                    <a href="como-llegar.html">Cómo llegar</a>
+                </p>
+                <p class="footer-legal">
+                    <a href="aviso-legal.html">Aviso Legal</a> |
+                    <a href="politica-privacidad.html">Política de Privacidad</a> |
                     <a href="politica-cookies.html">Política de Cookies</a>
                 </p>
-                <p class="footer-update" data-auto-date>Última actualización: 15/2/2026</p>
+                <p class="footer-update" data-auto-date>Última actualización: 10/7/2026</p>
             </div>
         </div>
     </footer>

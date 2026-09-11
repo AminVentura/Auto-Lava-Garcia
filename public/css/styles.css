@@ -1723,3 +1723,147 @@ ul {
         gap: 1rem;
     }
 }
+
+/* ===== Páginas editoriales (menú, guías, contacto) ===== */
+.section-explorar {
+    background: var(--color-white);
+}
+
+.explore-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+}
+
+.explore-card {
+    display: block;
+    background: var(--color-light);
+    border: 1px solid rgba(13, 59, 76, 0.12);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.2rem;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.explore-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.explore-card h3 {
+    font-family: var(--font-display);
+    color: var(--color-primary);
+    font-size: 1.15rem;
+    margin-bottom: 0.45rem;
+}
+
+.explore-card p {
+    font-size: 0.92rem;
+    color: var(--color-text-muted);
+    line-height: 1.55;
+}
+
+.content-page {
+    padding-top: 6.5rem;
+    padding-bottom: 3rem;
+}
+
+.content-prose {
+    max-width: 46rem;
+}
+
+.content-eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    margin-bottom: 0.6rem;
+}
+
+.content-prose h1 {
+    font-family: var(--font-display);
+    color: var(--color-primary);
+    font-size: clamp(1.7rem, 3vw, 2.25rem);
+    line-height: 1.25;
+    margin-bottom: 1rem;
+}
+
+.content-lead {
+    font-size: 1.08rem;
+    line-height: 1.7;
+    margin-bottom: 1.4rem;
+}
+
+.content-prose h2 {
+    font-family: var(--font-display);
+    color: var(--color-primary);
+    font-size: 1.35rem;
+    margin: 1.75rem 0 0.7rem;
+}
+
+.content-prose h3 {
+    color: var(--color-primary-light);
+    font-size: 1.05rem;
+    margin: 1.2rem 0 0.45rem;
+}
+
+.content-prose p,
+.content-prose li {
+    line-height: 1.7;
+}
+
+.content-prose p {
+    margin-bottom: 0.95rem;
+}
+
+.content-prose ul,
+.content-prose ol {
+    margin: 0 0 1.1rem 1.2rem;
+}
+
+.content-prose a {
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+.content-figure {
+    margin: 1.4rem 0;
+}
+
+.content-figure img {
+    width: 100%;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+}
+
+.content-figure figcaption {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin-top: 0.45rem;
+}
+
+.content-cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+    margin: 1.75rem 0 1.25rem;
+}
+
+.content-link-secondary {
+    font-weight: 600;
+    color: var(--color-primary);
+}
+
+.content-related {
+    margin-top: 2rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(13, 59, 76, 0.12);
+}
+
+.content-map {
+    margin: 1rem 0 1.5rem;
+}
