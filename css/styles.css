@@ -1496,8 +1496,41 @@ ul {
     line-height: 1.6;
 }
 
-.section a {
+.section a:not(.btn) {
     color: var(--color-accent);
+}
+
+.section a.btn-primary {
+    background: var(--color-accent);
+    color: var(--color-dark);
+}
+
+.section a.btn-primary:hover {
+    background: var(--color-accent-hover);
+    color: var(--color-dark);
+}
+
+.section-cafeteria a.btn-primary {
+    background: var(--color-primary);
+    color: var(--color-white);
+}
+
+.section-cafeteria a.btn-primary:hover {
+    background: var(--color-primary-light);
+    color: var(--color-white);
+}
+
+.section-cafeteria a.btn-secondary,
+.content-prose a.btn-secondary {
+    background: var(--color-white);
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+}
+
+.section-cafeteria a.btn-secondary:hover,
+.content-prose a.btn-secondary:hover {
+    background: var(--color-primary);
+    color: var(--color-white);
 }
 
 /* ===== Responsive ===== */

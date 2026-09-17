@@ -263,8 +263,25 @@ ul {
     border: 1px solid rgba(255, 255, 255, 0.35);
 }
 
-.btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.2);
+.hero-menu-pair {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.hero-menu-pair .btn {
+    min-height: 48px;
+    min-width: 11rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content-prose .hero-menu-pair {
+    justify-content: flex-start;
+    margin: 1rem 0 1.25rem;
 }
 
 .hero-actions {
@@ -1533,8 +1550,41 @@ ul {
     line-height: 1.6;
 }
 
-.section a {
+.section a:not(.btn) {
     color: var(--color-accent);
+}
+
+.section a.btn-primary {
+    background: var(--color-accent);
+    color: var(--color-dark);
+}
+
+.section a.btn-primary:hover {
+    background: var(--color-accent-hover);
+    color: var(--color-dark);
+}
+
+.section-cafeteria a.btn-primary {
+    background: var(--color-primary);
+    color: var(--color-white);
+}
+
+.section-cafeteria a.btn-primary:hover {
+    background: var(--color-primary-light);
+    color: var(--color-white);
+}
+
+.section-cafeteria a.btn-secondary,
+.content-prose a.btn-secondary {
+    background: var(--color-white);
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+}
+
+.section-cafeteria a.btn-secondary:hover,
+.content-prose a.btn-secondary:hover {
+    background: var(--color-primary);
+    color: var(--color-white);
 }
 
 /* ===== Responsive ===== */
