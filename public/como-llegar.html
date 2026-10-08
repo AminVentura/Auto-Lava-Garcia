@@ -17,21 +17,25 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
+    <script src="/js/consent.js"></script>
 </head>
 <body>
     <header class="header">
-        <nav class="nav">
-            <a href="index.html" class="logo">Auto Lava Garcia<span class="logo-accent"> & Antojos</span></a>
+        <nav class="nav" aria-label="Principal">
+            <a href="/" class="logo">Auto Lava Garcia<span class="logo-accent"> &amp; Antojos</span></a>
             <ul class="nav-links">
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="menu.html">Menú</a></li>
-                <li><a href="servicios-lavado.html">Lavadero</a></li>
-                <li><a href="ofertas.html">Ofertas</a></li>
-                <li><a href="nosotros.html">Nosotros</a></li>
-                <li><a href="preguntas-frecuentes.html">FAQ</a></li>
-                <li><a href="como-llegar.html" aria-current="page">Cómo llegar</a></li>
+                <li><a href="/">Inicio</a></li>
+                <li><a href="/menu.html">Menú</a></li>
+                <li><a href="/servicios-lavado.html">Lavadero</a></li>
+                <li><a href="/ofertas.html">Ofertas</a></li>
+                <li><a href="/guias.html">Guías</a></li>
+                <li><a href="/nosotros.html">Nosotros</a></li>
+                <li><a href="/preguntas-frecuentes.html">Preguntas</a></li>
+                <li><a href="/como-llegar.html" aria-current="page">Cómo llegar</a></li>
+                <li><a href="/contacto.html">Contacto</a></li>
+                <li><a href="https://antojosreserva.antojosbarlounge.com/">Ordenar</a></li>
             </ul>
-            <button class="nav-toggle" aria-label="Menú"><span></span><span></span><span></span></button>
+            <button class="nav-toggle" aria-label="Abrir menú"><span></span><span></span><span></span></button>
         </nav>
     </header>
 
@@ -52,16 +56,11 @@
 
                 <h2>Mapa</h2>
                 <div class="map-wrapper content-map">
-                    <iframe
-                        src="https://maps.google.com/maps?q=Av.+27+de+Febrero+156,+Santiago+de+los+Caballeros+51000,+Republica+Dominicana&t=&z=16&ie=UTF8&iwloc=&output=embed"
-                        width="100%"
-                        height="400"
-                        style="border:0;"
-                        allowfullscreen=""
-                        loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade"
-                        title="Ubicación Auto Lava Garcia y Antojos Bar Lounge">
-                    </iframe>
+                    <div class="map-consent" data-map-embed="https://maps.google.com/maps?q=Av.+27+de+Febrero+156,+Santiago+de+los+Caballeros+51000,+Republica+Dominicana&amp;t=&amp;z=16&amp;ie=UTF8&amp;iwloc=&amp;output=embed" data-map-title="Ubicación de Auto Lava Garcia y Antojos Bar Lounge">
+                        <p class="map-consent-text">Av. 27 de Febrero 156, Santiago de los Caballeros</p>
+                        <p class="map-consent-note">El mapa lo sirve Google Maps, que puede usar cookies. Se carga solo si usted lo pide.</p>
+                        <button type="button" class="btn btn-primary map-consent-btn" data-map-load>Cargar mapa</button>
+                    </div>
                     <a href="https://maps.google.com/?q=Av.+27+de+Febrero+156,+Santiago+de+los+Caballeros+51000,+Republica+Dominicana" target="_blank" rel="noopener" class="map-link">Abrir en Google Maps</a>
                 </div>
 
@@ -71,25 +70,28 @@
                 <h2>Horarios de referencia</h2>
                 <p><strong>Lavadero Auto Lava Garcia:</strong> lunes a jueves 8:30 a.m. – 11:00 p.m.; viernes a domingo 8:30 a.m. – 12:00 a.m.</p>
                 <p><strong>Cafetería Antojos (sugerido):</strong> lunes a jueves 10:00 a.m. – 11:00 p.m.; viernes y sábado 10:00 a.m. – 2:00 a.m.; domingo 10:30 a.m. – 2:00 a.m.</p>
-                <p>En feriados o eventos especiales, confirme por WhatsApp. Más detalle en <a href="index.html#horarios">horarios del inicio</a>.</p>
+                <p>En feriados o eventos especiales, confirme por WhatsApp. Más detalle en <a href="/#horarios">horarios del inicio</a>.</p>
 
                 <h2>La 27 de Febrero en Santiago</h2>
                 <p>La Avenida 27 de Febrero es una arteria del casco y de los barrios que la cruzan hacia el este y el oeste de Santiago. El número 156 no es un local “escondido en una calle”: está sobre la vía. Eso ayuda al GPS y complica el giro si el tráfico está denso. Reduzca al ver el mural circular de Auto Lava Garcia; esa es la referencia visual que usamos en el <a href="recorrido-del-local.html">recorrido del local</a>.</p>
                 <p>Si viene del centro o de la zona de la Duarte, siga la 27 de Febrero y prepare el acceso con tiempo. Si viene de sectores con calles de tierra o después de un temporal, avise en caja: puede necesitar lavado por debajo (jeepeta RD$900, carro RD$800) además del exterior. Guía: <a href="lavado-por-debajo-despues-de-lluvia-santiago.html">lavado por debajo después de lluvia</a>.</p>
 
                 <h2>Qué hacer al llegar</h2>
+                <p>El orden importa. Primero caja, después la pista. No entre directo al lavado a entregar llaves ni a negociar el precio con quien está enjabonando. Administración confirma el servicio, cobra y maneja las llaves. Recién entonces el vehículo pasa a la zona de lavado. Los niños van con un adulto; el área de pista no es zona de juegos. Si el día es feriado o sospecha un cierre, escriba por WhatsApp al +1 809-794-1824 antes de salir: los horarios de referencia (lavadero desde 8:30 a.m.; Antojos desde 10:00 a.m., domingo 10:30 a.m.) se confirman ese día.</p>
                 <ol>
-                    <li>Si viene a lavar, diríjase a administración para confirmar servicio y precio. No entregue la llave al lavador; el flujo está en <a href="llaves-y-administracion.html">llaves y administración</a>.</li>
-                    <li>Si ya reservó por WhatsApp, mencione la placa y la hora acordada.</li>
-                    <li>Si viene a comer, puede ordenar en barra o haber pedido para recoger desde el <a href="menu.html">menú</a>.</li>
-                    <li>Retire objetos de valor del vehículo antes del lavado.</li>
-                    <li>Si trae niños, manténgalos fuera de la pista. Si trae mascota, pregunte en caja antes de bajarla.</li>
+                    <li>Diríjase a administración (caja / oficina). Confirme el servicio de lavado y el monto. Pague ahí. Entregue o reciba la llave solo cuando caja lo indique. No entregue la llave al lavador. Flujo escrito: <a href="llaves-y-administracion.html">llaves y administración</a>.</li>
+                    <li>Después de caja, siga las indicaciones de entrada a la pista. El personal de lavado dirige maniobras; no decide cobros.</li>
+                    <li>Si ya reservó por WhatsApp, mencione la placa y la hora acordada en caja.</li>
+                    <li>Retire objetos de valor, documentos y dispositivos del vehículo antes de que entre al lavado. El local no se hace responsable de objetos olvidados ni de llaves entregadas fuera del flujo de administración.</li>
+                    <li>Si viene a comer o a esperar el auto, ordene en barra o recoja el pedido de WhatsApp del <a href="menu.html">menú</a>. El pago de comida también es en caja. No hay reserva de mesa.</li>
+                    <li>Niños supervisados en todo momento, fuera de la pista. Si trae mascota, pregunte en caja antes de bajarla.</li>
+                    <li>En feriados, eventos o duda de horario, confirme por WhatsApp o teléfono al +1 809-794-1824. No asuma que el cartel de un día laborable aplica igual.</li>
                 </ol>
-                <p>Teléfono y WhatsApp: +1 809-794-1824. Página de canales: <a href="contacto.html">contacto</a>.</p>
+                <p>Teléfono y WhatsApp: +1 809-794-1824. Instagram: @AutoLavaGarcia y @antojosbarlounge. Página de canales: <a href="contacto.html">contacto</a>.</p>
 
                 <div class="content-cta-row">
                     <a class="btn btn-primary" href="https://maps.google.com/?q=Av.+27+de+Febrero+156,+Santiago+de+los+Caballeros+51000" target="_blank" rel="noopener">Abrir mapa</a>
-                    <a class="btn btn-whatsapp" href="index.html#reservar">Reservar cita</a>
+                    <a class="btn btn-whatsapp" href="/#reservar">Reservar cita</a>
                 </div>
 
                 <nav class="content-related" aria-label="Páginas relacionadas">
@@ -107,12 +109,26 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <p>© 2026 Auto Lava Garcia & Antojos Bar Lounge — Santiago de los Caballeros, República Dominicana</p>
-                <p class="footer-address">Av. 27 de Febrero 156, 51000</p>
+                <p>© 2026 Auto Lava Garcia &amp; Antojos Bar Lounge — Santiago de los Caballeros, República Dominicana</p>
+                <p class="footer-address">Av. 27 de Febrero 156, 51000 · <a href="tel:+18097941824">+1 809-794-1824</a></p>
+                <p class="footer-nav">
+                    <a href="/">Inicio</a> |
+                    <a href="/menu.html">Menú</a> |
+                    <a href="/servicios-lavado.html">Lavadero</a> |
+                    <a href="/ofertas.html">Ofertas</a> |
+                    <a href="/guias.html">Guías</a> |
+                    <a href="/nosotros.html">Nosotros</a> |
+                    <a href="/preguntas-frecuentes.html">Preguntas</a> |
+                    <a href="/como-llegar.html">Cómo llegar</a> |
+                    <a href="/contacto.html">Contacto</a> |
+                    <a href="/recorrido-del-local.html">Recorrido del local</a> |
+                    <a href="/eventos-buffet-antojos.html">Eventos y buffet</a>
+                </p>
                 <p class="footer-legal">
-                    <a href="aviso-legal.html">Aviso Legal</a> |
-                    <a href="politica-privacidad.html">Política de Privacidad</a> |
-                    <a href="politica-cookies.html">Política de Cookies</a>
+                    <a href="/aviso-legal.html">Aviso legal</a> |
+                    <a href="/politica-privacidad.html">Política de privacidad</a> |
+                    <a href="/politica-cookies.html">Política de cookies</a> |
+                    <button type="button" class="footer-link-btn" data-cookie-prefs>Preferencias de cookies</button>
                 </p>
             </div>
         </div>
@@ -122,5 +138,6 @@
         <a href="https://wa.me/18097941824" class="fab-btn fab-whatsapp" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
     </div>
     <script src="js/main.js"></script>
+    <script src="/js/antojobot-widget.js" defer></script>
 </body>
 </html>

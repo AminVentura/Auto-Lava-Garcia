@@ -64,6 +64,9 @@ function listPublicHtml(dir, prefix = '') {
       continue;
     }
     if (entry.name.endsWith('.html') && !EXCLUDED.has(rel) && !EXCLUDED.has(entry.name)) {
+      // Las páginas con noindex no van al sitemap (lo marca scripts/aplicar-plantilla.mjs).
+      const html = fs.readFileSync(path.join(dir, entry.name), 'utf8');
+      if (/<meta name="robots" content="[^"]*noindex/i.test(html)) continue;
       files.push(rel);
     }
   }

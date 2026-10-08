@@ -21,6 +21,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
+    <script src="/js/consent.js"></script>
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -50,20 +51,21 @@
 </head>
 <body>
     <header class="header">
-        <nav class="nav">
-            <a href="index.html" class="logo">Auto Lava Garcia<span class="logo-accent"> & Antojos</span></a>
+        <nav class="nav" aria-label="Principal">
+            <a href="/" class="logo">Auto Lava Garcia<span class="logo-accent"> &amp; Antojos</span></a>
             <ul class="nav-links">
-                <li><a href="index.html">Inicio</a></li>
+                <li><a href="/">Inicio</a></li>
+                <li><a href="/menu.html" aria-current="page">Menú</a></li>
+                <li><a href="/servicios-lavado.html">Lavadero</a></li>
+                <li><a href="/ofertas.html">Ofertas</a></li>
+                <li><a href="/guias.html">Guías</a></li>
+                <li><a href="/nosotros.html">Nosotros</a></li>
+                <li><a href="/preguntas-frecuentes.html">Preguntas</a></li>
+                <li><a href="/como-llegar.html">Cómo llegar</a></li>
+                <li><a href="/contacto.html">Contacto</a></li>
                 <li><a href="https://antojosreserva.antojosbarlounge.com/">Ordenar</a></li>
-                <li><a href="https://antojosreserva.antojosbarlounge.com/menu/comida">Menú cafetería</a></li>
-                <li><a href="https://antojosreserva.antojosbarlounge.com/menu/lavado">Menú lavado</a></li>
-                <li><a href="servicios-lavado.html">Lavadero</a></li>
-                <li><a href="ofertas.html">Ofertas</a></li>
-                <li><a href="nosotros.html">Nosotros</a></li>
-                <li><a href="preguntas-frecuentes.html">FAQ</a></li>
-                <li><a href="index.html#pedir">Pedir</a></li>
             </ul>
-            <button class="nav-toggle" aria-label="Menú"><span></span><span></span><span></span></button>
+            <button class="nav-toggle" aria-label="Abrir menú"><span></span><span></span><span></span></button>
         </nav>
     </header>
 
@@ -77,47 +79,68 @@
                     <a class="btn btn-secondary" href="https://antojosreserva.antojosbarlounge.com/menu/comida">Menú cafetería</a>
                     <a class="btn btn-secondary" href="https://antojosreserva.antojosbarlounge.com/menu/lavado">Menú lavado</a>
                 </div>
-                <p class="content-lead">Antojos Bar Lounge es la cafetería y zona lounge que comparte sede con Auto Lava Garcia en la Av. 27 de Febrero 156. Aquí puede desayunar, almorzar o cenar mientras espera su vehículo, o venir solo por la comida. Esta página describe el menú real del local, cómo pedir y qué tener en cuenta antes de ordenar. Para pedir en línea use <a href="https://antojosreserva.antojosbarlounge.com/">Hacer pedido</a>: el pedido llega a la pantalla del local.</p>
+                <p class="content-lead">Antojos Bar Lounge es la cafetería y zona lounge que comparte sede con Auto Lava Garcia en la Av. 27 de Febrero 156. Aquí puede desayunar, almorzar o cenar mientras espera su vehículo, o venir solo por la comida. Esta página describe el menú del local, cómo pedir y qué tener en cuenta antes de ordenar. Para pedir en línea use <a href="https://antojosreserva.antojosbarlounge.com/">Hacer pedido</a>: el pedido llega a la pantalla del local.</p>
 
-                <p><strong>Precios de comida:</strong> los montos de platos y bebidas se confirman en caja o por WhatsApp al momento del pedido, porque rotan según insumos y plato del día. Los precios de lavado sí están publicados en <a href="servicios-lavado.html">servicios de lavado</a> y en la <a href="index.html#lavadero">página principal</a>.</p>
+                <p><strong>Precios de comida:</strong> los montos de platos y bebidas se confirman en caja o por WhatsApp al momento del pedido, porque rotan según insumos y plato del día. Los precios de lavado sí están publicados en <a href="servicios-lavado.html">servicios de lavado</a> y en la <a href="/#lavadero">página principal</a>.</p>
 
                 <h2>Cómo funciona el servicio de comida</h2>
                 <p>La cocina prepara picadera caliente, antojitos y platos dominicanos a lo largo del día. En horas pico (almuerzo y noche de fin de semana) el tiempo de espera puede alargarse; si viene con prisa, pregunte en barra por opciones rápidas o por el plato del día.</p>
                 <ul>
-                    <li><strong>Recoger en local:</strong> use el formulario de <a href="index.html#pedir">pedir por WhatsApp</a> o llame al +1 809-794-1824. El pago se realiza en caja al retirar.</li>
+                    <li><strong>Recoger en local:</strong> use el formulario de <a href="/#pedir">pedir por WhatsApp</a> o llame al +1 809-794-1824. El pago se realiza en caja al retirar.</li>
                     <li><strong>Delivery a domicilio:</strong> busque el local en <a href="https://www.pedidosya.com.do/restaurantes/santiago?q=Antojos%20Bar%20Lounge" target="_blank" rel="noopener">PedidosYa</a> o <a href="https://www.ubereats.com/do/city/santiago-de-los-caballeros-cibao-norte?q=Antojos%20Bar%20Lounge" target="_blank" rel="noopener">Uber Eats</a> según cobertura en su zona de Santiago.</li>
                     <li><strong>Eventos:</strong> preparamos buffet y picaderas para reuniones; coordine con administración con anticipación.</li>
                 </ul>
 
                 <h2>Picaderas</h2>
-                <p>Ideales para compartir mientras espera el lavado o para acompañar una bebida en el lounge. Se sirven calientes y en porciones pensadas para mesa.</p>
+                <p>En Antojos las picaderas se piden en barra, por el formulario de WhatsApp de esta web o al recoger en caja. Sirven para compartir mientras espera el lavado o para acompañar una bebida en el lounge. Se fríen o se calientan al momento; en hora pico pregunte qué sale primero. El pago de comida es en caja, no con el personal de pista. El monto y el plato del día se confirman al ordenar.</p>
+                <p>Si el lavado es un exterior normal, una ronda de picaderas suele calzar mejor que un plato largo. Si espera detailing o brillo, puede pedir picadera de entrada y un plato después. Alergias (gluten, lácteos, mariscos, frutos secos): dígalo en el mismo mensaje o en barra. Guía de emparejamiento con el auto: <a href="que-pedir-en-antojos-mientras-esperas.html">qué pedir mientras espera</a>.</p>
+
+                <h3>Empanadas</h3>
+                <p>Las empanadas de Antojos se piden por unidad o para compartir. Pregunte el relleno del día (carne, pollo u otra opción que haya en cocina). Si ordena por WhatsApp, indique cantidad, si es para recoger o para comer aquí, y cualquier alergia. Paga al retirar en caja.</p>
+                <p>Hay también empanadas de yuca, con masa distinta. Disponibilidad de ambas varía; barra confirma qué hay cuando usted llega o cuando llega el mensaje. Van bien si el auto está en lavado normal y no quiere sentarse a un plato de mesa.</p>
+
+                <h3>Quipes</h3>
+                <p>Los quipes se fríen al momento. En este local se piden igual que el resto de la picadera: WhatsApp para recoger, barra si ya está sentado, caja para pagar. El trigo de la masa importa si evita gluten: avíselo antes de que los echen al aceite.</p>
+                <p>Sirven para mesa compartida o para llevar. Si viene con niños, pida en barra la porción y manténgalos fuera de la pista del lavadero. No hay precio de quipes en el sitio; caja cierra el monto.</p>
+
+                <h3>Otras picaderas del menú</h3>
                 <ul class="menu-detail-list">
-                    <li><strong>Empanadas</strong> — masa frita rellena; pregunte por el relleno del día (carne, pollo u otras opciones disponibles).</li>
-                    <li><strong>Empanadas de yuca</strong> — versión con masa de yuca, textura más densa y sabor típico criollo.</li>
-                    <li><strong>Quipes</strong> — bolitas de trigo bulgur con relleno, fritas al momento.</li>
-                    <li><strong>Bolas de yuca</strong> — acompañamiento o picadera; crujientes por fuera.</li>
-                    <li><strong>Nahoa</strong> — picadera del menú local; confirme preparación y disponibilidad en barra.</li>
+                    <li><strong>Bolas de yuca</strong> — acompañamiento o picadera; crujientes por fuera. Confirme en barra si van solas o con otro pedido.</li>
+                    <li><strong>Nahoa</strong> — picadera del menú local; pregunte en barra preparación, disponibilidad y cómo se sirve ese día.</li>
                 </ul>
 
                 <h2>Antojitos</h2>
-                <p>Opciones rápidas para una comida completa sin esperar un plato de mesa larga. Útiles si solo tiene el tiempo del lavado normal exterior.</p>
+                <p>Opciones más rápidas que un plato de mesa larga. Útiles si solo tiene el tiempo de un lavado normal exterior, o si pidió por WhatsApp para recoger y seguir de camino. El plato del día, si hay, se pregunta en caja o barra.</p>
+
+                <h3>Yaroa</h3>
+                <p>La yaroa está en el menú del local (volante, fotos de oferta y carta digital). En Antojos se pide en barra o por WhatsApp para recoger y pagar en caja. No hay tarifa de yaroa publicada en esta web: el monto se confirma al ordenar, igual que el resto de la comida.</p>
+                <p>Si espera un lavado corto, pregunte en barra si sale rápido ese día o si conviene una picadera. Si el auto está en un servicio más largo, la yaroa puede ser el plato de la espera. Alergias: dígalo al pedir. Promociones con fecha, cuando las hay, se confirman en caja; Instagram @antojosbarlounge muestra fotos, no sustituye el precio de oficina.</p>
+
+                <h3>3 golpes / mangú</h3>
+                <p>El mangú de tres golpes se pide aquí como desayuno o como plato cuando la cocina ya abrió (Antojos desde las 10:00 a.m. entre semana; domingo desde las 10:30 a.m.). Si llega al lavadero a las 8:30 a.m., el auto puede entrar antes; el mangú espera a que la cafetería atienda. Ordene en barra o por WhatsApp para recoger; pague en caja.</p>
+                <p>Acompañamientos del día se confirman al pedir. Informe alergias. Ampliación del mismo plato en el predio: <a href="desayuno-dominicano-santiago-mangu-3-golpes.html">desayuno dominicano, mangú de 3 golpes</a>.</p>
+
                 <ul class="menu-detail-list">
                     <li><strong>Hamburguer</strong> — hamburguesa del local; puede pedir instrucciones (sin cebolla, para llevar, etc.).</li>
-                    <li><strong>Yarda</strong> — antojito del menú; consulte porción y acompañamientos en caja.</li>
+                    <li><strong>Yarda</strong> — antojito del menú; pregunte en barra porción, acompañamientos y si hay ese día.</li>
                     <li><strong>Salchipapas</strong> — papas fritas con salchicha, típica para compartir.</li>
                     <li><strong>Quesadilla</strong> — tortilla con queso y relleno según disponibilidad.</li>
-                    <li><strong>Rikis</strong> — ítem del menú Antojos; pregunte por la preparación del día.</li>
+                    <li><strong>Rikis</strong> — ítem del menú Antojos; pregunte en barra la preparación del día.</li>
                     <li><strong>Hotdogs</strong> — perro caliente listo para llevar o comer en el local.</li>
-                    <li><strong>Pasteles en hoja</strong> — clásico dominicano; disponibilidad puede variar.</li>
-                    <li><strong>Frito con salami</strong> — plátano frito con salami, desayuno o merienda popular.</li>
-                    <li><strong>3 golpes mangú</strong> — mangú con los acompañamientos tradicionales del desayuno dominicano.</li>
+                    <li><strong>Pasteles en hoja</strong> — disponibilidad puede variar; confirme en caja.</li>
+                    <li><strong>Frito con salami</strong> — plátano frito con salami; desayuno o merienda cuando la cocina está abierta.</li>
                     <li><strong>Sopa de vaso</strong> — opción caliente en porción individual.</li>
                     <li><strong>Sándwich de pierna</strong> — sándwich sustancioso para almuerzo rápido.</li>
                     <li><strong>Tostadas jamón y queso</strong> — opción ligera de desayuno o merienda.</li>
                 </ul>
 
                 <h2>Platos principales (Antojos)</h2>
-                <p>Platos más completos, pensados para almuerzo o cena. Si combina lavado premium (detailing o brillo) con comida, reserve mesa o pida con tiempo: el servicio de lavado largo y la cocina pueden solaparse en horario.</p>
+                <p>Platos más completos, pensados para almuerzo o cena. No hay reserva de mesa: llegue, ordene y pague en caja. Si combina lavado largo (detailing desde RD$2,000 o brillo desde RD$2,500) con comida, pida con tiempo; el servicio de pista y la cocina pueden ir llenos a la vez. WhatsApp = recoger aquí, no delivery.</p>
+
+                <h3>Mofongo</h3>
+                <p>El mofongo se pide en barra o por WhatsApp para recoger. Pregunte el acompañamiento del día y avise alergias (el plátano majado no es el único ingrediente del plato). Paga en caja; el monto no está en esta web.</p>
+                <p>Calza mejor cuando espera un servicio más largo que el exterior, o si se queda a comer después de retirar el vehículo. Si le dijeron que el exterior sale pronto, pregunte en barra si conviene para llevar. Aquí el dato útil es el de siempre: plato del día y precio en caja, pedido para este predio.</p>
+
                 <ul class="menu-detail-list">
                     <li><strong>Carne salada</strong> — preparación criolla; pregunte por acompañamiento (arroz, tostones, ensalada).</li>
                     <li><strong>Longaniza</strong> — embutido a la plancha o frito según cocina.</li>
@@ -126,7 +149,6 @@
                     <li><strong>Chuleta</strong> — chuleta de cerdo según estilo de la casa.</li>
                     <li><strong>Costilla</strong> — costilla en porción de plato principal.</li>
                     <li><strong>Camarones</strong> — mariscos; informe alergias al ordenar.</li>
-                    <li><strong>Mofongo</strong> — plátano majado con acompañamiento; clásico del Cibao.</li>
                     <li><strong>Filete de pescado</strong> — pescado del día según abastecimiento.</li>
                 </ul>
 
@@ -139,11 +161,11 @@
                 <h2>Alergias y seguridad alimentaria</h2>
                 <p>La cocina maneja alérgenos comunes (gluten, lácteos, mariscos, frutos secos). Informe siempre restricciones dietéticas al ordenar. Si tiene alergia severa, confirme ingredientes en barra antes de consumir.</p>
 
-                <h2>Horario sugerido de cafetería</h2>
-                <p>De lunes a jueves, aproximadamente 10:00 a.m. a 11:00 p.m.; viernes y sábado hasta altas horas; domingo desde 10:30 a.m. Confirme el día en <a href="index.html#horarios">horarios</a> o por WhatsApp, especialmente en feriados.</p>
+                <h2>Horario de cafetería</h2>
+                <p>Lunes a jueves 10:00 a.m. – 11:00 p.m.; viernes y sábado 10:00 a.m. – 2:00 a.m.; domingo 10:30 a.m. – 2:00 a.m. El lavadero abre antes (8:30 a.m.). Confirme feriados por WhatsApp al +1 809-794-1824. Horarios también en <a href="/#horarios">inicio</a>.</p>
 
                 <div class="content-cta-row">
-                    <a class="btn btn-primary" href="index.html#pedir">Pedir por WhatsApp</a>
+                    <a class="btn btn-primary" href="/#pedir">Pedir por WhatsApp</a>
                     <a class="btn btn-whatsapp" href="https://wa.me/18097941824" target="_blank" rel="noopener">Escribir al local</a>
                     <a class="content-link-secondary" href="ofertas.html">Ver ofertas del local →</a>
                 </div>
@@ -163,12 +185,26 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <p>© 2026 Auto Lava Garcia & Antojos Bar Lounge — Santiago de los Caballeros, República Dominicana</p>
-                <p class="footer-address">Av. 27 de Febrero 156, 51000</p>
+                <p>© 2026 Auto Lava Garcia &amp; Antojos Bar Lounge — Santiago de los Caballeros, República Dominicana</p>
+                <p class="footer-address">Av. 27 de Febrero 156, 51000 · <a href="tel:+18097941824">+1 809-794-1824</a></p>
+                <p class="footer-nav">
+                    <a href="/">Inicio</a> |
+                    <a href="/menu.html">Menú</a> |
+                    <a href="/servicios-lavado.html">Lavadero</a> |
+                    <a href="/ofertas.html">Ofertas</a> |
+                    <a href="/guias.html">Guías</a> |
+                    <a href="/nosotros.html">Nosotros</a> |
+                    <a href="/preguntas-frecuentes.html">Preguntas</a> |
+                    <a href="/como-llegar.html">Cómo llegar</a> |
+                    <a href="/contacto.html">Contacto</a> |
+                    <a href="/recorrido-del-local.html">Recorrido del local</a> |
+                    <a href="/eventos-buffet-antojos.html">Eventos y buffet</a>
+                </p>
                 <p class="footer-legal">
-                    <a href="aviso-legal.html">Aviso Legal</a> |
-                    <a href="politica-privacidad.html">Política de Privacidad</a> |
-                    <a href="politica-cookies.html">Política de Cookies</a>
+                    <a href="/aviso-legal.html">Aviso legal</a> |
+                    <a href="/politica-privacidad.html">Política de privacidad</a> |
+                    <a href="/politica-cookies.html">Política de cookies</a> |
+                    <button type="button" class="footer-link-btn" data-cookie-prefs>Preferencias de cookies</button>
                 </p>
             </div>
         </div>

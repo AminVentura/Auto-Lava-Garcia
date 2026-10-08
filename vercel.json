@@ -17,9 +17,18 @@
     },
     { "source": "/faq.html", "destination": "/preguntas-frecuentes.html", "permanent": true },
     { "source": "/servicios.html", "destination": "/servicios-lavado.html", "permanent": true },
-    { "source": "/guias/", "destination": "/guias.html", "permanent": true }
+    { "source": "/guias/", "destination": "/guias.html", "permanent": true },
+    { "source": "/guias", "destination": "/guias.html", "permanent": true }
   ],
   "headers": [
+    {
+      "source": "/data/:file.json",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "*" },
+        { "key": "Cache-Control", "value": "public, max-age=60, stale-while-revalidate=300" },
+        { "key": "Content-Type", "value": "application/json; charset=utf-8" }
+      ]
+    },
     {
       "source": "/ads.txt",
       "headers": [

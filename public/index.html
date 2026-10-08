@@ -29,7 +29,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8721021745606812" crossorigin="anonymous"></script>
+    <script src="/js/consent.js"></script>
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -43,7 +43,9 @@
             "addressCountry": "DO"
         },
         "telephone": "+18097941824",
-        "url": "https://antojosbarlounge.com",
+        "url": "https://antojosbarlounge.com/",
+        "image": "https://antojosbarlounge.com/assets/auto-lava-garcia-logo-mural.png",
+        "sameAs": ["https://instagram.com/AutoLavaGarcia", "https://instagram.com/antojosbarlounge"],
         "priceRange": "RD$",
         "openingHoursSpecification": [
             {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday"], "opens": "08:30", "closes": "23:00"},
@@ -54,25 +56,21 @@
 </head>
 <body>
     <header class="header">
-        <nav class="nav">
-            <a href="#inicio" class="logo">Auto Lava Garcia<span class="logo-accent"> & Antojos</span></a>
+        <nav class="nav" aria-label="Principal">
+            <a href="/" class="logo">Auto Lava Garcia<span class="logo-accent"> &amp; Antojos</span></a>
             <ul class="nav-links">
-                <li><a href="#reservar">Reservar</a></li>
-                <li><a href="#pedir">Pedir</a></li>
+                <li><a href="/" aria-current="page">Inicio</a></li>
+                <li><a href="/menu.html">Menú</a></li>
+                <li><a href="/servicios-lavado.html">Lavadero</a></li>
+                <li><a href="/ofertas.html">Ofertas</a></li>
+                <li><a href="/guias.html">Guías</a></li>
+                <li><a href="/nosotros.html">Nosotros</a></li>
+                <li><a href="/preguntas-frecuentes.html">Preguntas</a></li>
+                <li><a href="/como-llegar.html">Cómo llegar</a></li>
+                <li><a href="/contacto.html">Contacto</a></li>
                 <li><a href="https://antojosreserva.antojosbarlounge.com/">Ordenar</a></li>
-                <li><a href="https://antojosreserva.antojosbarlounge.com/menu/comida">Menú cafetería</a></li>
-                <li><a href="https://antojosreserva.antojosbarlounge.com/menu/lavado">Menú lavado</a></li>
-                <li><a href="servicios-lavado.html">Lavadero</a></li>
-                <li><a href="ofertas.html">Ofertas</a></li>
-                <li><a href="nosotros.html">Nosotros</a></li>
-                <li><a href="preguntas-frecuentes.html">FAQ</a></li>
-                <li><a href="guias.html">Guías</a></li>
-                <li><a href="como-llegar.html">Cómo llegar</a></li>
-                <li><a href="#contacto">Contacto</a></li>
             </ul>
-            <button class="nav-toggle" aria-label="Menú">
-                <span></span><span></span><span></span>
-            </button>
+            <button class="nav-toggle" aria-label="Abrir menú"><span></span><span></span><span></span></button>
         </nav>
     </header>
 
@@ -102,14 +100,13 @@
             <div class="hero-overlay"></div>
         </section>
 
-        <!-- AdSense Auto Ads está autorizado desde el script del <head>; no se publican slots manuales hasta tener IDs reales. -->
 
         <section id="explorar" class="section section-explorar" aria-labelledby="explorar-heading">
             <div class="container">
                 <div class="section-header">
-                    <span class="section-badge">Guías del sitio</span>
-                    <h2 id="explorar-heading">Contenido útil para visitar y decidir</h2>
-                    <p>Páginas con información detallada del lavadero, el menú, ofertas, ubicación y preguntas frecuentes — pensadas para clientes y para una experiencia clara en el sitio.</p>
+                    <span class="section-badge">Información</span>
+                    <h2 id="explorar-heading">Antes de venir</h2>
+                    <p>Precios de lavado, menú, ofertas del martes, ubicación y respuestas a lo que más nos preguntan.</p>
                 </div>
                 <div class="explore-grid">
                     <a class="explore-card" href="https://antojosreserva.antojosbarlounge.com/">
@@ -169,7 +166,7 @@
                 <div class="section-header">
                     <span class="section-badge">Guía del local</span>
                     <h2>Conoce el establecimiento</h2>
-                    <p>Lavadero, cafetería y zona lounge en un solo lugar en Santiago. El texto de cada bloque está visible: no hace falta ampliar para leer cómo funciona el local.</p>
+                    <p>Lavadero, cafetería y zona lounge en un solo lugar en Santiago.</p>
                 </div>
 
                 <div id="aviso-admin-infolocal" class="aviso-solo-administracion" role="region" aria-label="Aviso: trato únicamente con administración">
@@ -250,13 +247,8 @@
                 <div id="aviso-admin-reservar" class="aviso-solo-administracion aviso-solo-administracion--en-reserva" role="region" aria-label="Aviso antes de reservar: trato únicamente con administración">
                     <div class="aviso-solo-administracion__inner">
                         <p class="aviso-solo-administracion__titulo">Importante — hable con la administración</p>
-                        <p class="aviso-solo-administracion__texto">Toda consulta sobre <strong>precios</strong>, <strong>cambios de servicio</strong>, <strong>reclamos</strong>, <strong>horarios especiales</strong>, <strong>entrega de llaves</strong> y <strong>formas de pago</strong> debe dirigirse <strong>únicamente a la administración</strong> en caja u oficina.</p>
-                        <p class="aviso-solo-administracion__texto">El personal que lava los vehículos cumple instrucciones de trabajo; <strong>no está autorizado</strong> a confirmar montos distintos a los publicados, promesas por escrito ni acuerdos verbales fuera de lo que defina administración.</p>
-                        <ul class="aviso-solo-administracion__lista">
-                            <li>Si necesita aclaración, pida hablar con quien está a cargo del turno en administración.</li>
-                            <li>Evite dar instrucciones contradictorias: lo acordado con administración es lo que vale para el servicio.</li>
-                        </ul>
-                        <p class="aviso-solo-administracion__enlace"><a href="#info-local">Ver también la guía completa del local</a></p>
+                        <p class="aviso-solo-administracion__texto">Precios, cambios de servicio, llaves y pagos se tratan solo con <strong>administración</strong>, en caja u oficina.</p>
+                        <p class="aviso-solo-administracion__enlace"><a href="#info-local">Ver el aviso completo</a></p>
                     </div>
                 </div>
                 <form id="form-reservar" class="form-booking form-prorroga" aria-describedby="aviso-admin-reservar">
@@ -412,7 +404,6 @@
             </div>
         </section>
 
-        <!-- Slot manual retirado: evita señales de inventario inválido durante la revisión de Google. -->
 
         <section id="cafeteria" class="section section-cafeteria">
             <div class="container">
@@ -707,16 +698,11 @@
                     <p>Av. 27 de Febrero 156, Santiago de los Caballeros 51000, República Dominicana · <a href="como-llegar.html">Guía de cómo llegar</a></p>
                 </div>
                 <div class="map-wrapper">
-                    <iframe 
-                        src="https://maps.google.com/maps?q=Av.+27+de+Febrero+156,+Santiago+de+los+Caballeros+51000,+Republica+Dominicana&t=&z=16&ie=UTF8&iwloc=&output=embed" 
-                        width="100%" 
-                        height="400" 
-                        style="border:0;" 
-                        allowfullscreen="" 
-                        loading="lazy" 
-                        referrerpolicy="no-referrer-when-downgrade"
-                        title="Ubicación Auto Lava Garcia y Antojos Bar Lounge">
-                    </iframe>
+                    <div class="map-consent" data-map-embed="https://maps.google.com/maps?q=Av.+27+de+Febrero+156,+Santiago+de+los+Caballeros+51000,+Republica+Dominicana&amp;t=&amp;z=16&amp;ie=UTF8&amp;iwloc=&amp;output=embed" data-map-title="Ubicación de Auto Lava Garcia y Antojos Bar Lounge">
+                        <p class="map-consent-text">Av. 27 de Febrero 156, Santiago de los Caballeros</p>
+                        <p class="map-consent-note">El mapa lo sirve Google Maps, que puede usar cookies. Se carga solo si usted lo pide.</p>
+                        <button type="button" class="btn btn-primary map-consent-btn" data-map-load>Cargar mapa</button>
+                    </div>
                     <a href="https://maps.google.com/?q=Av.+27+de+Febrero+156,+Santiago+de+los+Caballeros+51000,+Republica+Dominicana" target="_blank" rel="noopener" class="map-link">
                         Abrir en Google Maps
                     </a>
@@ -760,30 +746,32 @@
             </div>
         </section>
 
-        <!-- Slot manual retirado: usar solo Auto Ads hasta que AdSense asigne unidades válidas. -->
     </main>
 
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <p>© 2026 Auto Lava Garcia & Antojos Bar Lounge — Santiago de los Caballeros, República Dominicana</p>
-                <p class="footer-address">Av. 27 de Febrero 156, 51000</p>
-                <p class="footer-legal">
-                    <a href="https://antojosreserva.antojosbarlounge.com/">Ordenar</a> |
-                    <a href="https://antojosreserva.antojosbarlounge.com/menu/comida">Menú cafetería</a> |
-                    <a href="https://antojosreserva.antojosbarlounge.com/menu/lavado">Menú lavado</a> |
-                    <a href="servicios-lavado.html">Lavadero</a> |
-                    <a href="ofertas.html">Ofertas</a> |
-                    <a href="nosotros.html">Nosotros</a> |
-                    <a href="preguntas-frecuentes.html">FAQ</a> |
-                    <a href="como-llegar.html">Cómo llegar</a>
+                <p>© 2026 Auto Lava Garcia &amp; Antojos Bar Lounge — Santiago de los Caballeros, República Dominicana</p>
+                <p class="footer-address">Av. 27 de Febrero 156, 51000 · <a href="tel:+18097941824">+1 809-794-1824</a></p>
+                <p class="footer-nav">
+                    <a href="/">Inicio</a> |
+                    <a href="/menu.html">Menú</a> |
+                    <a href="/servicios-lavado.html">Lavadero</a> |
+                    <a href="/ofertas.html">Ofertas</a> |
+                    <a href="/guias.html">Guías</a> |
+                    <a href="/nosotros.html">Nosotros</a> |
+                    <a href="/preguntas-frecuentes.html">Preguntas</a> |
+                    <a href="/como-llegar.html">Cómo llegar</a> |
+                    <a href="/contacto.html">Contacto</a> |
+                    <a href="/recorrido-del-local.html">Recorrido del local</a> |
+                    <a href="/eventos-buffet-antojos.html">Eventos y buffet</a>
                 </p>
                 <p class="footer-legal">
-                    <a href="aviso-legal.html">Aviso Legal</a> |
-                    <a href="politica-privacidad.html">Política de Privacidad</a> |
-                    <a href="politica-cookies.html">Política de Cookies</a>
+                    <a href="/aviso-legal.html">Aviso legal</a> |
+                    <a href="/politica-privacidad.html">Política de privacidad</a> |
+                    <a href="/politica-cookies.html">Política de cookies</a> |
+                    <button type="button" class="footer-link-btn" data-cookie-prefs>Preferencias de cookies</button>
                 </p>
-                <p class="footer-update" data-auto-date>Última actualización: 10/7/2026</p>
             </div>
         </div>
     </footer>

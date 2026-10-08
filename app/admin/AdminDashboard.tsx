@@ -354,8 +354,8 @@ export default function AdminDashboard({ offersDoc, washDoc, menuDoc }: Props) {
 
       <section className="quick-actions" aria-label="Accesos rápidos">
         <a className="quick-action" href="https://antojosbarlounge.com/" target="_blank" rel="noopener">Página pública</a>
-        <a className="quick-action" href="https://antojosbarlounge.com/#menu-digital-restaurante" target="_blank" rel="noopener">Menú restaurante</a>
-        <a className="quick-action" href="https://antojosbarlounge.com/#menu-digital-lavado" target="_blank" rel="noopener">Menú lavado</a>
+        <a className="quick-action" href="https://menu.antojosbarlounge.com/comida" target="_blank" rel="noopener">Menú cafetería</a>
+        <a className="quick-action" href="https://menu.antojosbarlounge.com/lavado" target="_blank" rel="noopener">Menú lavado</a>
         <a className="quick-action" href="https://antojosbarlounge.com/qr/" target="_blank" rel="noopener">QR imprimible</a>
       </section>
 
