@@ -155,7 +155,7 @@ describe('manual social sharing', () => {
 });
 
 describe('static JSON data contract', () => {
-  it('keeps every active public offer with a real saved image', () => {
+  it('keeps saved offer images valid; the image is optional (the page shows a neutral placeholder)', () => {
     const data = JSON.parse(readFileSync(new URL('data/ofertas.json', root), 'utf8')) as { ofertas: unknown[] };
     const activeOffers = getActiveStaticOffers(
       normalizeStaticOffers(data.ofertas),
@@ -163,7 +163,26 @@ describe('static JSON data contract', () => {
     );
 
     expect(activeOffers.length).toBeGreaterThan(0);
-    expect(activeOffers.every((offer) => offer.imagen_base64.startsWith('data:image/'))).toBe(true);
+    expect(
+      activeOffers.every((offer) => offer.imagen_base64 === '' || offer.imagen_base64.startsWith('data:image/')),
+    ).toBe(true);
+
+    const publicScript = readFileSync(new URL('public/js/main.js', root), 'utf8');
+    expect(publicScript).toContain('oferta-card__image-placeholder');
+  });
+
+  it('shows no offer of data/ofertas.json after its end date', () => {
+    const data = JSON.parse(readFileSync(new URL('data/ofertas.json', root), 'utf8')) as { ofertas: unknown[] };
+    const offers = normalizeStaticOffers(data.ofertas);
+    const lastEnd = offers
+      .map((offer) => rdDateToIso(offer.fecha_fin))
+      .sort()
+      .at(-1);
+
+    expect(lastEnd).toBeDefined();
+    const dayAfter = new Date(`${lastEnd}T12:00:00`);
+    dayAfter.setDate(dayAfter.getDate() + 1);
+    expect(getActiveStaticOffers(offers, dayAfter)).toEqual([]);
   });
 
   it('renders public offer photos complete and keeps the WhatsApp CTA text visible', () => {

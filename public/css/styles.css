@@ -1980,3 +1980,80 @@ ul {
 .footer-link-btn { background: none; border: 0; padding: 0; font: inherit; color: var(--color-accent); cursor: pointer; }
 .footer-link-btn:hover, .footer-link-btn:focus-visible { text-decoration: underline; }
 .nav-links a[aria-current="page"] { color: var(--color-accent); }
+
+/* ===== Guía: índice y tablas ===== */
+.content-toc {
+    margin: 0 0 1.5rem;
+    padding: 1rem 1.25rem;
+    border-left: 4px solid var(--color-accent);
+    background: rgba(13, 59, 76, 0.06);
+    border-radius: var(--radius);
+}
+
+.content-toc ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    columns: 2;
+    column-gap: 1.5rem;
+}
+
+.content-toc li {
+    break-inside: avoid;
+    padding: 0.2rem 0;
+}
+
+.content-table-wrap {
+    overflow-x: auto;
+    margin: 0 0 1.1rem;
+}
+
+.content-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.content-table caption {
+    text-align: left;
+    font-weight: 600;
+    color: var(--color-primary);
+    padding-bottom: 0.5rem;
+}
+
+.content-table th,
+.content-table td {
+    text-align: left;
+    vertical-align: top;
+    padding: 0.6rem 0.7rem;
+    border-bottom: 1px solid rgba(13, 59, 76, 0.18);
+}
+
+.content-table th {
+    color: var(--color-primary);
+    border-bottom-width: 2px;
+}
+
+.galeria-maps {
+    margin-top: 1rem;
+}
+
+.content-prose [id] {
+    scroll-margin-top: 5.5rem;
+}
+
+@media (max-width: 600px) {
+    .content-toc ul {
+        columns: 1;
+    }
+
+    .content-table {
+        font-size: 0.88rem;
+    }
+
+    .content-table th,
+    .content-table td {
+        padding: 0.5rem 0.4rem;
+    }
+}

@@ -50,7 +50,26 @@
         "openingHoursSpecification": [
             {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday"], "opens": "08:30", "closes": "23:00"},
             {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Friday","Saturday","Sunday"], "opens": "08:30", "closes": "00:00"}
-        ]
+        ],
+        "department": {
+            "@type": "Restaurant",
+            "name": "Antojos Bar Lounge",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Av. 27 de Febrero 156",
+                "addressLocality": "Santiago de los Caballeros",
+                "postalCode": "51000",
+                "addressCountry": "DO"
+            },
+            "telephone": "+18097941824",
+            "url": "https://antojosbarlounge.com/menu.html",
+            "image": "https://antojosbarlounge.com/assets/picadera-cerveza.png",
+            "openingHoursSpecification": [
+                {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday"], "opens": "10:00", "closes": "23:00"},
+                {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Friday","Saturday"], "opens": "10:00", "closes": "02:00"},
+                {"@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "10:30", "closes": "02:00"}
+            ]
+        }
     }
     </script>
 </head>
@@ -63,7 +82,7 @@
                 <li><a href="/menu.html">Menú</a></li>
                 <li><a href="/servicios-lavado.html">Lavadero</a></li>
                 <li><a href="/ofertas.html">Ofertas</a></li>
-                <li><a href="/guias.html">Guías</a></li>
+                <li><a href="/guias.html">Guía</a></li>
                 <li><a href="/nosotros.html">Nosotros</a></li>
                 <li><a href="/preguntas-frecuentes.html">Preguntas</a></li>
                 <li><a href="/como-llegar.html">Cómo llegar</a></li>
@@ -135,7 +154,7 @@
                     </a>
                     <a class="explore-card" href="nosotros.html">
                         <h3>Nosotros</h3>
-                        <p>Historia del local bajo nueva administración: lavadero y cafetería en un solo lugar.</p>
+                        <p>El local bajo nueva administración: lavadero y cafetería en un solo lugar.</p>
                     </a>
                     <a class="explore-card" href="preguntas-frecuentes.html">
                         <h3>Preguntas frecuentes</h3>
@@ -146,8 +165,8 @@
                         <p>Av. 27 de Febrero 156, mapa, circulación y qué hacer al llegar.</p>
                     </a>
                     <a class="explore-card" href="guias.html">
-                        <h3>Guías prácticas</h3>
-                        <p>Artículos para elegir lavado, post-lluvia, detailing, qué pedir en Antojos y mangú de 3 golpes.</p>
+                        <h3>Guía de la visita</h3>
+                        <p>Qué lavado pedir según el estado del vehículo y qué comer en Antojos mientras espera.</p>
                     </a>
                     <a class="explore-card" href="llaves-y-administracion.html">
                         <h3>Llaves y administración</h3>
@@ -416,6 +435,15 @@
                         <a class="btn btn-secondary" href="https://antojosreserva.antojosbarlounge.com/menu/comida">Menú cafetería</a>
                     </div>
                 </div>
+                <div id="ofertas-antojos" class="ofertas-antojos" aria-live="polite">
+                    <div class="ofertas-antojos__header">
+                        <h3>Ofertas de la casa</h3>
+                        <p>Promociones de comida con fecha de inicio y de fin. Las vencidas no se muestran.</p>
+                    </div>
+                    <div class="ofertas-antojos__grid" data-offers-grid>
+                        <p class="ofertas-antojos__empty">Las ofertas con fecha aparecen aquí cuando administración publica una. Mientras tanto, pregunte en caja por el plato del día.</p>
+                    </div>
+                </div>
                 <div class="antojos-flyer-area">
                     <div class="antojos-flyer-box">
                         <h3 class="antojos-flyer-title">ANTOJOS BAR LOUNGE</h3>
@@ -608,6 +636,7 @@
                     <span class="section-badge">Galería</span>
                     <h2 id="galeria-heading">Lavadero, local y Antojos</h2>
                     <p>Menú digital, volantes, mural en el local y arte de marca</p>
+                    <p class="galeria-maps"><a class="btn btn-primary" href="https://www.google.com/maps/search/?api=1&amp;query=Auto+Lava+Garcia+Av.+27+de+Febrero+156+Santiago+de+los+Caballeros" target="_blank" rel="noopener">Ver fotos del local en Google Maps</a></p>
                 </div>
                 <ul class="gallery-grid" role="list">
                     <li class="gallery-item">
@@ -673,7 +702,6 @@
                     </div>
                     <div class="horario-card">
                         <h3>Cafetería Antojos Bar Lounge</h3>
-                        <p class="horario-nota">Sugerencia de horarios</p>
                         <table class="horario-table">
                             <tbody>
                                 <tr><td>Lunes</td><td>10:00 a.m. – 11:00 p.m.</td></tr>
@@ -758,7 +786,7 @@
                     <a href="/menu.html">Menú</a> |
                     <a href="/servicios-lavado.html">Lavadero</a> |
                     <a href="/ofertas.html">Ofertas</a> |
-                    <a href="/guias.html">Guías</a> |
+                    <a href="/guias.html">Guía</a> |
                     <a href="/nosotros.html">Nosotros</a> |
                     <a href="/preguntas-frecuentes.html">Preguntas</a> |
                     <a href="/como-llegar.html">Cómo llegar</a> |

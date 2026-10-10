@@ -268,8 +268,9 @@ function formatStaticPrice(service) {
 }
 
 async function initDynamicOffers() {
-    const grid = document.querySelector('[data-offers-grid]');
-    if (!grid) return;
+    const grids = document.querySelectorAll('[data-offers-grid]');
+    if (grids.length === 0) return;
+    const render = (html) => grids.forEach((grid) => { grid.innerHTML = html; });
 
     try {
         const data = await fetchJson('/data/ofertas.json');
@@ -277,11 +278,11 @@ async function initDynamicOffers() {
             .filter((offer) => isStaticOfferActive(offer))
             .sort((a, b) => (a.orden || 0) - (b.orden || 0) || String(a.titulo || '').localeCompare(String(b.titulo || ''), 'es'));
         if (offers.length === 0) {
-            grid.innerHTML = '<p class="ofertas-antojos__empty">Pregunta por el plato del día y las ofertas disponibles en caja.</p>';
+            render('<p class="ofertas-antojos__empty">Hoy no hay ofertas de comida con fecha publicadas. El plato del día se pregunta en caja.</p>');
             return;
         }
 
-        grid.innerHTML = offers.map((offer) => {
+        render(offers.map((offer) => {
             const title = escapeHtml(offer.titulo);
             const description = escapeHtml(offer.descripcion || '');
             const image = String(offer.imagen_base64 || '').trim();
@@ -300,9 +301,9 @@ async function initDynamicOffers() {
                     '</div>' +
                 '</article>'
             );
-        }).join('');
+        }).join(''));
     } catch (error) {
-        grid.innerHTML = '<p class="ofertas-antojos__empty">Ofertas temporales no disponibles. Pregunta en caja.</p>';
+        render('<p class="ofertas-antojos__empty">No se pudieron cargar las ofertas. Pregunte en caja o por WhatsApp.</p>');
     }
 }
 

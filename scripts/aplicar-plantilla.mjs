@@ -8,8 +8,8 @@
  * - Navegación y pie únicos (antes cada página tenía un menú distinto).
  * - /js/consent.js en el <head>; AdSense ya no se carga desde el HTML.
  * - SIN_ANUNCIOS: páginas donde no deben salir anuncios (legales, contacto, tabaco).
- * - NO_INDEXAR: páginas que repiten la lista de precios de otras; salen del índice y del sitemap
- *   hasta que tengan contenido propio (fotos, tiempos reales del servicio).
+ * - NO_INDEXAR: páginas que salen del índice y del sitemap.
+ *   Las 5 guías de 2026 se fusionaron en guias.html (301 en vercel.json).
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -18,11 +18,6 @@ import { fileURLToPath } from 'node:url';
 const PUBLIC = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'public');
 
 export const NO_INDEXAR = new Set([
-  'como-elegir-servicio-de-lavado.html',
-  'lavado-por-debajo-despues-de-lluvia-santiago.html',
-  'detailing-interior-vs-lavado-normal.html',
-  'que-pedir-en-antojos-mientras-esperas.html',
-  'desayuno-dominicano-santiago-mangu-3-golpes.html',
   'aviso-legal.html',
 ]);
 
@@ -39,7 +34,7 @@ const NAV = [
   ['/menu.html', 'Menú', 'menu.html'],
   ['/servicios-lavado.html', 'Lavadero', 'servicios-lavado.html'],
   ['/ofertas.html', 'Ofertas', 'ofertas.html'],
-  ['/guias.html', 'Guías', 'guias.html'],
+  ['/guias.html', 'Guía', 'guias.html'],
   ['/nosotros.html', 'Nosotros', 'nosotros.html'],
   ['/preguntas-frecuentes.html', 'Preguntas', 'preguntas-frecuentes.html'],
   ['/como-llegar.html', 'Cómo llegar', 'como-llegar.html'],

@@ -18,7 +18,12 @@
     { "source": "/faq.html", "destination": "/preguntas-frecuentes.html", "permanent": true },
     { "source": "/servicios.html", "destination": "/servicios-lavado.html", "permanent": true },
     { "source": "/guias/", "destination": "/guias.html", "permanent": true },
-    { "source": "/guias", "destination": "/guias.html", "permanent": true }
+    { "source": "/guias", "destination": "/guias.html", "permanent": true },
+    { "source": "/como-elegir-servicio-de-lavado.html", "destination": "/guias.html", "statusCode": 301 },
+    { "source": "/lavado-por-debajo-despues-de-lluvia-santiago.html", "destination": "/guias.html#por-debajo", "statusCode": 301 },
+    { "source": "/detailing-interior-vs-lavado-normal.html", "destination": "/guias.html#interior", "statusCode": 301 },
+    { "source": "/que-pedir-en-antojos-mientras-esperas.html", "destination": "/guias.html#que-comer", "statusCode": 301 },
+    { "source": "/desayuno-dominicano-santiago-mangu-3-golpes.html", "destination": "/guias.html#mangu", "statusCode": 301 }
   ],
   "headers": [
     {
