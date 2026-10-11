@@ -60,7 +60,7 @@ const FOOTER = `<footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <p>© 2026 Auto Lava Garcia &amp; Antojos Bar Lounge — Santiago de los Caballeros, República Dominicana</p>
-                <p class="footer-address">Av. 27 de Febrero 156, 51000 · <a href="tel:+18097941824">+1 809-794-1824</a></p>
+                <p class="footer-address">Av. 27 de Febrero 156, 51000 · <a href="tel:+18097941824">+1 809-794-1824</a> · <a href="mailto:antojosbarlounge@gmail.com">antojosbarlounge@gmail.com</a></p>
                 <p class="footer-nav">
 ${NAV.map(([href, label]) => `                    <a href="${href}">${label}</a>`).join(' |\n')} |
                     <a href="/recorrido-del-local.html">Recorrido del local</a> |
