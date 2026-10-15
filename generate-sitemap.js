@@ -20,6 +20,7 @@ const EXCLUDED = new Set([
   'politica-privacidad.html',
   'politica-cookies.html',
   'qr/index.html',
+  'admin-offline.html', // aviso sin conexión de la PWA del panel (2026-10-15)
 ]);
 
 const PAGE_CONFIG = {
