@@ -6,7 +6,9 @@
  * las páginas de public/*.html. Es idempotente: se puede ejecutar tras editar una página.
  *
  * - Navegación y pie únicos (antes cada página tenía un menú distinto).
- * - /js/consent.js en el <head>; AdSense ya no se carga desde el HTML.
+ * - /js/consent.js síncrono en el <head>, luego la metaetiqueta.
+ * - El script de AdSense va en el <head> solo si la página puede mostrar anuncios.
+ *   Legales, contacto, tabaco y noindex: metaetiqueta, sin script.
  * - SIN_ANUNCIOS: páginas donde no deben salir anuncios (legales, contacto, tabaco).
  * - NO_INDEXAR: páginas que salen del índice y del sitemap.
  *   Las 5 guías de 2026 se fusionaron en guias.html (301 en vercel.json).
@@ -83,8 +85,12 @@ const MAP_HOLDER = `<div class="map-consent" data-map-embed="https://maps.google
                         <button type="button" class="btn btn-primary map-consent-btn" data-map-load>Cargar mapa</button>
                     </div>`;
 
+const ADS_META = '    <meta name="google-adsense-account" content="ca-pub-8721021745606812">\n';
+const ADS_SCRIPT = '    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8721021745606812" crossorigin="anonymous"></script>\n';
+
 let cambiadas = 0;
 for (const file of fs.readdirSync(PUBLIC).filter((f) => f.endsWith('.html')).sort()) {
+  if (file === 'admin-offline.html') continue;
   const full = path.join(PUBLIC, file);
   const antes = fs.readFileSync(full, 'utf8');
   let s = antes;
@@ -92,13 +98,12 @@ for (const file of fs.readdirSync(PUBLIC).filter((f) => f.endsWith('.html')).sor
   s = s.replace(/<header class="header">[\s\S]*?<\/header>/, header(file));
   s = s.replace(/<footer class="footer">[\s\S]*?<\/footer>/, FOOTER);
 
-  // AdSense fuera del HTML: lo inyecta consent.js tras aceptar.
   s = s.replace(/[ \t]*<script async src="https:\/\/pagead2\.googlesyndication\.com[^>]*><\/script>\r?\n/g, '');
-
-  // consent.js síncrono en <head>, justo después de la hoja de estilos.
+  s = s.replace(/[ \t]*<meta name="google-adsense-account"[^>]*>\r?\n/g, '');
   s = s.replace(/[ \t]*<script src="\/js\/consent\.js"[^>]*><\/script>\r?\n/g, '');
-  const tag = `    <script src="/js/consent.js"${SIN_ANUNCIOS.has(file) ? ' data-ads="off"' : ''}></script>\n`;
-  s = s.replace(/(<link rel="stylesheet" href="\/?css\/styles\.css">\r?\n)/, `$1${tag}`);
+  const sinAnuncios = SIN_ANUNCIOS.has(file);
+  const bloque = `    <script src="/js/consent.js"${sinAnuncios ? ' data-ads="off"' : ''}></script>\n${ADS_META}${sinAnuncios ? '' : ADS_SCRIPT}`;
+  s = s.replace(/(<link rel="stylesheet" href="\/?css\/styles\.css">\r?\n)/, `$1${bloque}`);
 
   // robots
   const robots = NO_INDEXAR.has(file) ? 'noindex, follow' : 'index, follow';

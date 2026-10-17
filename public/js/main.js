@@ -2,6 +2,10 @@
  * Auto Lava Garcia & Antojos Bar Lounge - Main JS
  */
 
+document.addEventListener('bs:consent', (ev) => {
+    if (ev.detail && ev.detail.ads) initAdSenseSlots();
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     initMobileNav();
     initScrollEffects();
@@ -10,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initPedidoForm();
     initFooterLastUpdated();
     initGalleryLightbox();
-    initAdSenseSlots();
+    if (window.bsConsent && window.bsConsent.get() && window.bsConsent.get().ads) initAdSenseSlots();
     initDynamicOffers();
     initDynamicMenu();
     initDynamicWashServices();
@@ -53,6 +57,8 @@ function initAdSenseSlots() {
             return;
         }
 
+        if (container.getAttribute('data-ads-pushed') === '1') return;
+        container.setAttribute('data-ads-pushed', '1');
         container.classList.add('ad-container--pending');
 
         const reveal = () => {

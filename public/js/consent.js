@@ -4,7 +4,9 @@
  * - Va síncrono en el <head> de todas las páginas de public/ (lo inserta scripts/aplicar-plantilla.mjs).
  * - <script src="/js/consent.js" data-ads="off"> en páginas sin anuncios: legales, contacto, tabaco y páginas noindex.
  * - Por defecto todo denegado (ad_storage, ad_user_data, ad_personalization, analytics_storage).
- * - AdSense no está en el HTML: loadAdSense() lo inyecta solo si el usuario acepta publicidad.
+ * - En páginas con anuncios el <script> de AdSense va en el HTML, después de este archivo.
+ *   consent default queda denegado antes. loadAdSense() no lo duplica.
+ *   data-ads="off" (legales, contacto, tabaco, noindex): no hay script, solo la metaetiqueta.
  * - Google Maps: [data-map-embed] muestra un placeholder; el iframe se crea al pulsar
  *   "Cargar mapa" (solo esa visita) o si el usuario aceptó "Mapas" en el banner.
  * - Banner con Aceptar / Rechazar del mismo peso y Configurar. [data-cookie-prefs] lo reabre.
@@ -63,12 +65,16 @@
   var current = readPrefs();
   if (current) applyConsent(current);
 
+  window.adsbygoogle = window.adsbygoogle || [];
+  if (!current || !current.personalization) window.adsbygoogle.requestNonPersonalizedAds = 1;
+
   var adsenseRequested = false;
   function loadAdSense() {
     if (ADS_OFF || adsenseRequested || !current || !current.ads) return;
     adsenseRequested = true;
     window.adsbygoogle = window.adsbygoogle || [];
     if (!current.personalization) window.adsbygoogle.requestNonPersonalizedAds = 1;
+    if (document.querySelector('script[src*="pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"]')) return;
     var s = document.createElement('script');
     s.async = true;
     s.crossOrigin = 'anonymous';
@@ -180,6 +186,7 @@
     writePrefs(p);
     applyConsent(p);
     if (banner) banner.classList.remove('show');
+    document.dispatchEvent(new CustomEvent('bs:consent', { detail: p }));
     if (p.ads) loadAdSense();
     if (p.maps) loadMaps();
     if ((hadAds && !p.ads) || (hadMaps && !p.maps && document.querySelector('iframe.map-iframe'))) {
