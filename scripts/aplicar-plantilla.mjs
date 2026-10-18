@@ -6,7 +6,8 @@
  * las páginas de public/*.html. Es idempotente: se puede ejecutar tras editar una página.
  *
  * - Navegación y pie únicos (antes cada página tenía un menú distinto).
- * - /js/consent.js síncrono en el <head>, luego la metaetiqueta.
+ * - En páginas con anuncios, primero el bloque inline bs-consent-default (Consent Mode v2 denegado),
+ *   después /js/consent.js síncrono en el <head>, luego la metaetiqueta y el script de AdSense.
  * - El script de AdSense va en el <head> solo si la página puede mostrar anuncios.
  *   Legales, contacto, tabaco y noindex: metaetiqueta, sin script.
  * - SIN_ANUNCIOS: páginas donde no deben salir anuncios (legales, contacto, tabaco).
@@ -88,6 +89,11 @@ const MAP_HOLDER = `<div class="map-consent" data-map-embed="https://maps.google
 const ADS_META = '    <meta name="google-adsense-account" content="ca-pub-8721021745606812">\n';
 const ADS_SCRIPT = '    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8721021745606812" crossorigin="anonymous"></script>\n';
 
+// Primer script de la página: default denegado antes de cualquier etiqueta de Google
+// (tests/consent-order.test.ts lo comprueba).
+const CONSENT_COMMENT = '    <!-- Consent Mode v2 denegado por defecto: primer script de la página, antes de cualquier etiqueta de Google. -->\n';
+const CONSENT_DEFAULT = `    <script id="bs-consent-default">window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=window.gtag||gtag;gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',wait_for_update:500});gtag('set','ads_data_redaction',true);window.bsConsentDefault=true;</script>\n`;
+
 let cambiadas = 0;
 for (const file of fs.readdirSync(PUBLIC).filter((f) => f.endsWith('.html')).sort()) {
   if (file === 'admin-offline.html') continue;
@@ -101,8 +107,10 @@ for (const file of fs.readdirSync(PUBLIC).filter((f) => f.endsWith('.html')).sor
   s = s.replace(/[ \t]*<script async src="https:\/\/pagead2\.googlesyndication\.com[^>]*><\/script>\r?\n/g, '');
   s = s.replace(/[ \t]*<meta name="google-adsense-account"[^>]*>\r?\n/g, '');
   s = s.replace(/[ \t]*<script src="\/js\/consent\.js"[^>]*><\/script>\r?\n/g, '');
+  s = s.replace(/[ \t]*<!-- Consent Mode v2 denegado por defecto: primer script[^\n]*-->\r?\n/g, '');
+  s = s.replace(/[ \t]*<script id="bs-consent-default">[^\n]*<\/script>\r?\n/g, '');
   const sinAnuncios = SIN_ANUNCIOS.has(file);
-  const bloque = `    <script src="/js/consent.js"${sinAnuncios ? ' data-ads="off"' : ''}></script>\n${ADS_META}${sinAnuncios ? '' : ADS_SCRIPT}`;
+  const bloque = `${sinAnuncios ? '' : CONSENT_COMMENT + CONSENT_DEFAULT}    <script src="/js/consent.js"${sinAnuncios ? ' data-ads="off"' : ''}></script>\n${ADS_META}${sinAnuncios ? '' : ADS_SCRIPT}`;
   s = s.replace(/(<link rel="stylesheet" href="\/?css\/styles\.css">\r?\n)/, `$1${bloque}`);
 
   // robots

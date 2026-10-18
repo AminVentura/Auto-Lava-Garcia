@@ -4,8 +4,8 @@
  * - Va síncrono en el <head> de todas las páginas de public/ (lo inserta scripts/aplicar-plantilla.mjs).
  * - <script src="/js/consent.js" data-ads="off"> en páginas sin anuncios: legales, contacto, tabaco y páginas noindex.
  * - Por defecto todo denegado (ad_storage, ad_user_data, ad_personalization, analytics_storage).
- * - En páginas con anuncios el <script> de AdSense va en el HTML, después de este archivo.
- *   consent default queda denegado antes. loadAdSense() no lo duplica.
+ * - En páginas con anuncios el <script> de AdSense va en el HTML, después del bloque inline
+ *   bs-consent-default (primer script del <head>) y de este archivo. loadAdSense() no lo duplica.
  *   data-ads="off" (legales, contacto, tabaco, noindex): no hay script, solo la metaetiqueta.
  * - Google Maps: [data-map-embed] muestra un placeholder; el iframe se crea al pulsar
  *   "Cargar mapa" (solo esa visita) o si el usuario aceptó "Mapas" en el banner.
@@ -26,14 +26,19 @@
   function gtag() { window.dataLayer.push(arguments); }
   window.gtag = window.gtag || gtag;
 
-  gtag('consent', 'default', {
-    ad_storage: 'denied',
-    ad_user_data: 'denied',
-    ad_personalization: 'denied',
-    analytics_storage: 'denied',
-    wait_for_update: 500
-  });
-  gtag('set', 'ads_data_redaction', true);
+  // Las páginas con anuncios traen este default inline como primer script del <head> (bs-consent-default).
+  // Aquí solo si falta (páginas sin anuncios), para no mandar dos "default".
+  if (!window.bsConsentDefault) {
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'denied',
+      wait_for_update: 500
+    });
+    gtag('set', 'ads_data_redaction', true);
+    window.bsConsentDefault = true;
+  }
 
   function readPrefs() {
     try {
