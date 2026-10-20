@@ -1,3 +1,4 @@
+import { createCipheriv, createDecipheriv, createHash, randomBytes } from 'node:crypto';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import type { Baja, Perfil } from './personal';
@@ -17,6 +18,45 @@ function github() {
   };
 }
 
+function llave(): Buffer | null {
+  const secret = (process.env.PERSONAL_BRIDGE_SECRET || '').trim();
+  if (secret.length < 32) return null;
+  return createHash('sha256').update(secret).digest();
+}
+
+function sellar(raw: string): string {
+  const key = llave();
+  if (!key) {
+    if (process.env.NODE_ENV === 'production') throw new Error('El registro de perfiles no está cerrado.');
+    return raw;
+  }
+  const iv = randomBytes(12);
+  const cipher = createCipheriv('aes-256-gcm', key, iv);
+  const data = Buffer.concat([cipher.update(raw, 'utf8'), cipher.final()]);
+  return JSON.stringify({
+    v: 1,
+    alg: 'aes-256-gcm',
+    iv: iv.toString('base64url'),
+    tag: cipher.getAuthTag().toString('base64url'),
+    data: data.toString('base64url'),
+  });
+}
+
+function abrir(raw: string): string {
+  let parsed: { alg?: string; iv?: string; tag?: string; data?: string };
+  try {
+    parsed = JSON.parse(raw) as { alg?: string; iv?: string; tag?: string; data?: string };
+  } catch {
+    return raw;
+  }
+  if (parsed.alg !== 'aes-256-gcm' || !parsed.iv || !parsed.tag || !parsed.data) return raw;
+  const key = llave();
+  if (!key) throw new Error('El registro de perfiles está cerrado y falta la llave.');
+  const decipher = createDecipheriv('aes-256-gcm', key, Buffer.from(parsed.iv, 'base64url'));
+  decipher.setAuthTag(Buffer.from(parsed.tag, 'base64url'));
+  return Buffer.concat([decipher.update(Buffer.from(parsed.data, 'base64url')), decipher.final()]).toString('utf8');
+}
+
 function headers(token: string) {
   return {
     accept: 'application/vnd.github+json',
@@ -29,7 +69,7 @@ async function readDoc<T>(filePath: string, empty: T): Promise<T> {
   const cfg = github();
   if (!cfg.token) {
     try {
-      return JSON.parse(await readFile(path.join(process.cwd(), filePath), 'utf8')) as T;
+      return JSON.parse(abrir(await readFile(path.join(process.cwd(), filePath), 'utf8'))) as T;
     } catch {
       return empty;
     }
@@ -39,12 +79,12 @@ async function readDoc<T>(filePath: string, empty: T): Promise<T> {
   if (res.status === 404) return empty;
   if (!res.ok) throw new Error('No se pudo leer el personal.');
   const body = (await res.json()) as { content?: string };
-  return JSON.parse(Buffer.from(String(body.content || ''), 'base64').toString('utf8')) as T;
+  return JSON.parse(abrir(Buffer.from(String(body.content || ''), 'base64').toString('utf8'))) as T;
 }
 
 async function writeDoc(filePath: string, doc: unknown, message: string): Promise<void> {
   const cfg = github();
-  const raw = JSON.stringify(doc, null, 2) + '\n';
+  const raw = sellar(JSON.stringify(doc));
   if (!cfg.token) {
     if (process.env.NODE_ENV === 'production') throw new Error('ADMIN_GITHUB_TOKEN no está configurado.');
     const absolute = path.join(process.cwd(), filePath);

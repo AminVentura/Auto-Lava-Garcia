@@ -14,7 +14,7 @@ export async function POST(request: Request) {
   const razon = String(body?.razon || '').replace(/\s+/g, ' ').trim().slice(0, 160);
   const reservaId = String(body?.reservaId || '').slice(0, 40);
   const cliente = String(body?.cliente || '').replace(/\s+/g, ' ').trim().slice(0, 80);
-  if (!/^rol-[a-z]{2,20}$/.test(id) || clave.length < 8 || razon.length < 3 || reservaId.length < 2) {
+  if (!/^p-[a-f0-9]{8}$/.test(id) || clave.length < 8 || razon.length < 3 || reservaId.length < 2) {
     return Response.json({ error: 'datos_invalidos' }, { status: 400 });
   }
   const perfiles = await leerPerfiles().catch(() => null);

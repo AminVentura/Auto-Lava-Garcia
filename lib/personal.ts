@@ -22,15 +22,14 @@ export type Baja = {
   razon: string;
 };
 
-export const CARGOS = [
-  { id: 'rol-angela', area: 'duena', cargo: 'Administradora', nombreBase: 'Angela García' },
-  { id: 'rol-amin', area: 'duena', cargo: 'Creador del sistema', nombreBase: 'Amin Ventura' },
-  { id: 'rol-cocina', area: 'cocina', cargo: 'Encargada de cocina', nombreBase: '' },
-  { id: 'rol-lavado', area: 'lavado', cargo: 'Encargado del lavadero', nombreBase: '' },
-  { id: 'rol-mesero', area: 'mesero', cargo: 'Mesero', nombreBase: '' },
-] as const;
+export const ROLES: { id: PersonalArea; label: string }[] = [
+  { id: 'cocina', label: 'Encargada de cocina' },
+  { id: 'lavado', label: 'Encargado del lavadero' },
+  { id: 'mesero', label: 'Mesero' },
+  { id: 'duena', label: 'Administradora' },
+];
 
-export type CargoId = (typeof CARGOS)[number]['id'];
+const AREAS = new Set<PersonalArea>(ROLES.map((rol) => rol.id));
 
 export function normalizarNombre(raw: string): string {
   return String(raw || '').replace(/\s+/g, ' ').trim().slice(0, 40);
@@ -40,87 +39,89 @@ function mismoNombre(a: string, b: string): boolean {
   return normalizarNombre(a).toLocaleLowerCase('es') === normalizarNombre(b).toLocaleLowerCase('es');
 }
 
-export function esCargo(id: string): id is CargoId {
-  return CARGOS.some((cargo) => cargo.id === id);
+export function esArea(value: string): value is PersonalArea {
+  return AREAS.has(value as PersonalArea);
 }
 
-export function guardarCargo(
+function claveNueva(clave: string): { salt: string; hash: string } | { error: string } {
+  if (clave.length < 8 || clave.length > 72) return { error: 'La clave debe tener entre 8 y 72 caracteres.' };
+  const salt = randomBytes(16).toString('hex');
+  return { salt, hash: scryptSync(clave, salt, 32).toString('hex') };
+}
+
+export function crearPerfil(
   lista: Perfil[],
-  input: { id: string; nombre: string; clave?: string },
+  input: { nombre: string; area: string; clave: string },
   now = new Date()
 ): { lista: Perfil[]; error: string | null } {
-  const cargo = CARGOS.find((item) => item.id === input.id);
-  if (!cargo) return { lista, error: 'Ese perfil no existe.' };
   const nombre = normalizarNombre(input.nombre);
   if (nombre.length < 2) return { lista, error: 'Escribe el nombre.' };
-  const clave = String(input.clave || '');
-  if (clave && (clave.length < 8 || clave.length > 72)) {
-    return { lista, error: 'La clave debe tener entre 8 y 72 caracteres.' };
+  if (!esArea(input.area)) return { lista, error: 'Elige el rol: cocina, lavadero, mesero o administradora.' };
+  const cifrada = claveNueva(input.clave);
+  if ('error' in cifrada) return { lista, error: cifrada.error };
+  if (lista.some((perfil) => perfil.active && mismoNombre(perfil.nombre, nombre))) {
+    return { lista, error: 'Ya hay un perfil activo con ese nombre.' };
   }
-  if (lista.some((perfil) => perfil.active && perfil.id !== cargo.id && mismoNombre(perfil.nombre, nombre))) {
-    return { lista, error: 'Otro perfil ya usa ese nombre.' };
-  }
-  const idx = lista.findIndex((perfil) => perfil.id === cargo.id);
-  if (idx < 0 && clave.length < 8) return { lista, error: 'Escribe una clave de 8 caracteres o más.' };
-  let next = lista.map((perfil) => ({ ...perfil }));
-  if (idx >= 0) {
-    const prev = next[idx];
-    next[idx] = {
-      ...prev,
-      nombre,
-      area: cargo.area,
-      active: true,
-      ...(clave
-        ? (() => {
-            const salt = randomBytes(16).toString('hex');
-            return { salt, hash: scryptSync(clave, salt, 32).toString('hex') };
-          })()
-        : {}),
-    };
-  } else {
-    const salt = randomBytes(16).toString('hex');
-    next.push({
-      id: cargo.id,
-      nombre,
-      area: cargo.area,
-      salt,
-      hash: scryptSync(clave, salt, 32).toString('hex'),
-      active: true,
-      createdAt: now.toISOString(),
-    });
-  }
-  if (cargo.area !== 'duena') {
-    next = next.map((perfil) =>
-      perfil.area === cargo.area && perfil.id !== cargo.id ? { ...perfil, active: false } : perfil
-    );
-  }
-  return { lista: next, error: null };
+  return {
+    lista: [
+      ...lista,
+      {
+        id: `p-${randomBytes(4).toString('hex')}`,
+        nombre,
+        area: input.area,
+        salt: cifrada.salt,
+        hash: cifrada.hash,
+        active: true,
+        createdAt: now.toISOString(),
+      },
+    ],
+    error: null,
+  };
 }
 
-export type CargoVista = {
-  id: CargoId;
-  cargo: string;
-  area: PersonalArea;
-  nombre: string;
-  activo: boolean;
-  tieneClave: boolean;
-};
+export function renombrarPerfil(lista: Perfil[], id: string, nombreRaw: string): { lista: Perfil[]; error: string | null } {
+  const nombre = normalizarNombre(nombreRaw);
+  if (nombre.length < 2) return { lista, error: 'Escribe el nombre.' };
+  if (!lista.some((perfil) => perfil.id === id && perfil.active)) return { lista, error: 'Ese perfil no está activo.' };
+  if (lista.some((perfil) => perfil.active && perfil.id !== id && mismoNombre(perfil.nombre, nombre))) {
+    return { lista, error: 'Otro perfil ya usa ese nombre.' };
+  }
+  return { lista: lista.map((perfil) => (perfil.id === id ? { ...perfil, nombre } : perfil)), error: null };
+}
 
-export function vistaCargos(lista: Perfil[]): CargoVista[] {
-  return CARGOS.map((cargo) => {
-    const propio = lista.find((perfil) => perfil.id === cargo.id && perfil.active);
-    const heredado =
-      propio ||
-      (cargo.area === 'duena'
-        ? undefined
-        : lista.find((perfil) => perfil.active && perfil.area === cargo.area && !esCargo(perfil.id)));
-    return {
-      id: cargo.id,
-      cargo: cargo.cargo,
-      area: cargo.area,
-      nombre: heredado?.nombre || cargo.nombreBase,
-      activo: Boolean(heredado),
-      tieneClave: Boolean(heredado?.hash),
-    };
-  });
+export function cambiarClave(lista: Perfil[], id: string, clave: string): { lista: Perfil[]; error: string | null } {
+  if (!lista.some((perfil) => perfil.id === id && perfil.active)) return { lista, error: 'Ese perfil no está activo.' };
+  const cifrada = claveNueva(clave);
+  if ('error' in cifrada) return { lista, error: cifrada.error };
+  return {
+    lista: lista.map((perfil) => (perfil.id === id ? { ...perfil, salt: cifrada.salt, hash: cifrada.hash } : perfil)),
+    error: null,
+  };
+}
+
+export function desactivarPerfil(lista: Perfil[], id: string): { lista: Perfil[]; error: string | null } {
+  if (!lista.some((perfil) => perfil.id === id && perfil.active)) return { lista, error: 'Ese perfil no está activo.' };
+  return { lista: lista.map((perfil) => (perfil.id === id ? { ...perfil, active: false } : perfil)), error: null };
+}
+
+export type PerfilVista = { id: string; nombre: string; area: PersonalArea; active: boolean; createdAt: string };
+
+export function vistaPublica(lista: Perfil[]): PerfilVista[] {
+  return lista.map((perfil) => ({
+    id: perfil.id,
+    nombre: perfil.nombre,
+    area: perfil.area,
+    active: perfil.active,
+    createdAt: perfil.createdAt,
+  }));
+}
+
+export function aplicarAccion(
+  lista: Perfil[],
+  body: { action?: string; id?: string; nombre?: string; area?: string; clave?: string }
+): { lista: Perfil[]; error: string | null } {
+  if (body.action === 'renombrar') return renombrarPerfil(lista, String(body.id || ''), body.nombre || '');
+  if (body.action === 'clave') return cambiarClave(lista, String(body.id || ''), body.clave || '');
+  if (body.action === 'desactivar') return desactivarPerfil(lista, String(body.id || ''));
+  return crearPerfil(lista, { nombre: body.nombre || '', area: body.area || '', clave: body.clave || '' });
 }
