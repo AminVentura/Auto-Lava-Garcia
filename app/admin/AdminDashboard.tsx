@@ -7,6 +7,7 @@ import {
   buildWhatsAppOfferUrl,
   type InstagramAccountKey,
 } from '@/lib/social';
+import { PersonalPanel } from './PersonalPanel';
 import { getAdminErrorMessage } from '@/lib/admin-http';
 import { formatDopAdminInput, parseDopInputToCents } from '@/lib/money';
 
@@ -328,6 +329,8 @@ export default function AdminDashboard({ offersDoc, washDoc, menuDoc }: Props) {
   return (
     <>
       {status && <p className="status-line">{status}</p>}
+
+      <PersonalPanel />
 
       <section className="dashboard-grid" aria-label="Resumen administrativo">
         <article className="metric-card metric-card--dark">
