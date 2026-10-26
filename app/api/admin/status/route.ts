@@ -1,5 +1,6 @@
 import { getAdminSession } from '@/lib/admin-auth';
 import { getAdminSaveConfigStatus } from '@/lib/admin-save-config';
+import { refrescarConfig } from '@/lib/refrescar-web';
 
 const jsonFiles = [
   { label: 'Ofertas', path: 'data/ofertas.json' },
@@ -66,6 +67,8 @@ export async function GET() {
     automation: {
       manualSocialReady: true,
       deployHookConfigured: Boolean(process.env.ADMIN_VERCEL_DEPLOY_HOOK_URL),
+      // Desde 2026-10-26 la web pública está en Firebase: la publica GitHub Actions (botón «Refrescar web»).
+      webRefreshMissing: refrescarConfig(process.env, { repo: 'AminVentura/Auto-Lava-Garcia' }).faltan,
     },
   });
 }

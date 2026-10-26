@@ -66,6 +66,7 @@ type WorkflowStatus = {
   automation: {
     manualSocialReady: boolean;
     deployHookConfigured: boolean;
+    webRefreshMissing?: string[];
   };
 };
 
@@ -205,7 +206,7 @@ export default function AdminDashboard({ offersDoc, washDoc, menuDoc }: Props) {
     if (!response.ok) {
       throw new Error(getAdminErrorMessage(response.status, response.headers.get('content-type'), body));
     }
-    setStatus('Cambios guardados en GitHub. Usa "Actualizar web" para publicar en producción si no hay deploy automático.');
+    setStatus('Cambios guardados en GitHub. Precios y ofertas ya salen en la web (se leen de GitHub); "Refrescar web" publica también la copia de Firebase.');
   }
 
   async function run(action: () => Promise<void>) {
@@ -257,10 +258,30 @@ export default function AdminDashboard({ offersDoc, washDoc, menuDoc }: Props) {
     );
   }
 
+  /**
+   * «Refrescar web»: la web pública vive en Firebase (2026-10-26). Lanza el workflow de GitHub
+   * que la publica y sigue su estado: en cola, publicando, listo. Una vez cada 2 min.
+   */
   async function deploySite() {
-    setStatus('Solicitando actualización de la web...');
-    await postAdminAction('/api/admin/deploy');
-    setStatus('Actualización de la web solicitada. Vercel puede tardar unos segundos.');
+    setStatus('Pidiendo la publicación de la web...');
+    const pedidoEn = Date.now();
+    const response = await fetch('/api/admin/refrescar-web', { method: 'POST', credentials: 'same-origin' });
+    const body = (await response.json().catch(() => ({}))) as { estado?: string; mensaje?: string; error?: string };
+    if (response.status !== 202) {
+      throw new Error(body.mensaje || body.error || `No se pudo pedir la publicación (${response.status}).`);
+    }
+    const etiqueta: Record<string, string> = { en_cola: 'En cola', publicando: 'Publicando', listo: 'Listo', fallo: 'Falló', apagado: 'Apagado' };
+    setStatus(`En cola · ${body.mensaje || ''}`);
+    for (let intento = 0; intento < 60; intento += 1) {
+      await new Promise((resolve) => setTimeout(resolve, 6000));
+      const res = await fetch('/api/admin/refrescar-web', { cache: 'no-store', credentials: 'same-origin' });
+      const estado = (await res.json().catch(() => ({}))) as { estado?: string; mensaje?: string; creado?: string };
+      // GitHub tarda unos segundos en crear la corrida: mientras, la última es la anterior.
+      const vieja = estado.creado && Date.parse(estado.creado) < pedidoEn - 5000;
+      const actual = vieja ? 'en_cola' : estado.estado || 'fallo';
+      setStatus(`${etiqueta[actual] || actual} · ${vieja ? 'GitHub va a empezar a publicar.' : estado.mensaje || ''}`);
+      if (actual !== 'en_cola' && actual !== 'publicando') return;
+    }
   }
 
   async function saveOffers(nextOffers = offers) {
@@ -369,8 +390,8 @@ export default function AdminDashboard({ offersDoc, washDoc, menuDoc }: Props) {
             <h2>Salud del guardado automático</h2>
           </div>
           <div className="button-row" style={{ marginTop: 0 }}>
-            <button className="primary-btn" type="button" onClick={() => run(deploySite)}>Actualizar web</button>
-            <button className="secondary-btn" type="button" onClick={() => window.location.reload()}>Refrescar estado</button>
+            <button className="primary-btn" type="button" onClick={() => run(deploySite)}>Refrescar web</button>
+            <button className="secondary-btn" type="button" onClick={() => window.location.reload()}>Recargar diagnóstico</button>
           </div>
         </div>
         {workflowStatus ? (
@@ -395,11 +416,11 @@ export default function AdminDashboard({ offersDoc, washDoc, menuDoc }: Props) {
               <p>Instagram oficial del negocio</p>
               <small>{workflowStatus.automation.manualSocialReady ? 'Kit manual listo, sin suscripción' : 'Revisar publicación manual'}</small>
             </article>
-            <article className={workflowStatus.automation.deployHookConfigured ? 'workflow-step is-ok' : 'workflow-step is-warning'}>
+            <article className={workflowStatus.automation.webRefreshMissing?.length === 0 ? 'workflow-step is-ok' : 'workflow-step is-warning'}>
               <span>6</span>
-              <strong>Redeploy</strong>
-              <p>Actualización automática web</p>
-              <small>{workflowStatus.automation.deployHookConfigured ? 'Deploy Hook configurado' : 'Deploy Hook pendiente'}</small>
+              <strong>Publicar web</strong>
+              <p>Firebase Hosting con GitHub Actions</p>
+              <small>{workflowStatus.automation.webRefreshMissing?.length === 0 ? 'Botón «Refrescar web» listo' : `Falta ${(workflowStatus.automation.webRefreshMissing || ['WEB_REFRESH_GITHUB_TOKEN']).join(', ')}`}</small>
             </article>
           </div>
         ) : (
@@ -494,7 +515,7 @@ export default function AdminDashboard({ offersDoc, washDoc, menuDoc }: Props) {
           )}
           <div className="split-actions">
             <button className="primary-btn" type="button" onClick={() => run(addOffer)}>1. Guardar oferta</button>
-            <button className="secondary-btn" type="button" onClick={() => run(deploySite)}>2. Actualizar web</button>
+            <button className="secondary-btn" type="button" onClick={() => run(deploySite)}>2. Refrescar web</button>
           </div>
         </div>
       </section>

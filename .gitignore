@@ -5,3 +5,5 @@ node_modules
 tsconfig.tsbuildinfo
 npm-debug.log*
 private/
+.firebase/
+firebase-debug.log
