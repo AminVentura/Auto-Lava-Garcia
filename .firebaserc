@@ -1,0 +1,12 @@
+{
+  "projects": {
+    "default": "antojos-kds"
+  },
+  "targets": {
+    "antojos-kds": {
+      "hosting": {
+        "portal": ["antojosbarlounge"]
+      }
+    }
+  }
+}
