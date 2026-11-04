@@ -551,7 +551,7 @@
                 <form id="mesa-digital" class="mesa-digital">
                     <h3>Pedido de la mesa</h3>
                     <p id="mesa-lineas">Todavía no hay platos en la mesa.</p>
-                    <label>Mesa<input name="mesa" required maxlength="12" placeholder="Número" autocomplete="off"></label>
+                    <label>Mesa<input name="mesa" required maxlength="12" pattern="[A-Za-z0-9áéíóúÁÉÍÓÚñÑ\- ]+" title="Solo letras, números y guion" placeholder="Número" autocomplete="off"></label>
                     <label>Nombre<input name="nombre" required minlength="2" maxlength="80" autocomplete="name"></label>
                     <label>Teléfono<input name="telefono" required minlength="8" maxlength="20" inputmode="tel" autocomplete="tel"></label>
                     <label><input name="terminos" type="checkbox" required> Acepto los <a href="https://antojosreserva.antojosbarlounge.com/terminos">Términos</a></label>

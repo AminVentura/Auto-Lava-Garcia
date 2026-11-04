@@ -2108,52 +2108,20 @@ ul {
     color: #fff;
 }
 
-.menu-plato-acciones {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 0.4rem;
+.mesa-digital input:not([type="checkbox"]) {
+    font-size: 16px;
+    min-height: 56px;
+    padding: 0 1rem;
+    border-radius: 16px;
 }
 
-.menu-plato-acciones button,
-.mesa-digital button {
-    min-height: 44px;
-}
-
-.mesa-digital {
-    margin: 1.5rem 0;
-    display: grid;
-    gap: 0.75rem;
-}
-
-.mesa-digital label {
-    display: grid;
-    gap: 0.25rem;
-}
-
-.foto-plato {
-    position: fixed;
-    inset: 0;
-    z-index: 80;
+.mesa-digital label:has(input[type="checkbox"]) {
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 1rem;
-    background: rgba(4, 16, 22, 0.86);
+    gap: 0.5rem;
 }
 
-.foto-plato[hidden] {
-    display: none;
-}
-
-.foto-plato img {
-    max-width: min(92vw, 720px);
-    max-height: 78vh;
-    object-fit: contain;
-    background: #041820;
-}
-
-.foto-plato figcaption,
-.foto-plato__cerrar {
-    color: #fff;
+.mesa-digital input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
 }

@@ -299,23 +299,30 @@ function verFotoPlato(nombre, foto) {
         capa.id = 'foto-plato';
         capa.className = 'foto-plato';
         capa.hidden = true;
+        capa.setAttribute('role', 'dialog');
+        capa.setAttribute('aria-modal', 'true');
         capa.innerHTML = '<button type="button" class="foto-plato__cerrar">Cerrar</button><figure><img alt=""><figcaption></figcaption></figure>';
         capa.addEventListener('click', (event) => {
             if (event.target === capa || event.target.classList.contains('foto-plato__cerrar')) capa.hidden = true;
         });
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') capa.hidden = true;
+        });
+        capa.querySelector('img').addEventListener('error', () => {
+            const fig = capa.querySelector('figcaption');
+            if (fig) fig.textContent = 'La foto todavía se está publicando. Prueba en unos minutos.';
+        });
         document.body.appendChild(capa);
     }
+    if (!foto) return;
     const img = capa.querySelector('img');
     const caption = capa.querySelector('figcaption');
-    if (!foto) {
-        img.removeAttribute('src');
-        caption.textContent = nombre + ' todavía no tiene foto. Angela la sube en el admin.';
-    } else {
-        img.src = foto;
-        img.alt = 'Foto de ' + nombre;
-        caption.textContent = nombre;
-    }
+    img.src = foto;
+    img.alt = 'Foto de ' + nombre;
+    caption.textContent = nombre;
     capa.hidden = false;
+    const cerrar = capa.querySelector('.foto-plato__cerrar');
+    if (cerrar) cerrar.focus();
 }
 
 async function enviarMesa(event) {
@@ -352,7 +359,7 @@ async function enviarMesa(event) {
         });
         const data = await res.json().catch(() => ({}));
         if (!res.ok) {
-            aviso.textContent = data.mensaje || 'No se envió. Prueba de nuevo o usa WhatsApp.';
+            aviso.textContent = data.mensaje || (res.status === 429 && typeof data.error === 'string' ? data.error : '') || 'No se envió. Revisa el número de mesa y el teléfono, o usa WhatsApp.';
             return;
         }
         mesaLineas.clear();
@@ -452,10 +459,13 @@ async function initDynamicMenu() {
                         '<li class="menu-plato">' +
                             '<span>' + escapeHtml(item.nombre) + '</span>' +
                             '<span class="menu-price-dynamic"> · ' + escapeHtml(item.priceText) + '</span>' +
-                            '<span class="menu-plato-acciones">' +
-                                '<button type="button" class="menu-foto-btn" data-foto="' + escapeHtml(item.foto) + '" data-nombre="' + escapeHtml(item.nombre) + '">Ver foto</button>' +
-                                '<button type="button" class="menu-mesa-btn" data-id="' + escapeHtml(item.id) + '" data-nombre="' + escapeHtml(item.nombre) + '">Agregar a la mesa</button>' +
-                            '</span>' +
+                            (item.foto || category !== 'Mercancías'
+                                ? '<span class="menu-plato-acciones">' +
+                                    (item.foto ? '<button type="button" class="menu-foto-btn" data-foto="' + escapeHtml(item.foto) + '" data-nombre="' + escapeHtml(item.nombre) + '">Ver foto</button>' : '') +
+                                    // Mercancías (cigarros, ambientadores) no se piden por la mesa digital, igual que en el formulario de pedido.
+                                    (category !== 'Mercancías' ? '<button type="button" class="menu-mesa-btn" data-id="' + escapeHtml(item.id) + '" data-nombre="' + escapeHtml(item.nombre) + '">Agregar a la mesa</button>' : '') +
+                                  '</span>'
+                                : '') +
                         '</li>'
                     )).join('') +
                 '</ul>' +
