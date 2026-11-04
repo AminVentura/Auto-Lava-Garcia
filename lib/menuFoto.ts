@@ -30,3 +30,34 @@ export function bytesDeWebp(dataUrl: unknown): Uint8Array | null {
   const webp = bytes[8] === 0x57 && bytes[9] === 0x45 && bytes[10] === 0x42 && bytes[11] === 0x50;
   return riff && webp ? bytes : null;
 }
+
+/** Máximo de fotos que un administrador puede subir en la ventana (cada foto es un commit y una publicación). */
+export const FOTO_PLATO_LIMITE = 20;
+export const FOTO_PLATO_VENTANA_MS = 10 * 60_000;
+
+const subidas = new Map<string, number[]>();
+
+/**
+ * Límite de subidas por administrador. Vive en la memoria de la función de Vercel: frena
+ * clics repetidos y scripts desde una sesión, no es un límite global entre instancias.
+ */
+export function puedeSubirFoto(clave: string, ahora = Date.now()): boolean {
+  const recientes = (subidas.get(clave) || []).filter((t) => ahora - t < FOTO_PLATO_VENTANA_MS);
+  if (recientes.length >= FOTO_PLATO_LIMITE) {
+    subidas.set(clave, recientes);
+    return false;
+  }
+  recientes.push(ahora);
+  subidas.set(clave, recientes);
+  return true;
+}
+
+/** Solo para pruebas. */
+export function reiniciarLimiteFotos() {
+  subidas.clear();
+}
+
+/** El administrador tiene que declarar, foto por foto, que tiene permiso para usarla. */
+export function permisoDeclarado(valor: unknown): boolean {
+  return valor === true;
+}

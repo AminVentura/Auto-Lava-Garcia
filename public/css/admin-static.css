@@ -710,3 +710,14 @@ body.panel-sin-red .admin-shell {
     font-weight: 700;
     cursor: pointer;
 }
+
+.foto-permiso-aviso {
+  margin: 0 0 1rem;
+  padding: 0.75rem 1rem;
+  border-left: 4px solid #d97706;
+  background: #fff7ed;
+  color: #7c2d12;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}

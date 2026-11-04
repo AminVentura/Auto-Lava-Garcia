@@ -674,11 +674,19 @@ function EditableItems<T extends MenuItem>({
   }
 
   async function ponerFoto(id: string, file: File) {
+    // Licencia: cada foto necesita permiso de uso. Sin confirmación no se sube.
+    const permisoFoto = window.confirm(
+      '¿Tienes permiso para usar esta foto?\n\n'
+      + 'Solo fotos tomadas en el local (por ti o por el equipo) o con licencia por escrito. '
+      + 'No uses fotos de Google, Instagram, otros restaurantes ni bancos de imágenes sin licencia. '
+      + 'La foto se publica en antojosbarlounge.com.\n\nPulsa Aceptar solo si tienes ese permiso.',
+    );
+    if (!permisoFoto) return;
     const imagen = await compressPlato(file);
     const response = await fetch('/api/admin/menu-foto', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id, imagen }),
+      body: JSON.stringify({ id, imagen, permisoFoto }),
     });
     const data = await response.json().catch(() => null) as { foto?: string; error?: string } | null;
     if (!response.ok || !data?.foto) throw new Error(data?.error || 'No se guardó la foto.');
@@ -709,6 +717,13 @@ function EditableItems<T extends MenuItem>({
           <button className="primary-btn" onClick={onSave}>Guardar cambios</button>
         </div>
       </div>
+      {conFoto ? (
+        <p className="foto-permiso-aviso">
+          Fotos de platos: sube solo fotos tomadas en el local o con licencia por escrito. No uses fotos de
+          internet, de Instagram ni de otros restaurantes. Cada foto se publica en la web; antes de subirla
+          el panel te pide confirmar que tienes permiso.
+        </p>
+      ) : null}
       <div className="table-wrap">
         <table>
           <thead>
