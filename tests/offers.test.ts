@@ -308,6 +308,21 @@ describe('static JSON data contract', () => {
       },
     ]);
   });
+
+  it('el precio en centavos se muestra aunque la etiqueta diga consultar en caja', () => {
+    const grouped = menuItemsByCategory([
+      {
+        id: 'jugos-naturales',
+        categoria: 'Bebidas',
+        nombre: 'Jugos Naturales',
+        etiqueta: 'Consultar en caja',
+        precio_centavos: 10000,
+        disponible: true,
+        orden: 1,
+      },
+    ]);
+    expect(grouped[0]?.items[0]?.priceText).toBe('RD$100.00');
+  });
 });
 
 describe('admin save configuration', () => {

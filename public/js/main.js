@@ -258,6 +258,112 @@ function isStaticOfferActive(offer, now = new Date()) {
     return start <= now && now <= end;
 }
 
+function formatMenuPrice(item) {
+    if (Number.isInteger(item.precio_centavos) && item.precio_centavos > 0) {
+        const pesos = item.precio_centavos / 100;
+        return 'RD$' + pesos.toLocaleString('es-DO', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    if (item.etiqueta) return item.etiqueta;
+    return 'Consultar en caja';
+}
+
+function fotoDePlato(item) {
+    const foto = String(item.foto || '').trim();
+    return /^https:\/\/antojosbarlounge\.com\/menu-fotos\/[a-z0-9-]{2,40}\.webp$/.test(foto) ? foto : '';
+}
+
+const mesaLineas = new Map();
+
+function pintarMesa() {
+    const lista = document.getElementById('mesa-lineas');
+    const aviso = document.getElementById('mesa-aviso');
+    if (!lista) return;
+    const filas = [...mesaLineas.entries()];
+    lista.textContent = filas.length
+        ? filas.map(([id, fila]) => `${fila.qty} × ${fila.nombre}`).join(' · ')
+        : 'Todavía no hay platos en la mesa.';
+    if (aviso) aviso.textContent = '';
+}
+
+function agregarAMesa(item) {
+    const previa = mesaLineas.get(item.id);
+    const qty = Math.min(99, (previa?.qty || 0) + 1);
+    mesaLineas.set(item.id, { nombre: item.nombre, qty });
+    pintarMesa();
+}
+
+function verFotoPlato(nombre, foto) {
+    let capa = document.getElementById('foto-plato');
+    if (!capa) {
+        capa = document.createElement('div');
+        capa.id = 'foto-plato';
+        capa.className = 'foto-plato';
+        capa.hidden = true;
+        capa.innerHTML = '<button type="button" class="foto-plato__cerrar">Cerrar</button><figure><img alt=""><figcaption></figcaption></figure>';
+        capa.addEventListener('click', (event) => {
+            if (event.target === capa || event.target.classList.contains('foto-plato__cerrar')) capa.hidden = true;
+        });
+        document.body.appendChild(capa);
+    }
+    const img = capa.querySelector('img');
+    const caption = capa.querySelector('figcaption');
+    if (!foto) {
+        img.removeAttribute('src');
+        caption.textContent = nombre + ' todavía no tiene foto. Angela la sube en el admin.';
+    } else {
+        img.src = foto;
+        img.alt = 'Foto de ' + nombre;
+        caption.textContent = nombre;
+    }
+    capa.hidden = false;
+}
+
+async function enviarMesa(event) {
+    event.preventDefault();
+    const aviso = document.getElementById('mesa-aviso');
+    const form = event.currentTarget;
+    const mesa = String(form.mesa.value || '').trim();
+    const nombre = String(form.nombre.value || '').trim();
+    const telefono = String(form.telefono.value || '').trim();
+    if (!mesaLineas.size) {
+        aviso.textContent = 'Agrega al menos un plato.';
+        return;
+    }
+    if (!form.terminos.checked || !form.privacidad.checked) {
+        aviso.textContent = 'Marca Términos y Privacidad para enviar el pedido.';
+        return;
+    }
+    aviso.textContent = 'Enviando a la cocina…';
+    const items = [...mesaLineas.entries()].map(([id, fila]) => ({ id, qty: fila.qty }));
+    try {
+        const res = await fetch('https://antojosreserva.antojosbarlounge.com/api/pedido', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                kind: 'comida',
+                clientName: nombre,
+                clientPhone: telefono,
+                tableNumber: mesa,
+                items,
+                aceptaTerminos: true,
+                aceptaPrivacidad: true,
+                notes: 'Pedido de la mesa desde el menú digital.',
+            }),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) {
+            aviso.textContent = data.mensaje || 'No se envió. Prueba de nuevo o usa WhatsApp.';
+            return;
+        }
+        mesaLineas.clear();
+        pintarMesa();
+        form.reset();
+        aviso.textContent = 'Pedido ' + (data.reserva?.id || '') + ' en la pantalla de cocina. Se cobra en caja.';
+    } catch {
+        aviso.textContent = 'No hay conexión. El pedido no salió.';
+    }
+}
+
 function formatStaticPrice(service) {
     if (service.etiqueta) return service.etiqueta;
     const centsToPesos = (cents) => {
@@ -316,6 +422,12 @@ async function initDynamicOffers() {
 async function initDynamicMenu() {
     const menuGrid = document.querySelector('.menu-grid');
     const pedidoGrid = document.querySelector('.pedido-grid');
+    const mesaForm = document.getElementById('mesa-digital');
+    if (mesaForm && !mesaForm.dataset.listo) {
+        mesaForm.dataset.listo = '1';
+        mesaForm.addEventListener('submit', enviarMesa);
+        pintarMesa();
+    }
     if (!menuGrid) return;
 
     try {
@@ -323,7 +435,7 @@ async function initDynamicMenu() {
         const items = (data.articulos || [])
             .filter((item) => item.disponible)
             .sort((a, b) => (a.orden || 0) - (b.orden || 0) || String(a.nombre || '').localeCompare(String(b.nombre || ''), 'es'))
-            .map((item) => ({ ...item, priceText: formatStaticPrice(item) }));
+            .map((item) => ({ ...item, priceText: formatMenuPrice(item), foto: fotoDePlato(item) }));
         if (items.length === 0) return;
 
         const grouped = items.reduce((acc, item) => {
@@ -336,10 +448,26 @@ async function initDynamicMenu() {
             '<div class="menu-category">' +
                 '<h3>' + escapeHtml(category) + '</h3>' +
                 '<ul>' +
-                    entries.map((item) => '<li>' + escapeHtml(item.nombre) + '<span class="menu-price-dynamic"> · ' + escapeHtml(item.priceText) + '</span></li>').join('') +
+                    entries.map((item) => (
+                        '<li class="menu-plato">' +
+                            '<span>' + escapeHtml(item.nombre) + '</span>' +
+                            '<span class="menu-price-dynamic"> · ' + escapeHtml(item.priceText) + '</span>' +
+                            '<span class="menu-plato-acciones">' +
+                                '<button type="button" class="menu-foto-btn" data-foto="' + escapeHtml(item.foto) + '" data-nombre="' + escapeHtml(item.nombre) + '">Ver foto</button>' +
+                                '<button type="button" class="menu-mesa-btn" data-id="' + escapeHtml(item.id) + '" data-nombre="' + escapeHtml(item.nombre) + '">Agregar a la mesa</button>' +
+                            '</span>' +
+                        '</li>'
+                    )).join('') +
                 '</ul>' +
             '</div>'
         )).join('');
+
+        menuGrid.querySelectorAll('.menu-foto-btn').forEach((btn) => {
+            btn.addEventListener('click', () => verFotoPlato(btn.dataset.nombre || 'Plato', btn.dataset.foto || ''));
+        });
+        menuGrid.querySelectorAll('.menu-mesa-btn').forEach((btn) => {
+            btn.addEventListener('click', () => agregarAMesa({ id: btn.dataset.id, nombre: btn.dataset.nombre || 'Plato' }));
+        });
 
         if (pedidoGrid) {
             pedidoGrid.innerHTML = Object.entries(grouped)

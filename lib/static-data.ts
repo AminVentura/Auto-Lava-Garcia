@@ -30,6 +30,7 @@ export type StaticMenuItem = {
   precio_min_centavos?: number | null;
   precio_max_centavos?: number | null;
   etiqueta?: string | null;
+  foto?: string | null;
   disponible: boolean;
   orden: number;
 };
@@ -77,6 +78,9 @@ function staticPriceText(service: StaticWashService): string {
 }
 
 function staticMenuPriceText(item: StaticMenuItem): string {
+  if (typeof item.precio_centavos === 'number' && Number.isInteger(item.precio_centavos) && item.precio_centavos > 0) {
+    return `RD$${centsToPesoText(item.precio_centavos)}`;
+  }
   if (item.etiqueta?.trim()) return item.etiqueta.trim();
   if (typeof item.precio_centavos === 'number') return `RD$${centsToPesoText(item.precio_centavos)}`;
   if (typeof item.precio_min_centavos === 'number' && typeof item.precio_max_centavos === 'number') {

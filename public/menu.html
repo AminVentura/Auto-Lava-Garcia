@@ -95,9 +95,21 @@
                     <a class="btn btn-secondary" href="https://antojosreserva.antojosbarlounge.com/menu/comida">Menú cafetería</a>
                     <a class="btn btn-secondary" href="https://antojosreserva.antojosbarlounge.com/menu/lavado">Menú lavado</a>
                 </div>
+                <div class="menu-grid" aria-live="polite"></div>
+                <form id="mesa-digital" class="mesa-digital">
+                    <h2>Pedido de la mesa</h2>
+                    <p id="mesa-lineas">Todavía no hay platos en la mesa.</p>
+                    <label>Mesa<input name="mesa" required maxlength="12" placeholder="Número" autocomplete="off"></label>
+                    <label>Nombre<input name="nombre" required minlength="2" maxlength="80" autocomplete="name"></label>
+                    <label>Teléfono<input name="telefono" required minlength="8" maxlength="20" inputmode="tel" autocomplete="tel"></label>
+                    <label><input name="terminos" type="checkbox" required> Acepto los <a href="https://antojosreserva.antojosbarlounge.com/terminos">Términos</a></label>
+                    <label><input name="privacidad" type="checkbox" required> Acepto la <a href="https://antojosreserva.antojosbarlounge.com/privacidad">Privacidad</a></label>
+                    <button type="submit" class="btn btn-primary">Enviar a la cocina</button>
+                    <p id="mesa-aviso" role="status"></p>
+                </form>
                 <p class="content-lead">Antojos Bar Lounge es la cafetería y zona lounge que comparte sede con Auto Lava Garcia en la Av. 27 de Febrero 156. Aquí puede desayunar, almorzar o cenar mientras espera su vehículo, o venir solo por la comida. Esta página describe el menú del local, cómo pedir y qué tener en cuenta antes de ordenar. Para pedir en línea use <a href="https://antojosreserva.antojosbarlounge.com/">Hacer pedido</a>: el pedido llega a la pantalla del local.</p>
 
-                <p><strong>Precios de comida:</strong> los montos de platos y bebidas se confirman en caja o por WhatsApp al momento del pedido, porque rotan según insumos y plato del día. Los precios de lavado sí están publicados en <a href="servicios-lavado.html">servicios de lavado</a> y en la <a href="/#lavadero">página principal</a>.</p>
+                <p><strong>Precios de comida:</strong> si el plato tiene precio en el menú digital, ese es el monto. Si dice consultar en caja, se confirma en caja. Los precios de lavado están en <a href="servicios-lavado.html">servicios de lavado</a>.</p>
 
                 <h2>Cómo funciona el servicio de comida</h2>
                 <p>La cocina prepara picadera caliente, antojitos y platos dominicanos a lo largo del día. En horas pico (almuerzo y noche de fin de semana) el tiempo de espera puede alargarse; si viene con prisa, pregunte en barra por opciones rápidas o por el plato del día.</p>

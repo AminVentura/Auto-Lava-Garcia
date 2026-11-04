@@ -31,6 +31,7 @@ export type MenuItem = {
   precio_min_centavos?: number | null;
   precio_max_centavos?: number | null;
   etiqueta?: string | null;
+  foto?: string | null;
   disponible: boolean;
   orden: number;
 };
@@ -114,6 +115,25 @@ async function compressImage(file: File): Promise<string> {
   if (!context) throw new Error('No se pudo preparar la imagen.');
   context.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
   const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, 'image/webp', 0.78));
+  if (!blob) throw new Error('No se pudo comprimir la imagen.');
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result));
+    reader.onerror = () => reject(new Error('No se pudo leer la imagen.'));
+    reader.readAsDataURL(blob);
+  });
+}
+
+async function compressPlato(file: File): Promise<string> {
+  const bitmap = await createImageBitmap(file);
+  const ratio = Math.min(1, 720 / bitmap.width);
+  const canvas = document.createElement('canvas');
+  canvas.width = Math.max(1, Math.round(bitmap.width * ratio));
+  canvas.height = Math.max(1, Math.round(bitmap.height * ratio));
+  const context = canvas.getContext('2d');
+  if (!context) throw new Error('No se pudo preparar la imagen.');
+  context.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+  const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, 'image/webp', 0.8));
   if (!blob) throw new Error('No se pudo comprimir la imagen.');
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -577,6 +597,7 @@ export default function AdminDashboard({ offersDoc, washDoc, menuDoc }: Props) {
         setItems={setMenuItems}
         onSave={() => run(saveMenu)}
         newCategory="Picaderas"
+        conFoto
       />
     </>
   );
@@ -639,15 +660,29 @@ function EditableItems<T extends MenuItem>({
   setItems,
   onSave,
   newCategory,
+  conFoto = false,
 }: {
   title: string;
   items: T[];
   setItems: (items: T[]) => void;
   onSave: () => void;
   newCategory: string;
+  conFoto?: boolean;
 }) {
   function update(id: string, patch: Partial<T>) {
     setItems(items.map((item) => (item.id === id ? { ...item, ...patch } : item)));
+  }
+
+  async function ponerFoto(id: string, file: File) {
+    const imagen = await compressPlato(file);
+    const response = await fetch('/api/admin/menu-foto', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id, imagen }),
+    });
+    const data = await response.json().catch(() => null) as { foto?: string; error?: string } | null;
+    if (!response.ok || !data?.foto) throw new Error(data?.error || 'No se guardó la foto.');
+    update(id, { foto: data.foto } as Partial<T>);
   }
 
   function addItem() {
@@ -684,6 +719,7 @@ function EditableItems<T extends MenuItem>({
               <th>Desde</th>
               <th>Hasta</th>
               <th>Etiqueta</th>
+              {conFoto ? <th>Foto</th> : null}
               <th>Visible</th>
               <th></th>
             </tr>
@@ -715,6 +751,28 @@ function EditableItems<T extends MenuItem>({
                   />
                 </td>
                 <td><input value={item.etiqueta ?? ''} onChange={(event) => update(item.id, { etiqueta: event.target.value || null } as Partial<T>)} /></td>
+                {conFoto ? (
+                  <td>
+                    <label className="upload-btn" htmlFor={`foto-${item.id}`}>
+                      {item.foto ? 'Cambiar foto' : 'Subir foto'}
+                    </label>
+                    <input
+                      id={`foto-${item.id}`}
+                      type="file"
+                      accept="image/*"
+                      hidden
+                      onChange={(event) => {
+                        const file = event.target.files?.[0];
+                        event.target.value = '';
+                        if (!file) return;
+                        void ponerFoto(item.id, file).catch((error: unknown) => {
+                          window.alert(error instanceof Error ? error.message : 'No se guardó la foto.');
+                        });
+                      }}
+                    />
+                    {item.foto ? <p>Lista. Guarda los cambios para que el cliente la vea.</p> : null}
+                  </td>
+                ) : null}
                 <td><input type="checkbox" checked={item.disponible} onChange={(event) => update(item.id, { disponible: event.target.checked } as Partial<T>)} /></td>
                 <td><button className="danger-btn" onClick={() => setItems(items.filter((entry) => entry.id !== item.id))}>Quitar</button></td>
               </tr>
