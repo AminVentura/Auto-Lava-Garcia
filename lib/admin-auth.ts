@@ -4,11 +4,20 @@ export type AdminSession =
   | { ok: true; email: string }
   | { ok: false; status: number; message: string };
 
-function allowedEmails(): string[] {
-  return (process.env.ADMIN_EMAILS || '')
+export function allowedAdminEmails(raw: string | undefined = process.env.ADMIN_EMAILS): string[] {
+  return (raw || '')
     .split(',')
     .map((email) => email.trim().toLowerCase())
     .filter(Boolean);
+}
+
+export function emailEstaAutorizado(
+  email: string,
+  raw: string | undefined = process.env.ADMIN_EMAILS,
+): boolean {
+  const allowed = allowedAdminEmails(raw);
+  if (allowed.length === 0) return false;
+  return allowed.includes(email.trim().toLowerCase());
 }
 
 export async function getAdminSession(): Promise<AdminSession> {
@@ -23,9 +32,15 @@ export async function getAdminSession(): Promise<AdminSession> {
     return { ok: false, status: 403, message: 'La cuenta no tiene email principal.' };
   }
 
-  const allowed = allowedEmails();
-  if (allowed.length > 0 && !allowed.includes(email)) {
-    return { ok: false, status: 403, message: 'Este usuario no está autorizado para administrar.' };
+  if (!emailEstaAutorizado(email)) {
+    return {
+      ok: false,
+      status: 403,
+      message:
+        allowedAdminEmails().length === 0
+          ? 'Falta ADMIN_EMAILS: nadie puede administrar.'
+          : 'Este usuario no está autorizado para administrar.',
+    };
   }
 
   return { ok: true, email };

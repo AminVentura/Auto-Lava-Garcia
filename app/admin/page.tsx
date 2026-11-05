@@ -14,7 +14,17 @@ async function readJson<T>(relativePath: string): Promise<T> {
 export default async function AdminPage() {
   const session = await getAdminSession();
   if (!session.ok) {
-    redirect('/sign-in');
+    if (session.status === 401) redirect('/sign-in');
+    // Cuenta de Clerk válida pero fuera de ADMIN_EMAILS (o lista vacía): no se muestra nada del panel.
+    return (
+      <main style={{ minHeight: '100vh', display: 'grid', placeItems: 'center', padding: 24, textAlign: 'center' }}>
+        <div>
+          <h1>Acceso no autorizado</h1>
+          <p>{session.message}</p>
+          <UserButton />
+        </div>
+      </main>
+    );
   }
 
   const [offersDoc, washDoc, menuDoc] = await Promise.all([
