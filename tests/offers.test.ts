@@ -309,7 +309,7 @@ describe('static JSON data contract', () => {
     ]);
   });
 
-  it('el precio en centavos se muestra aunque la etiqueta diga consultar en caja', () => {
+  it('la etiqueta «Consultar en caja» manda sobre el precio en centavos (Jugos Naturales)', () => {
     const grouped = menuItemsByCategory([
       {
         id: 'jugos-naturales',
@@ -321,7 +321,7 @@ describe('static JSON data contract', () => {
         orden: 1,
       },
     ]);
-    expect(grouped[0]?.items[0]?.priceText).toBe('RD$100.00');
+    expect(grouped[0]?.items[0]?.priceText).toBe('Consultar en caja');
   });
 });
 

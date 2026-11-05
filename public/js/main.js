@@ -259,11 +259,12 @@ function isStaticOfferActive(offer, now = new Date()) {
 }
 
 function formatMenuPrice(item) {
+    // La etiqueta (p. ej. «Consultar en caja») manda sobre el precio, igual que en lib/static-data.ts.
+    if (item.etiqueta) return item.etiqueta;
     if (Number.isInteger(item.precio_centavos) && item.precio_centavos > 0) {
         const pesos = item.precio_centavos / 100;
         return 'RD$' + pesos.toLocaleString('es-DO', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
-    if (item.etiqueta) return item.etiqueta;
     return 'Consultar en caja';
 }
 
@@ -433,6 +434,9 @@ async function initDynamicMenu() {
     if (mesaForm && !mesaForm.dataset.listo) {
         mesaForm.dataset.listo = '1';
         mesaForm.addEventListener('submit', enviarMesa);
+        // Enlace del QR de una mesa: menu.html?mesa=5 deja la mesa escrita.
+        const mesaQr = new URLSearchParams(window.location.search).get('mesa') || '';
+        if (/^[A-Za-z0-9áéíóúÁÉÍÓÚñÑ\- ]{1,12}$/.test(mesaQr)) mesaForm.mesa.value = mesaQr;
         pintarMesa();
     }
     if (!menuGrid) return;
@@ -459,11 +463,11 @@ async function initDynamicMenu() {
                         '<li class="menu-plato">' +
                             '<span>' + escapeHtml(item.nombre) + '</span>' +
                             '<span class="menu-price-dynamic"> · ' + escapeHtml(item.priceText) + '</span>' +
-                            (item.foto || category !== 'Mercancías'
+                            (item.foto || (mesaForm && category !== 'Mercancías')
                                 ? '<span class="menu-plato-acciones">' +
                                     (item.foto ? '<button type="button" class="menu-foto-btn" data-foto="' + escapeHtml(item.foto) + '" data-nombre="' + escapeHtml(item.nombre) + '">Ver foto</button>' : '') +
                                     // Mercancías (cigarros, ambientadores) no se piden por la mesa digital, igual que en el formulario de pedido.
-                                    (category !== 'Mercancías' ? '<button type="button" class="menu-mesa-btn" data-id="' + escapeHtml(item.id) + '" data-nombre="' + escapeHtml(item.nombre) + '">Agregar a la mesa</button>' : '') +
+                                    (mesaForm && category !== 'Mercancías' ? '<button type="button" class="menu-mesa-btn" data-id="' + escapeHtml(item.id) + '" data-nombre="' + escapeHtml(item.nombre) + '">Agregar a la mesa</button>' : '') +
                                   '</span>'
                                 : '') +
                         '</li>'

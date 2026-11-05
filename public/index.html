@@ -548,17 +548,6 @@
                         <p class="cigarros-desc">Cigarros disponibles · Pregunta por disponibilidad</p>
                     </div>
                 </div>
-                <form id="mesa-digital" class="mesa-digital">
-                    <h3>Pedido de la mesa</h3>
-                    <p id="mesa-lineas">Todavía no hay platos en la mesa.</p>
-                    <label>Mesa<input name="mesa" required maxlength="12" pattern="[A-Za-z0-9áéíóúÁÉÍÓÚñÑ\- ]+" title="Solo letras, números y guion" placeholder="Número" autocomplete="off"></label>
-                    <label>Nombre<input name="nombre" required minlength="2" maxlength="80" autocomplete="name"></label>
-                    <label>Teléfono<input name="telefono" required minlength="8" maxlength="20" inputmode="tel" autocomplete="tel"></label>
-                    <label><input name="terminos" type="checkbox" required> Acepto los <a href="https://antojosreserva.antojosbarlounge.com/terminos">Términos</a></label>
-                    <label><input name="privacidad" type="checkbox" required> Acepto la <a href="https://antojosreserva.antojosbarlounge.com/privacidad">Privacidad</a></label>
-                    <button type="submit" class="btn btn-primary">Enviar a la cocina</button>
-                    <p id="mesa-aviso" role="status"></p>
-                </form>
                 <div class="eventos-banner">
                     <p>🍽️ <strong>Preparamos buffet y picaderas para eventos</strong> — Pregunta por el plato del día</p>
                 </div>
@@ -844,6 +833,7 @@
         </a>
     </div>
 
+    <script src="js/version-web.js" defer></script>
     <script src="js/main.js"></script>
     <script src="/js/antojobot-widget.js" defer></script>
 </body>
