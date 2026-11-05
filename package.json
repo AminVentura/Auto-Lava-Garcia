@@ -1,6 +1,6 @@
 {
   "name": "auto-lava-garcia",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "description": "Admin dashboard and public landing for Auto Lava Garcia & Antojos Bar Lounge.",
   "type": "module",
@@ -9,7 +9,8 @@
     "sync:data": "node scripts/sync-static-data.mjs",
     "qr:generate": "node scripts/generate-qr.mjs",
     "sitemap": "node generate-sitemap.js",
-    "prebuild": "npm run sync:data && npm run qr:generate && npm run sitemap",
+    "version:web": "node scripts/version-web.mjs",
+    "prebuild": "npm run sync:data && npm run qr:generate && npm run sitemap && npm run version:web",
     "build": "next build",
     "start": "next start",
     "test": "vitest run",

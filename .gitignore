@@ -7,3 +7,5 @@ npm-debug.log*
 private/
 .firebase/
 firebase-debug.log
+# Generado en el build (scripts/version-web.mjs)
+public/js/version-web.js

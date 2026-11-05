@@ -1526,6 +1526,12 @@ ul {
     text-decoration: underline;
 }
 
+.pie-version {
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.78);
+}
+
 .footer-update {
     margin-top: 0.5rem;
     font-size: 0.8rem;

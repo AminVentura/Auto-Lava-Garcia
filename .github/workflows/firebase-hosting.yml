@@ -77,12 +77,13 @@ jobs:
       - name: Pruebas (vitest)
         run: npm test
 
-      - name: Generar public/ (datos, QR y sitemap, como el prebuild de Vercel)
+      - name: Generar public/ (datos, QR, sitemap y versión del pie, como el prebuild de Vercel)
         run: |
           npm run sync:data
           npm run qr:generate
           npm run sitemap
-          test -f public/index.html && test -f public/ads.txt && test -f public/404.html
+          npm run version:web
+          test -f public/index.html && test -f public/ads.txt && test -f public/404.html && test -f public/js/version-web.js
 
       - name: Acceso a Google con Workload Identity Federation
         if: vars.GCP_WORKLOAD_IDENTITY_PROVIDER != ''
