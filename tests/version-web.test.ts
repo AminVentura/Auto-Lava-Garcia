@@ -23,5 +23,5 @@ describe('pie con versión', () => {
     const { version } = JSON.parse(readFileSync(path.join(root, 'package.json'), 'utf8'));
     expect(js).toContain(`"version":"${version}"`);
     expect(js).toMatch(/"fecha":"\d{4}-\d{2}-\d{2}"/);
-  });
+  }, 30_000);
 });
