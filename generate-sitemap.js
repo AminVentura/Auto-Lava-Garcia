@@ -29,7 +29,6 @@ const PAGE_CONFIG = {
   'servicios-lavado.html': { priority: '0.9', changefreq: 'weekly' },
   'guias.html': { priority: '0.9', changefreq: 'weekly' },
   'llaves-y-administracion.html': { priority: '0.8', changefreq: 'monthly' },
-  'recorrido-del-local.html': { priority: '0.8', changefreq: 'monthly' },
   'lounge-cigarros-antojos.html': { priority: '0.8', changefreq: 'monthly' },
   'eventos-buffet-antojos.html': { priority: '0.8', changefreq: 'monthly' },
   'ofertas.html': { priority: '0.8', changefreq: 'weekly' },

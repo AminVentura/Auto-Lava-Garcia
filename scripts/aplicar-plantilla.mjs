@@ -22,6 +22,9 @@ const PUBLIC = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'pu
 
 export const NO_INDEXAR = new Set([
   'aviso-legal.html',
+  // 2026-11-08: sin ofertas de comida vigentes, la página repite la tarifa del martes de servicios-lavado.html.
+  // Quitar de aquí cuando el panel publique ofertas con fecha de forma regular.
+  'ofertas.html',
 ]);
 
 const SIN_ANUNCIOS = new Set([
@@ -66,7 +69,7 @@ const FOOTER = `<footer class="footer">
                 <p class="footer-address">Av. 27 de Febrero 156, 51000 · <a href="tel:+18097941824">+1 809-794-1824</a> · <a href="mailto:antojosbarlounge@gmail.com">antojosbarlounge@gmail.com</a></p>
                 <p class="footer-nav">
 ${NAV.map(([href, label]) => `                    <a href="${href}">${label}</a>`).join(' |\n')} |
-                    <a href="/recorrido-del-local.html">Recorrido del local</a> |
+                    <a href="/nosotros.html#recorrido">Recorrido del local</a> |
                     <a href="/eventos-buffet-antojos.html">Eventos y buffet</a>
                 </p>
                 <p class="footer-legal">
@@ -96,7 +99,8 @@ const CONSENT_DEFAULT = `    <script id="bs-consent-default">window.dataLayer=wi
 
 let cambiadas = 0;
 for (const file of fs.readdirSync(PUBLIC).filter((f) => f.endsWith('.html')).sort()) {
-  if (file === 'admin-offline.html') continue;
+  // 404.html lleva noindex y sin anuncios a mano: la plantilla no la toca (2026-11-08).
+  if (file === 'admin-offline.html' || file === '404.html') continue;
   const full = path.join(PUBLIC, file);
   const antes = fs.readFileSync(full, 'utf8');
   let s = antes;

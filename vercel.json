@@ -15,6 +15,7 @@
       "destination": "https://antojosbarlounge.com/:path*",
       "permanent": true
     },
+    { "source": "/recorrido-del-local.html", "destination": "/nosotros.html#recorrido", "permanent": true },
     { "source": "/faq.html", "destination": "/preguntas-frecuentes.html", "permanent": true },
     { "source": "/servicios.html", "destination": "/servicios-lavado.html", "permanent": true },
     { "source": "/guias/", "destination": "/guias.html", "permanent": true },

@@ -12,6 +12,7 @@
       "admin-offline.html"
     ],
     "redirects": [
+      { "source": "/recorrido-del-local.html", "destination": "/nosotros.html#recorrido", "type": 301 },
       { "source": "/faq.html", "destination": "/preguntas-frecuentes.html", "type": 301 },
       { "source": "/servicios.html", "destination": "/servicios-lavado.html", "type": 301 },
       { "source": "/guias/", "destination": "/guias.html", "type": 301 },
