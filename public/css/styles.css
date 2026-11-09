@@ -2131,3 +2131,14 @@ ul {
     width: 24px;
     height: 24px;
 }
+
+/* Datos en vivo del panel (js/antojos-vivo.js, 2026-11-09) */
+.carta-vivo { margin: 0 0 2rem; }
+.carta-vivo__lista { list-style: none; padding: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); }
+.carta-vivo__plato img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 12px; display: block; margin-bottom: 0.5rem; }
+.carta-vivo__plato p { margin: 0.25rem 0 0; }
+.carta-vivo__precio { font-weight: 700; white-space: nowrap; }
+.carta-vivo__etiqueta { font-size: 0.85rem; padding: 0.1rem 0.45rem; border-radius: 999px; background: #fde68a; color: #1f2937; }
+.carta-vivo__nota { margin-top: 0; }
+.promos-vivo, .feriados-vivo { padding-left: 1.2rem; }
+.feriados-vivo-wrap { margin: 1rem 0; }
