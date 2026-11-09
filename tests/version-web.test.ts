@@ -11,7 +11,7 @@ describe('pie con versión', () => {
   it('cada página pública con pie carga js/version-web.js', () => {
     const paginas = readdirSync(pub).filter((f) => f.endsWith('.html'));
     const conPie = paginas.filter((f) => readFileSync(path.join(pub, f), 'utf8').includes('<footer'));
-    expect(conPie.length).toBeGreaterThanOrEqual(16);
+    expect(conPie.length).toBeGreaterThanOrEqual(15); // 2026-11-08: recorrido-del-local.html se fusionó en nosotros.html
     for (const f of conPie) {
       expect(readFileSync(path.join(pub, f), 'utf8'), f).toContain('<script src="js/version-web.js" defer></script>');
     }
