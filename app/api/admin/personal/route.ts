@@ -31,6 +31,7 @@ export async function POST(request: Request) {
     id?: string;
     nombre?: string;
     area?: string;
+    rol?: string;
     clave?: string;
   } | null;
   if (!body) return Response.json({ error: 'Datos inválidos.' }, { status: 400 });

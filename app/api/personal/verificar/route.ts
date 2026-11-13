@@ -36,5 +36,5 @@ export async function POST(request: Request) {
     return Response.json({ error: 'credenciales_invalidas' }, { status: 401 });
   }
   intentos.delete(nombre);
-  return Response.json({ id: perfil.id, area: perfil.area });
+  return Response.json({ id: perfil.id, area: perfil.area, rol: perfil.rol || null });
 }

@@ -1,4 +1,5 @@
 import { randomBytes, scryptSync } from 'node:crypto';
+import { areaDeRol, esRolGuardado, rolDesdeArea, type RolGuardado } from './rolesPersonal';
 
 export type PersonalArea = 'duena' | 'lavado' | 'cocina' | 'mesero';
 
@@ -6,6 +7,7 @@ export type Perfil = {
   id: string;
   nombre: string;
   area: PersonalArea;
+  rol?: RolGuardado;
   salt: string;
   hash: string;
   active: boolean;
@@ -23,8 +25,8 @@ export type Baja = {
 };
 
 export const ROLES: { id: PersonalArea; label: string }[] = [
-  { id: 'cocina', label: 'Encargada de cocina' },
-  { id: 'lavado', label: 'Encargado del lavadero' },
+  { id: 'cocina', label: 'Cocina' },
+  { id: 'lavado', label: 'Lavado' },
   { id: 'mesero', label: 'Mesero' },
   { id: 'duena', label: 'Administradora' },
 ];
@@ -49,14 +51,21 @@ function claveNueva(clave: string): { salt: string; hash: string } | { error: st
   return { salt, hash: scryptSync(clave, salt, 32).toString('hex') };
 }
 
+function rolPedido(input: { area?: string; rol?: string }): RolGuardado | null {
+  if (input.rol && esRolGuardado(input.rol)) return input.rol;
+  return rolDesdeArea(input.area || '');
+}
+
 export function crearPerfil(
   lista: Perfil[],
-  input: { nombre: string; area: string; clave: string },
+  input: { nombre: string; area?: string; rol?: string; clave: string },
   now = new Date()
 ): { lista: Perfil[]; error: string | null } {
   const nombre = normalizarNombre(input.nombre);
   if (nombre.length < 2) return { lista, error: 'Escribe el nombre.' };
-  if (!esArea(input.area)) return { lista, error: 'Elige el rol: cocina, lavadero, mesero o administradora.' };
+  const rol = rolPedido(input);
+  if (!rol) return { lista, error: 'Elige el rol: lavador, cocinero, mesero, administrador de cocina o administrador de lavado.' };
+  const area = areaDeRol(rol);
   const cifrada = claveNueva(input.clave);
   if ('error' in cifrada) return { lista, error: cifrada.error };
   if (lista.some((perfil) => perfil.active && mismoNombre(perfil.nombre, nombre))) {
@@ -68,7 +77,8 @@ export function crearPerfil(
       {
         id: `p-${randomBytes(4).toString('hex')}`,
         nombre,
-        area: input.area,
+        area,
+        rol,
         salt: cifrada.salt,
         hash: cifrada.hash,
         active: true,
@@ -99,18 +109,34 @@ export function cambiarClave(lista: Perfil[], id: string, clave: string): { list
   };
 }
 
+export function cambiarRol(lista: Perfil[], id: string, rolRaw: string): { lista: Perfil[]; error: string | null } {
+  if (!esRolGuardado(rolRaw) || rolRaw === 'duena') {
+    return { lista, error: 'Elige lavador, cocinero, mesero, administrador de cocina o administrador de lavado.' };
+  }
+  const actual = lista.find((perfil) => perfil.id === id && perfil.active);
+  if (!actual) return { lista, error: 'Ese perfil no está activo.' };
+  if (actual.area === 'duena' || actual.rol === 'duena') {
+    return { lista, error: 'La administradora entra sin nombre. Ese perfil no cambia de rol aquí.' };
+  }
+  return {
+    lista: lista.map((perfil) => (perfil.id === id ? { ...perfil, rol: rolRaw, area: areaDeRol(rolRaw) } : perfil)),
+    error: null,
+  };
+}
+
 export function desactivarPerfil(lista: Perfil[], id: string): { lista: Perfil[]; error: string | null } {
   if (!lista.some((perfil) => perfil.id === id && perfil.active)) return { lista, error: 'Ese perfil no está activo.' };
   return { lista: lista.map((perfil) => (perfil.id === id ? { ...perfil, active: false } : perfil)), error: null };
 }
 
-export type PerfilVista = { id: string; nombre: string; area: PersonalArea; active: boolean; createdAt: string };
+export type PerfilVista = { id: string; nombre: string; area: PersonalArea; rol: RolGuardado | null; active: boolean; createdAt: string };
 
 export function vistaPublica(lista: Perfil[]): PerfilVista[] {
   return lista.map((perfil) => ({
     id: perfil.id,
     nombre: perfil.nombre,
     area: perfil.area,
+    rol: perfil.rol && esRolGuardado(perfil.rol) ? perfil.rol : null,
     active: perfil.active,
     createdAt: perfil.createdAt,
   }));
@@ -118,10 +144,11 @@ export function vistaPublica(lista: Perfil[]): PerfilVista[] {
 
 export function aplicarAccion(
   lista: Perfil[],
-  body: { action?: string; id?: string; nombre?: string; area?: string; clave?: string }
+  body: { action?: string; id?: string; nombre?: string; area?: string; rol?: string; clave?: string }
 ): { lista: Perfil[]; error: string | null } {
   if (body.action === 'renombrar') return renombrarPerfil(lista, String(body.id || ''), body.nombre || '');
   if (body.action === 'clave') return cambiarClave(lista, String(body.id || ''), body.clave || '');
   if (body.action === 'desactivar') return desactivarPerfil(lista, String(body.id || ''));
-  return crearPerfil(lista, { nombre: body.nombre || '', area: body.area || '', clave: body.clave || '' });
+  if (body.action === 'rol') return cambiarRol(lista, String(body.id || ''), body.rol || '');
+  return crearPerfil(lista, { nombre: body.nombre || '', area: body.area || '', rol: body.rol, clave: body.clave || '' });
 }

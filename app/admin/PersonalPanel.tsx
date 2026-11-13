@@ -2,26 +2,35 @@
 
 import { useEffect, useState, type FormEvent } from 'react';
 
-type Area = 'cocina' | 'lavado' | 'mesero' | 'duena';
-type Perfil = { id: string; nombre: string; area: Area; active: boolean };
+type Rol = 'lavador' | 'admin-lavado' | 'cocinero' | 'admin-cocina' | 'mesero';
+type Perfil = { id: string; nombre: string; area: string; rol?: string | null; active: boolean };
 type Baja = { at: string; nombre: string; area: string; reservaId: string; cliente: string; razon: string };
 
-const ROLES: { id: Area; label: string }[] = [
-  { id: 'cocina', label: 'Encargada de cocina' },
-  { id: 'lavado', label: 'Encargado del lavadero' },
-  { id: 'mesero', label: 'Mesero' },
-  { id: 'duena', label: 'Administradora' },
+const ROLES: { id: Rol; label: string; detalle: string }[] = [
+  { id: 'lavador', label: 'Lavador', detalle: 'No entra al sistema. Solo ve su historial en Turno de lavado.' },
+  { id: 'admin-lavado', label: 'Administrador de lavado', detalle: 'Entra con su nombre y su clave al turno de lavado.' },
+  { id: 'cocinero', label: 'Cocinero', detalle: 'Entra con su nombre y su clave a cocina.' },
+  { id: 'admin-cocina', label: 'Administrador de cocina', detalle: 'Entra con su nombre y su clave a cocina.' },
+  { id: 'mesero', label: 'Mesero', detalle: 'Entra con su nombre y su clave a las mesas.' },
 ];
 
-function rolDe(area: string): string {
-  return ROLES.find((rol) => rol.id === area)?.label || area;
+function rolDe(perfil: { area: string; rol?: string | null }): string {
+  const guardado = ROLES.find((rol) => rol.id === perfil.rol);
+  if (guardado) return guardado.label;
+  if (perfil.area === 'duena') return 'Administradora';
+  if (perfil.area === 'lavado') return 'Administrador de lavado';
+  if (perfil.area === 'cocina') return 'Administrador de cocina';
+  if (perfil.area === 'mesero') return 'Mesero';
+  return perfil.area;
 }
 
 export function PersonalPanel() {
   const [perfiles, setPerfiles] = useState<Perfil[]>([]);
   const [bajas, setBajas] = useState<Baja[]>([]);
   const [nombre, setNombre] = useState('');
-  const [area, setArea] = useState<Area>('cocina');
+  const [rol, setRol] = useState<Rol>('lavador');
+  const [rolId, setRolId] = useState<string | null>(null);
+  const [rolNuevo, setRolNuevo] = useState<Rol>('lavador');
   const [clave, setClave] = useState('');
   const [clave2, setClave2] = useState('');
   const [editId, setEditId] = useState<string | null>(null);
@@ -71,12 +80,14 @@ export function PersonalPanel() {
       setMensaje('Las claves no coinciden.');
       return;
     }
-    const ok = await enviar({ nombre, area, clave });
+    const ok = await enviar({ nombre, rol, clave });
     if (!ok) return;
     setNombre('');
     setClave('');
     setClave2('');
-    setMensaje('Perfil creado. Entra en la pantalla del local con ese nombre y esa clave.');
+    setMensaje(rol === 'lavador'
+      ? 'Perfil creado. El lavador no entra al sistema: en Turno de lavado toca Mi historial.'
+      : 'Perfil creado. Entra con su nombre y su clave.');
   }
 
   return (
@@ -100,11 +111,12 @@ export function PersonalPanel() {
         </label>
         <label>
           Rol
-          <select value={area} onChange={(event) => setArea(event.target.value as Area)}>
-            {ROLES.map((rol) => (
-              <option key={rol.id} value={rol.id}>{rol.label}</option>
+          <select value={rol} onChange={(event) => setRol(event.target.value as Rol)}>
+            {ROLES.map((opcion) => (
+              <option key={opcion.id} value={opcion.id}>{opcion.label}</option>
             ))}
           </select>
+          <span className="text-sm">{ROLES.find((opcion) => opcion.id === rol)?.detalle}</span>
         </label>
         <label>
           Clave
@@ -132,7 +144,7 @@ export function PersonalPanel() {
                     perfil.nombre
                   )}
                 </td>
-                <td>{rolDe(perfil.area)}</td>
+                <td>{rolDe(perfil)}</td>
                 <td>{perfil.active ? 'Activo' : 'Inactivo'}</td>
                 <td>
                   {perfil.active ? (
@@ -175,6 +187,22 @@ export function PersonalPanel() {
                           Modificar clave
                         </button>
                       )}
+                      {perfil.area === 'duena' ? null : rolId === perfil.id ? (
+                        <>
+                          <select value={rolNuevo} onChange={(event) => setRolNuevo(event.target.value as Rol)}>
+                            {ROLES.map((opcion) => (
+                              <option key={opcion.id} value={opcion.id}>{opcion.label}</option>
+                            ))}
+                          </select>
+                          <button type="button" className="secondary-btn" disabled={busy} onClick={() => void enviar({ action: 'rol', id: perfil.id, rol: rolNuevo }).then((ok) => ok && setRolId(null))}>
+                            Guardar rol
+                          </button>
+                        </>
+                      ) : (
+                        <button type="button" className="secondary-btn" onClick={() => { setRolId(perfil.id); setRolNuevo((ROLES.some((opcion) => opcion.id === perfil.rol) ? perfil.rol : perfil.area === 'cocina' ? 'admin-cocina' : perfil.area === 'mesero' ? 'mesero' : 'admin-lavado') as Rol); }}>
+                          Modificar rol
+                        </button>
+                      )}
                       <button type="button" className="secondary-btn" disabled={busy} onClick={() => void enviar({ action: 'desactivar', id: perfil.id })}>
                         Quitar acceso
                       </button>
@@ -197,7 +225,7 @@ export function PersonalPanel() {
             {bajas.map((baja) => (
               <tr key={`${baja.at}-${baja.reservaId}`}>
                 <td>{String(baja.at || '').slice(0, 16).replace('T', ' ')}</td>
-                <td>{baja.nombre} · {rolDe(baja.area)}</td>
+                <td>{baja.nombre} · {rolDe({ area: baja.area })}</td>
                 <td>#{baja.reservaId} · {baja.cliente}</td>
                 <td>{baja.razon}</td>
               </tr>
