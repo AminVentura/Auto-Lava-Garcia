@@ -61,7 +61,7 @@
 
     function pintarFeriados(el, feriados) {
         if (!Array.isArray(feriados) || !feriados.length) return;
-        mostrar(el, '<h3>Feriados y días especiales</h3><ul class="feriados-vivo">' + feriados.slice(0, 8).map(function (f) {
+        mostrar(el, '<h3>Feriados y días especiales</h3><ul class="feriados-vivo">' + feriados.slice(0, 24).map(function (f) {
             var partes = [];
             if (f.lavado) partes.push('lavadero: ' + f.lavado);
             if (f.cafeteria) partes.push('cafetería: ' + f.cafeteria);
