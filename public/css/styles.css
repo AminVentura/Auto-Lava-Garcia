@@ -598,6 +598,24 @@ ul {
     font-size: 0.95rem;
 }
 
+.pedido-tipo {
+  margin: 0.35rem 0 0.6rem;
+  padding: 0.55rem 0.7rem;
+  border: 1.5px solid #c9a227;
+  border-radius: 0.75rem;
+}
+
+.pedido-tipo legend {
+  padding: 0 0.35rem;
+  font-weight: 700;
+}
+
+.pedido-tipo input[type="number"] {
+  width: 4.2rem;
+  min-height: 2.5rem;
+  margin-left: 0.35rem;
+}
+
 .pedido-items input[type="checkbox"] {
     width: 18px;
     height: 18px;

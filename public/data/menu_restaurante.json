@@ -276,12 +276,116 @@
       "precio_centavos": 10000
     },
     {
+      "id": "refresco-coca-cola",
+      "categoria": "Bebidas",
+      "nombre": "Coca Cola",
+      "etiqueta": "Consultar en caja",
+      "disponible": true,
+      "orden": 34
+    },
+    {
+      "id": "refresco-rojo",
+      "categoria": "Bebidas",
+      "nombre": "Rojo",
+      "etiqueta": "Consultar en caja",
+      "disponible": true,
+      "orden": 35
+    },
+    {
+      "id": "refresco-merengue",
+      "categoria": "Bebidas",
+      "nombre": "Merengue",
+      "etiqueta": "Consultar en caja",
+      "disponible": true,
+      "orden": 36
+    },
+    {
+      "id": "refresco-pepsi",
+      "categoria": "Bebidas",
+      "nombre": "Pepsi Cola",
+      "etiqueta": "Consultar en caja",
+      "disponible": true,
+      "orden": 37
+    },
+    {
+      "id": "jugo-limonada",
+      "categoria": "Bebidas",
+      "nombre": "Limonada",
+      "etiqueta": "Consultar en caja",
+      "disponible": true,
+      "orden": 38
+    },
+    {
+      "id": "jugo-cereza",
+      "categoria": "Bebidas",
+      "nombre": "Cereza",
+      "etiqueta": "Consultar en caja",
+      "disponible": true,
+      "orden": 39
+    },
+    {
       "id": "sangria",
       "categoria": "Bebidas",
       "nombre": "Sangría",
       "etiqueta": "Consultar en caja",
       "disponible": true,
-      "orden": 35
+      "orden": 40
+    },
+    {
+      "id": "cerveza",
+      "categoria": "Bebidas",
+      "nombre": "Cerveza",
+      "etiqueta": "Consultar en caja",
+      "disponible": true,
+      "orden": 41
+    },
+    {
+      "id": "cerveza-corona",
+      "categoria": "Bebidas",
+      "nombre": "Corona",
+      "etiqueta": "Consultar en caja",
+      "disponible": true,
+      "orden": 42
+    },
+    {
+      "id": "cerveza-modelo",
+      "categoria": "Bebidas",
+      "nombre": "Modelo",
+      "etiqueta": "Consultar en caja",
+      "disponible": true,
+      "orden": 43
+    },
+    {
+      "id": "cerveza-presidente",
+      "categoria": "Bebidas",
+      "nombre": "Presidente",
+      "etiqueta": "Consultar en caja",
+      "disponible": true,
+      "orden": 44
+    },
+    {
+      "id": "cerveza-presidente-light",
+      "categoria": "Bebidas",
+      "nombre": "Presidente Light",
+      "etiqueta": "Consultar en caja",
+      "disponible": true,
+      "orden": 45
+    },
+    {
+      "id": "cafe",
+      "categoria": "Bebidas",
+      "nombre": "Café",
+      "etiqueta": "Consultar en caja",
+      "disponible": true,
+      "orden": 46
+    },
+    {
+      "id": "postre-del-dia",
+      "categoria": "Postres",
+      "nombre": "Postre del día",
+      "etiqueta": "Consultar en caja",
+      "disponible": true,
+      "orden": 47
     },
     {
       "id": "cigarros",

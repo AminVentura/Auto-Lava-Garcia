@@ -427,6 +427,28 @@ async function initDynamicOffers() {
     }
 }
 
+const GRUPOS_TIPO = {
+    refresco: ['refresco-coca-cola', 'refresco-rojo', 'refresco-merengue', 'refresco-pepsi'],
+    cerveza: ['cerveza-corona', 'cerveza-modelo', 'cerveza-presidente', 'cerveza-presidente-light'],
+    'jugos-naturales': ['jugo-limonada', 'jugo-cereza'],
+};
+const IDS_TIPO = new Set(Object.values(GRUPOS_TIPO).flat());
+
+function hijosDeTipo(item, todos) {
+    return (GRUPOS_TIPO[item.id] || []).map((id) => todos.find((x) => x.id === id)).filter(Boolean);
+}
+
+function controlPedido(item, todos) {
+    const hijos = hijosDeTipo(item, todos);
+    if (!hijos.length) {
+        return '<label><input type="checkbox" name="pedido" value="' + escapeHtml(item.nombre) + '"> ' + escapeHtml(item.nombre) + '</label>';
+    }
+    return '<fieldset class="pedido-tipo"><legend>' + escapeHtml(item.nombre) + ' · Tipos</legend>' +
+        hijos.map((h) => '<label>' + escapeHtml(h.nombre) +
+            ' <input type="number" name="pedido-cant" min="0" max="99" value="0" data-nombre="' + escapeHtml(h.nombre) + '" aria-label="Cantidad de ' + escapeHtml(h.nombre) + '"></label>').join('') +
+        '</fieldset>';
+}
+
 async function initDynamicMenu() {
     const menuGrid = document.querySelector('.menu-grid');
     const pedidoGrid = document.querySelector('.pedido-grid');
@@ -449,7 +471,7 @@ async function initDynamicMenu() {
             .map((item) => ({ ...item, priceText: formatMenuPrice(item), foto: fotoDePlato(item) }));
         if (items.length === 0) return;
 
-        const grouped = items.reduce((acc, item) => {
+        const grouped = items.filter((item) => !IDS_TIPO.has(item.id)).reduce((acc, item) => {
             if (!acc[item.categoria]) acc[item.categoria] = [];
             acc[item.categoria].push(item);
             return acc;
@@ -459,19 +481,23 @@ async function initDynamicMenu() {
             '<div class="menu-category">' +
                 '<h3>' + escapeHtml(category) + '</h3>' +
                 '<ul>' +
-                    entries.map((item) => (
+                    entries.map((item) => {
+                        const hijos = hijosDeTipo(item, items);
+                        return (
                         '<li class="menu-plato">' +
                             '<span>' + escapeHtml(item.nombre) + '</span>' +
                             '<span class="menu-price-dynamic"> · ' + escapeHtml(item.priceText) + '</span>' +
+                            (hijos.length ? '<span class="menu-tipos">Tipos: ' + hijos.map((h) => escapeHtml(h.nombre)).join(' · ') + '</span>' : '') +
                             (item.foto || (mesaForm && category !== 'Mercancías')
                                 ? '<span class="menu-plato-acciones">' +
                                     (item.foto ? '<button type="button" class="menu-foto-btn" data-foto="' + escapeHtml(item.foto) + '" data-nombre="' + escapeHtml(item.nombre) + '">Ver foto</button>' : '') +
-                                    // Mercancías (cigarros, ambientadores) no se piden por la mesa digital, igual que en el formulario de pedido.
-                                    (mesaForm && category !== 'Mercancías' ? '<button type="button" class="menu-mesa-btn" data-id="' + escapeHtml(item.id) + '" data-nombre="' + escapeHtml(item.nombre) + '">Agregar a la mesa</button>' : '') +
+                                    (mesaForm && category !== 'Mercancías' && !hijos.length ? '<button type="button" class="menu-mesa-btn" data-id="' + escapeHtml(item.id) + '" data-nombre="' + escapeHtml(item.nombre) + '">Agregar a la mesa</button>' : '') +
+                                    hijos.map((h) => mesaForm ? '<button type="button" class="menu-mesa-btn" data-id="' + escapeHtml(h.id) + '" data-nombre="' + escapeHtml(h.nombre) + '">Agregar ' + escapeHtml(h.nombre) + '</button>' : '').join('') +
                                   '</span>'
                                 : '') +
                         '</li>'
-                    )).join('') +
+                        );
+                    }).join('') +
                 '</ul>' +
             '</div>'
         )).join('');
@@ -490,7 +516,7 @@ async function initDynamicMenu() {
                     '<div class="pedido-categoria">' +
                         '<h4>' + escapeHtml(category.replace('Antojos (', '').replace(')', '')) + '</h4>' +
                         '<div class="pedido-items">' +
-                            entries.map((item) => '<label><input type="checkbox" name="pedido" value="' + escapeHtml(item.nombre) + '"> ' + escapeHtml(item.nombre) + '</label>').join('') +
+                            entries.map((item) => controlPedido(item, items)).join('') +
                         '</div>' +
                     '</div>'
                 )).join('');
@@ -741,16 +767,22 @@ function initPedidoForm() {
 
     btn.addEventListener('click', () => {
         const checkboxes = document.querySelectorAll('#form-pedido input[name="pedido"]:checked');
+        const cantidades = Array.from(document.querySelectorAll('#form-pedido input[name="pedido-cant"]'))
+            .map((el) => ({ n: Number(el.value), nombre: el.dataset.nombre || '' }))
+            .filter((x) => x.n > 0 && x.nombre);
         const instrucciones = document.getElementById('instrucciones')?.value || '';
         const recogerFecha = document.getElementById('recoger-fecha')?.value || '';
         const recogerHora = document.getElementById('recoger-hora')?.value || '';
 
-        if (checkboxes.length === 0) {
+        if (checkboxes.length === 0 && cantidades.length === 0) {
             alert('Por favor seleccione al menos un plato.');
             return;
         }
 
-        const items = Array.from(checkboxes).map(cb => `• ${cb.value}`).join('\n');
+        const items = [
+            ...Array.from(checkboxes).map((cb) => `• ${cb.value}`),
+            ...cantidades.map((x) => `• ${x.n}× ${x.nombre}`),
+        ].join('\n');
         let mensaje = `*PEDIDO - Antojos Bar Lounge* _(recoger en el lugar, pago en caja)_\n\n` +
             `🍽️ *Mi pedido:*\n${items}\n`;
 
